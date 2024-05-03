@@ -9,7 +9,7 @@ function App() {
             </form>
             <a href='./librarian/Librarian.js'>Login as librarian</a>
             <a href='./manager/Manager.js'>Login as manager</a>
-            <a>Login as admin</a>
+            <a href='./administrator/Administrator.js'>Login as admin</a>
         </div>
     );
 }
