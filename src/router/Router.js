@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {createBrowserRouter, createRoutesFromElements, Route} from 'react-router-dom';
-import LoginPage from '../loginPage/LoginPage';
+import {LoginPage} from '../loginPage/LoginPage';
 import {Librarian} from '../librarian/Librarian';
 import {Manager} from '../manager/Manager';
 import {Administrator} from '../administrator/Administrator';
