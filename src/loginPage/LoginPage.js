@@ -7,7 +7,7 @@ async function newSession(login, password){
     const SERVER_PATH = 'http://localhost:5000';
     const endPoint = SERVER_PATH + '/sessions/login';
 
-    const response = await (fetch(
+    return await (fetch(
         endPoint,
         { method: 'post',
             body: JSON.stringify({ login, password }),
@@ -23,8 +23,6 @@ async function newSession(login, password){
         .catch(err => {
             return {status: err.status, massage: err.statusText};
         }));
-
-    return response;
 }
 
 export function LoginPage() {
