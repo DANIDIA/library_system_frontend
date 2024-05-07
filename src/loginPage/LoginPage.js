@@ -14,15 +14,11 @@ async function newSession(login, password){
             headers: { 'Content-type': 'application/json'}
         })
         .then(res => {
-            if (res.ok)
-                return res.json();
+            if (res.ok) return res.json();
             throw res;
-        }).then(data => {
-            return { status: data.status, sessionID: data.sessionID, userRole: data.role};
         })
-        .catch(err => {
-            return {status: err.status, massage: err.statusText};
-        }));
+        .then(data => ({ status: data.status, sessionID: data.sessionID, userRole: data.role}))
+        .catch(err => ({status: err.status, massage: err.statusText})));
 }
 
 export function LoginPage() {
