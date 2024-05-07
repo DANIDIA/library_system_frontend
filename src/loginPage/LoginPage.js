@@ -6,13 +6,19 @@ async function newSession(login, password) {
     //TODO: replace to constants
     const SERVER_PATH = 'http://localhost:5000';
     const endPoint = SERVER_PATH + '/sessions/login';
+    let failedToFetch = false;
 
     const response = await fetch(
         endPoint,
         { method: 'post',
             body: JSON.stringify({ login, password }),
             headers: { 'Content-type': 'application/json'}
-        });
+        })
+        .catch(() => failedToFetch = true);
+
+    if(failedToFetch){
+        return false;
+    }
 
     if (response.ok){
         const data = await response.json();
@@ -32,6 +38,10 @@ export function LoginPage() {
 
     const handleLoginButtonClick = async () => {
         const result = await newSession(login, password);
+
+        if (!result){
+            return setAuthErrorText('Oops... Some problems with internet connection or server. Please, check your connection');
+        }
 
         if (result.status === 401){
             return setAuthErrorText('Login or password is incorrect');
