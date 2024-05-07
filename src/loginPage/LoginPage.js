@@ -2,26 +2,29 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 
 //TODO: replace to a separate file
-async function newSession(login, password){
+async function newSession(login, password) {
     //TODO: replace to constants
     const SERVER_PATH = 'http://localhost:5000';
     const endPoint = SERVER_PATH + '/sessions/login';
 
-    return await (fetch(
+    const response = await fetch(
         endPoint,
         { method: 'post',
             body: JSON.stringify({ login, password }),
             headers: { 'Content-type': 'application/json'}
-        })
-        .then(res => {
-            if (res.ok) return res.json();
-            throw res;
-        })
-        .then(data => ({ status: data.status, sessionID: data.sessionID, userRole: data.role}))
-        .catch(err => ({status: err.status, massage: err.statusText})));
+        });
+
+    if (response.ok){
+        const data = await response.json();
+        return { status: response.status, sessionID: data.sessionID, userRole: data.role };
+    }
+
+    return { status: response.status, massage: response.statusText };
 }
 
 export function LoginPage() {
+    newSession('kdkd', 'idkd').then(data => console.log(data));
+
     const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
