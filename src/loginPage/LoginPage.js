@@ -4,15 +4,28 @@ async function newSession(login, password){
     const SERVER_PATH = 'http://localhost:5000';
     const endPoint = SERVER_PATH + '/sessions/login';
 
-    const response = await fetch(
+    const response = await (fetch(
         endPoint,
-        { method: 'post', body: JSON.stringify({ login, password}), headers: { 'Content-type': 'application/json'} })
-        .then(res => res.json());
+        { method: 'post',
+            body: JSON.stringify({ login, password }),
+            headers: { 'Content-type': 'application/json'}
+        })
+        .then(res => {
+            if (res.ok)
+                return res.json();
+            throw res;
+        }).then(data => {
+            return { status: data.status, sessionID: data.sessionID, userRole: data.role};
+        })
+        .catch(err => {
+            return {status: err.status, massage: err.statusText};
+        }));
 
-    return { sessionID: response.sessionID, userRole: response.role };
+    return response;
 }
 
 export function LoginPage() {
+
     return (
         <div>
             <form>
