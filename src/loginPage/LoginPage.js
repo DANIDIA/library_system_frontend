@@ -1,5 +1,17 @@
 import React from 'react';
 
+async function newSession(login, password){
+    const SERVER_PATH = 'http://localhost:5000';
+    const endPoint = SERVER_PATH + '/sessions/login';
+
+    const response = await fetch(
+        endPoint,
+        { method: 'post', body: JSON.stringify({ login, password}), headers: { 'Content-type': 'application/json'} })
+        .then(res => res.json());
+
+    return { sessionID: response.sessionID, userRole: response.role };
+}
+
 export function LoginPage() {
     return (
         <div>
