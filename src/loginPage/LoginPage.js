@@ -29,8 +29,6 @@ async function newSession(login, password) {
 }
 
 export function LoginPage() {
-    newSession('kdkd', 'idkd').then(data => console.log(data));
-
     const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
