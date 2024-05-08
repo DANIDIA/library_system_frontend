@@ -4,11 +4,16 @@ export function GiveBook() {
     return (
         <div>
             <form>
-                <label>ID:</label><input type='text'/>
-                <label>Name:</label><input type='text'/>
-                <label>Surname:</label><input type='text'/>
-                <label>Phone number:</label><input type='text'/>
-                <label>Email:</label><input type='email'/>
+                <label>ID:</label>
+                <input type='text' />
+                <label>Name:</label>
+                <input type='text' />
+                <label>Surname:</label>
+                <input type='text' />
+                <label>Phone number:</label>
+                <input type='text' />
+                <label>Email:</label>
+                <input type='email' />
             </form>
 
             <table>

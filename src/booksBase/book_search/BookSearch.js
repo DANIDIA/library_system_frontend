@@ -4,9 +4,12 @@ export function BookSearch() {
     return (
         <div>
             <form>
-                <labe>Title:</labe><input type='text'/>
-                <label>Author:</label><input type='text'/>
-                <label>Search in all departments</label><input type='checkbox'/>
+                <labe>Title:</labe>
+                <input type='text' />
+                <label>Author:</label>
+                <input type='text' />
+                <label>Search in all departments</label>
+                <input type='checkbox' />
                 <select>
                     <option value='any'></option>
                     <option value='*some department name*'></option>
@@ -25,7 +28,9 @@ export function BookSearch() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href='./BookPage.js'>Title</a></td>
+                        <td>
+                            <a href='./BookPage.js'>Title</a>
+                        </td>
                         <td>Author</td>
                         <td>Amount</td>
                         <th>Department</th>

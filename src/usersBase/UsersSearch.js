@@ -4,13 +4,20 @@ export function UsersSearch() {
     return (
         <div>
             <form>
-                <label>ID:</label><input type='text'/>
-                <label>Name:</label><input type='text'/>
-                <label>Surname:</label><input type='text'/>
-                <label>Phone number:</label><input type='text'/>
-                <label>Department:</label><input type='text'/>
-                <label>Role</label><input type='text'/>
-                <label>Email</label><input type='text'/>
+                <label>ID:</label>
+                <input type='text' />
+                <label>Name:</label>
+                <input type='text' />
+                <label>Surname:</label>
+                <input type='text' />
+                <label>Phone number:</label>
+                <input type='text' />
+                <label>Department:</label>
+                <input type='text' />
+                <label>Role</label>
+                <input type='text' />
+                <label>Email</label>
+                <input type='text' />
             </form>
 
             <table>
@@ -27,7 +34,9 @@ export function UsersSearch() {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href='./User.js'>ID</a></td>
+                        <td>
+                            <a href='./User.js'>ID</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>
