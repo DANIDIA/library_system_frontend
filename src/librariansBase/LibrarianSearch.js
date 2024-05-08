@@ -4,11 +4,16 @@ export const LibrarianSearch = () => {
     return (
         <div>
             <form>
-                <label>ID:</label><input type='text'/>
-                <label>Name:</label><input type='text'/>
-                <label>Surname:</label><input type='text'/>
-                <label>Phone number:</label><input type='text'/>
-                <label>Email:</label><input type='text'/>
+                <label>ID:</label>
+                <input type='text' />
+                <label>Name:</label>
+                <input type='text' />
+                <label>Surname:</label>
+                <input type='text' />
+                <label>Phone number:</label>
+                <input type='text' />
+                <label>Email:</label>
+                <input type='text' />
 
                 <button>Search</button>
                 <button>Show all</button>
@@ -26,7 +31,9 @@ export const LibrarianSearch = () => {
 
                 <tbody>
                     <tr>
-                        <td><a href='./Librarian.js'>ID</a></td>
+                        <td>
+                            <a href='./Librarian.js'>ID</a>
+                        </td>
                         <td>Name</td>
                         <td>Surname</td>
                         <td>Phone number</td>

@@ -4,8 +4,10 @@ export const DepartmentSearch = () => {
     return (
         <div>
             <form>
-                <label>Address</label><input type='text'/>
-                <label>Name</label><input type='text'/>
+                <label>Address</label>
+                <input type='text' />
+                <label>Name</label>
+                <input type='text' />
             </form>
 
             <table>
@@ -18,7 +20,9 @@ export const DepartmentSearch = () => {
                 </thead>
                 <tbody>
                     <tr>
-                        <td><a href='./Department.js'>Name</a></td>
+                        <td>
+                            <a href='./Department.js'>Name</a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

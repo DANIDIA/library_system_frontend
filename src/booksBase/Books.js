@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function Books(){
+export function Books() {
     return (
         <div>
             <a href='./book_search/BookSearch.js'>Find a book</a>
