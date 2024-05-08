@@ -19,8 +19,6 @@ export function LoginPage() {
             setAuthErrorText('User is blocked');
         }
 
-        setAuthErrorText('');
-
         // TODO: get rid of magic values
         if(result?.userRole === 1){
             navigate('/administrator-panel/');
