@@ -34,8 +34,8 @@ export function LoginPage() {
     return (
         <div>
             <form onSubmit={(e) => e.preventDefault()}>
-                <label>Login: </label><input value={login} onChange={e => setLogin(e.target.value)} type='text' name='login' />
-                <label>Password: </label><input value={password} onChange={e => setPassword(e.target.value)} type='password' name='password'/>
+                <label>Login: </label><input value={login} onChange={e => setLogin(e.target.value)} type='text' />
+                <label>Password: </label><input value={password} onChange={e => setPassword(e.target.value)} type='password' />
                 <button onClick={handleLoginButtonClick}>Login</button>
             </form>
             {authErrorText}
