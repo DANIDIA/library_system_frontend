@@ -8,7 +8,7 @@ export async function fetchFromBase(path, params, method = 'get') {
     if (method === 'get') {
         URL = `${URL}?${new URLSearchParams(params)}`;
     } else {
-        config.headers = { contentType: 'application/json' };
+        config.headers = { 'Content-Type': 'application/json' };
         config.body = JSON.stringify(params);
     }
 
