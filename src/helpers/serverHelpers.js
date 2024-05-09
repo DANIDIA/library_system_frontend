@@ -1,6 +1,7 @@
+import { SERVER_PATH } from '../constants';
+
 export async function newSession(login, password) {
     //TODO: replace to constants
-    const SERVER_PATH = 'http://localhost:5000';
     const endPoint = SERVER_PATH + '/sessions/login';
     let failedToFetch = false;
 

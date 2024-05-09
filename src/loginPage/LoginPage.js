@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { newSession } from '../../helpers';
+import { newSession } from '../helpers';
 
 export function LoginPage() {
     const navigate = useNavigate();
