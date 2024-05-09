@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { userRoles } from '../enums';
 import { newSession } from '../helpers';
 
 export function LoginPage() {
@@ -21,12 +22,11 @@ export function LoginPage() {
             setAuthErrorText('User is blocked');
         }
 
-        // TODO: get rid of magic values
-        if (result?.userRole === 1) {
+        if (result?.userRole === userRoles.ADMIN) {
             navigate('/administrator-panel/');
-        } else if (result?.userRole === 2) {
+        } else if (result?.userRole === userRoles.DEPARTMENT_MANAGER) {
             navigate('/department-manager-panel/');
-        } else if (result?.userRole === 3) {
+        } else if (result?.userRole === userRoles.LIBRARIAN) {
             navigate('/librarian-panel');
         }
     };
