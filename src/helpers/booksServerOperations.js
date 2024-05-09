@@ -10,6 +10,15 @@ export async function createBook(title, author, amount) {
  * @param params {{ title?:string, author?:string, amount?:number }}
  * @param fromRecordID {number} -1 means that start from the least id
  * @param recordAmount {number} -1 means maximum
+ * @return {Promise<{
+ * id:number,
+ * title:string
+ * author:string
+ * amount:number} |
+ * boolean |
+ * {
+ *  staus:number
+ *  message:string}>}
  * */
 export async function getBooks(params, fromRecordID = -1, recordAmount = -1) {
     return await getData(bases.BOOKS, fromRecordID, recordAmount, params);
