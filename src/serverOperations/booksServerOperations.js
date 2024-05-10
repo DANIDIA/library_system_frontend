@@ -1,11 +1,16 @@
 import { bases } from '../enums';
-import { create, deleteRecord, getData, update } from './crudOperations';
+import {
+    createRecord,
+    deleteRecord,
+    getRecords,
+    updateRecord,
+} from './crudOperations';
 import { fetchFromBase } from './fetchFromBase';
 
 export function getBookServerOperations(sessionID) {
     return {
         createBook: async (title, author, amount) => {
-            return await create(
+            return await createRecord(
                 bases.BOOKS,
                 { title, author, amount },
                 sessionID,
@@ -27,7 +32,7 @@ export function getBookServerOperations(sessionID) {
          *  message:string}>}
          * */
         getBooks: async (params, fromRecordID = -1, recordAmount = -1) => {
-            return await getData(
+            return await getRecords(
                 bases.BOOKS,
                 fromRecordID,
                 recordAmount,
@@ -41,7 +46,7 @@ export function getBookServerOperations(sessionID) {
          * @param params {{ title?:string, author:string, amount?:string }}
          * */
         updateBook: async (id, params) => {
-            return await update(bases.BOOKS, id, params, sessionID);
+            return await updateRecord(bases.BOOKS, id, params, sessionID);
         },
 
         deleteBook: async (id) => {

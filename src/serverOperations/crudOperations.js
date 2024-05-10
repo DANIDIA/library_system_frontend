@@ -1,10 +1,10 @@
 import { fetchFromBase } from './fetchFromBase';
 
-export async function create(base, data, sessionID) {
+export async function createRecord(base, data, sessionID) {
     return await fetchFromBase(`${base}/add`, { ...data, sessionID }, 'post');
 }
 
-export async function getData(
+export async function getRecords(
     base,
     fromRecordID,
     recordAmount,
@@ -19,7 +19,7 @@ export async function getData(
     return fetchFromBase(`${base}/get`, query);
 }
 
-export async function update(base, id, params, sessionID) {
+export async function updateRecord(base, id, params, sessionID) {
     return await fetchFromBase(
         `${base}/update`,
         { id, ...params, sessionID },
