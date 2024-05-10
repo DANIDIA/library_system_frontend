@@ -25,7 +25,7 @@ export function getReadersServerOperations(sessionID) {
          * name:string
          * surname:string
          * phoneNumber:string
-         * email:number} |
+         * email:string} |
          * boolean |
          * {
          *  staus:number
