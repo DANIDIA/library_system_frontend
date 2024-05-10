@@ -25,3 +25,11 @@ export async function newSession(login, password) {
         'post',
     );
 }
+
+export async function endSession(id) {
+    return await fetchFromBase(`${bases.SESSIONS}/logout`, { id }, 'put');
+}
+
+export async function isSessionEnded(id) {
+    return await fetchFromBase(`${bases.SESSIONS}/is_session_ended`, { id });
+}
