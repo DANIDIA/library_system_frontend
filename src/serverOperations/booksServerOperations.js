@@ -1,5 +1,5 @@
 import { bases } from '../enums';
-import { create, deleteRecord, getData, update } from './CRUDOperations';
+import { create, deleteRecord, getData, update } from './crudOperations';
 import { fetchFromBase } from './fetchFromBase';
 
 export function getBookServerOperations(sessionID) {

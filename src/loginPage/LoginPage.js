@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { userRoles } from '../enums';
-import { newSession } from '../helpers';
+import { newSession } from '../serverOperations';
 
 export function LoginPage() {
     const navigate = useNavigate();
@@ -22,11 +22,11 @@ export function LoginPage() {
             setAuthErrorText('User is blocked');
         }
 
-        if (result?.userRole === userRoles.ADMIN) {
+        if (result?.role === userRoles.ADMIN) {
             navigate('/administrator-panel/');
-        } else if (result?.userRole === userRoles.DEPARTMENT_MANAGER) {
+        } else if (result?.role === userRoles.DEPARTMENT_MANAGER) {
             navigate('/department-manager-panel/');
-        } else if (result?.userRole === userRoles.LIBRARIAN) {
+        } else if (result?.role === userRoles.LIBRARIAN) {
             navigate('/librarian-panel');
         }
     };
