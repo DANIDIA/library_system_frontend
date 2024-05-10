@@ -53,14 +53,14 @@ export function getBookServerOperations(sessionID) {
             return await deleteRecord(bases.BOOKS, id, sessionID);
         },
 
-        getGivenAmount: async (id) => {
+        getBookGivenAmount: async (id) => {
             return await fetchFromBase(`${bases.BOOKS}/given_amount`, {
                 id,
                 sessionID,
             });
         },
 
-        giveToReader: async (bookID, readerID) => {
+        giveBookToReader: async (bookID, readerID) => {
             return await fetchFromBase(
                 `${bases.BOOKS}/give_to_reader`,
                 {
