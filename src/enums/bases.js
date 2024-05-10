@@ -3,4 +3,5 @@ export const bases = Object.freeze({
     SESSIONS: 'sessions',
     READERS: 'readers',
     DEPARTMENTS: 'departments',
+    USERS: 'users',
 });
