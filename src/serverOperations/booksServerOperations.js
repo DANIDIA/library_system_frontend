@@ -64,7 +64,7 @@ export function getBookServerOperations(sessionID) {
             return await fetchFromBase(
                 `${bases.BOOKS}/give_to_reader`,
                 {
-                    bookID,
+                    id: bookID,
                     readerID,
                     sessionID,
                 },
