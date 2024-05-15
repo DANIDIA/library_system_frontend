@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { newSession } from '../../../apiOperations';
+import { SessionContext } from '../../../contexts';
 import { roles } from '../../../shared';
 
 export function LoginView() {
@@ -8,6 +9,7 @@ export function LoginView() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [authErrorText, setAuthErrorText] = useState('');
+    const sessionContext = useContext(SessionContext);
 
     const handleLoginButtonClick = async () => {
         const result = await newSession(login, password);
@@ -21,6 +23,8 @@ export function LoginView() {
         } else if (result.status === 403) {
             setAuthErrorText('User is blocked');
         }
+
+        sessionContext.setSessionID(result?.sessionID);
 
         if (result?.userRole === roles.ADMIN) {
             navigate('/administrator-panel/');
