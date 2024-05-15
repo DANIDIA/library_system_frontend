@@ -26,5 +26,6 @@ module.exports = {
     plugins: ['react'],
     rules: {
         'prettier/prettier': ['warn', { endOfLine: 'auto' }],
+        'react/prop-types': ['off'],
     },
 };
