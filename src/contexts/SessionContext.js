@@ -1,7 +1,8 @@
 import React, { createContext, useState } from 'react';
 
 export const SessionContext = createContext({
-    setSessionID: () => {},
+    /*eslint-disable-next-line*/
+    setSessionID: (sessionID) => {},
     sessionID: null,
 });
 
