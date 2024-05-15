@@ -1,4 +1,4 @@
-import { SERVER_PATH } from '../constants';
+import { SERVER_PATH } from '../shared';
 
 export async function newSession(login, password) {
     //TODO: replace to constants
