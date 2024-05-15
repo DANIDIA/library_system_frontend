@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { newSession } from '../../../helpers';
+import { newSession } from '../../../apiOperations';
 import { roles } from '../../../shared';
 
 export function LoginView() {
