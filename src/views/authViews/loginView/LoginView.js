@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { userRoles } from '../enums';
-import { newSession } from '../helpers';
+import { newSession } from '../../../helpers';
+import { roles } from '../../../shared';
 
 export function LoginView() {
     const navigate = useNavigate();
@@ -22,11 +22,11 @@ export function LoginView() {
             setAuthErrorText('User is blocked');
         }
 
-        if (result?.userRole === userRoles.ADMIN) {
+        if (result?.userRole === roles.ADMIN) {
             navigate('/administrator-panel/');
-        } else if (result?.userRole === userRoles.DEPARTMENT_MANAGER) {
+        } else if (result?.userRole === roles.DEPARTMENT_MANAGER) {
             navigate('/department-manager-panel/');
-        } else if (result?.userRole === userRoles.LIBRARIAN) {
+        } else if (result?.userRole === roles.LIBRARIAN) {
             navigate('/librarian-panel');
         }
     };
