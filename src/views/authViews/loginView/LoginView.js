@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { userRoles } from '../enums';
 import { newSession } from '../helpers';
 
-export function LoginPage() {
+export function LoginView() {
     const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
@@ -53,4 +53,4 @@ export function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default LoginView;
