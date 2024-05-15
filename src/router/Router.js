@@ -5,15 +5,16 @@ import {
     createRoutesFromElements,
 } from 'react-router-dom';
 import { AuthLayout, MainLayout } from '../layouts';
+import { paths } from '../shared';
 import { LoginView } from '../views';
 
 export const Router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/'>
             <Route path='/' element={<AuthLayout />}>
-                <Route path='login' element={<LoginView />} />
+                <Route path={paths.LOGIN} element={<LoginView />} />
             </Route>
-            <Route path='/user_panel' element={<MainLayout />}></Route>
+            <Route path={paths.USER_PANEL} element={<MainLayout />}></Route>
         </Route>,
     ),
 );
