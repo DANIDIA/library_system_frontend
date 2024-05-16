@@ -1,33 +1,60 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
-import { basesPaths } from './shared';
+import { SessionContext } from '../../contexts';
+import { roles } from '../../shared';
+import { panelPaths } from './shared';
 
 export function PanelLayout() {
     const outlet = useOutlet();
     const navigate = useNavigate();
+    const userData = useContext(SessionContext);
+
+    const adminLinks = [
+        panelPaths.DEPARTMENTS_BASE,
+        panelPaths.MANAGERS_BASE,
+        panelPaths.LIBRARIAN_BASE,
+        panelPaths.READERS_BASE,
+        panelPaths.BOOKS_BASE,
+    ];
+
+    const managerLinks = [
+        panelPaths.MY_DEPARTMENT,
+        panelPaths.LIBRARIAN_BASE,
+        panelPaths.READERS_BASE,
+        panelPaths.BOOKS_BASE,
+    ];
+
+    const librarianLinks = [
+        panelPaths.MY_DEPARTMENT,
+        panelPaths.READERS_BASE,
+        panelPaths.BOOKS_BASE,
+    ];
+
+    function generateButtons(links) {
+        return links.map((link, i) => (
+            <button onClick={() => navigate(link)} key={i}>
+                link
+            </button>
+        ));
+    }
+
+    let buttons;
+
+    switch (userData.role) {
+        case roles.ADMIN:
+            buttons = generateButtons(adminLinks);
+            break;
+        case roles.DEPARTMENT_MANAGER:
+            buttons = generateButtons(managerLinks);
+            break;
+        case roles.LIBRARIAN:
+            buttons = generateButtons(librarianLinks);
+            break;
+    }
 
     return (
         <div>
-            <nav>
-                <button onClick={() => navigate(basesPaths.MY_DEPARTMENT)}>
-                    My Department
-                </button>
-                <button onClick={() => navigate(basesPaths.DEPARTMENTS_BASE)}>
-                    Departments base
-                </button>
-                <button onClick={() => navigate(basesPaths.MANAGERS_BASE)}>
-                    Managers base
-                </button>
-                <button onClick={() => navigate(basesPaths.LIBRARIAN_BASE)}>
-                    Librarian base
-                </button>
-                <button onClick={() => navigate(basesPaths.READERS_BASE)}>
-                    Readers base
-                </button>
-                <button onClick={() => navigate(basesPaths.BOOKS_BASE)}>
-                    Books base
-                </button>
-            </nav>
+            <nav>{buttons}</nav>
             {outlet}
         </div>
     );
