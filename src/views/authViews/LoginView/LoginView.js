@@ -9,7 +9,7 @@ export function LoginView() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [authErrorText, setAuthErrorText] = useState('');
-    const sessionContext = useContext(SessionContext);
+    const { setUserData } = useContext(SessionContext);
 
     const handleLoginButtonClick = async () => {
         const result = await newSession(login, password);
@@ -24,7 +24,7 @@ export function LoginView() {
             setAuthErrorText('User is blocked');
         }
 
-        sessionContext.setUserData(result);
+        setUserData(result);
 
         if (result?.role === roles.ADMIN) {
             navigate('/administrator-panel/');
