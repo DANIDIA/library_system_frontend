@@ -1,7 +1,6 @@
 import { SERVER_PATH } from '../shared';
 
 export async function newSession(login, password) {
-    //TODO: replace to constants
     const endPoint = SERVER_PATH + '/sessions/login';
     let failedToFetch = false;
 
@@ -18,12 +17,7 @@ export async function newSession(login, password) {
     }
 
     if (response.ok) {
-        const data = await response.json();
-        return {
-            status: response.status,
-            sessionID: data.sessionID,
-            userRole: data.role,
-        };
+        return await response.json();
     }
 
     return { status: response.status, message: response.statusText };

@@ -24,7 +24,7 @@ export function LoginView() {
             setAuthErrorText('User is blocked');
         }
 
-        sessionContext.setSessionID(result?.sessionID);
+        sessionContext.setUserData(result);
 
         if (result?.userRole === roles.ADMIN) {
             navigate('/administrator-panel/');
