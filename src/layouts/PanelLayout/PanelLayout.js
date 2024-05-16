@@ -31,32 +31,26 @@ export function PanelLayout() {
         panelPaths.BOOKS_BASE,
     ];
 
-    function generateButtons(links) {
+    const generateButtons = (links) => {
         return links.map((link, i) => (
             <button onClick={() => navigate(link)} key={i}>
                 link
             </button>
         ));
-    }
+    };
 
-    let buttons;
+    const buttons = generateButtons(
+        userData.role === roles.ADMIN
+            ? adminLinks
+            : userData.role === roles.DEPARTMENT_MANAGER
+              ? managerLinks
+              : librarianLinks,
+    );
 
-    switch (userData.role) {
-        case roles.ADMIN:
-            buttons = generateButtons(adminLinks);
-            break;
-        case roles.DEPARTMENT_MANAGER:
-            buttons = generateButtons(managerLinks);
-            break;
-        case roles.LIBRARIAN:
-            buttons = generateButtons(librarianLinks);
-            break;
-    }
-
-    function logout() {
+    const logout = () => {
         navigate(authPath.LOGIN);
         setUserData();
-    }
+    };
 
     return (
         <div>
