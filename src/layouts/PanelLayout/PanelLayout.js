@@ -10,31 +10,31 @@ export function PanelLayout() {
     const navigate = useNavigate();
     const { userData, setUserData } = useContext(SessionContext);
 
-    const adminLinks = [
-        panelPaths.DEPARTMENTS_BASE,
-        panelPaths.MANAGERS_BASE,
-        panelPaths.LIBRARIAN_BASE,
-        panelPaths.READERS_BASE,
-        panelPaths.BOOKS_BASE,
-    ];
+    const adminLinks = {
+        'department base': panelPaths.DEPARTMENTS_BASE,
+        'manager base': panelPaths.MANAGERS_BASE,
+        'librarian base': panelPaths.LIBRARIAN_BASE,
+        'readers base': panelPaths.READERS_BASE,
+        'books base': panelPaths.BOOKS_BASE,
+    };
 
-    const managerLinks = [
-        panelPaths.MY_DEPARTMENT,
-        panelPaths.LIBRARIAN_BASE,
-        panelPaths.READERS_BASE,
-        panelPaths.BOOKS_BASE,
-    ];
+    const managerLinks = {
+        'my department': panelPaths.MY_DEPARTMENT,
+        'librarian base': panelPaths.LIBRARIAN_BASE,
+        'readers base': panelPaths.READERS_BASE,
+        'books base': panelPaths.BOOKS_BASE,
+    };
 
-    const librarianLinks = [
-        panelPaths.MY_DEPARTMENT,
-        panelPaths.READERS_BASE,
-        panelPaths.BOOKS_BASE,
-    ];
+    const librarianLinks = {
+        'my department': panelPaths.MY_DEPARTMENT,
+        'readers base': panelPaths.READERS_BASE,
+        'books base': panelPaths.BOOKS_BASE,
+    };
 
     const generateButtons = (links) => {
-        return links.map((link, i) => (
-            <button onClick={() => navigate(link)} key={i}>
-                link
+        return Object.entries(links).map((pair, i) => (
+            <button onClick={() => navigate(pair[1])} key={i}>
+                {pair[0]}
             </button>
         ));
     };
