@@ -4,7 +4,7 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
 } from 'react-router-dom';
-import { AuthLayout, MainLayout } from '../layouts';
+import { AuthLayout, PanelLayout } from '../layouts';
 import { paths } from '../shared';
 import { LoginView } from '../views';
 
@@ -14,7 +14,7 @@ export const Router = createBrowserRouter(
             <Route path='/' element={<AuthLayout />}>
                 <Route path={paths.LOGIN} element={<LoginView />} />
             </Route>
-            <Route path={paths.USER_PANEL} element={<MainLayout />}></Route>
+            <Route path={paths.USER_PANEL} element={<PanelLayout />}></Route>
         </Route>,
     ),
 );

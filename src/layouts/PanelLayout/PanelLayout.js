@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
 import { paths } from '../../shared';
 
-export function MainLayout() {
+export function PanelLayout() {
     const outlet = useOutlet();
     const navigate = useNavigate();
 
