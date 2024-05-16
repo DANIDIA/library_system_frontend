@@ -26,11 +26,11 @@ export function LoginView() {
 
         sessionContext.setUserData(result);
 
-        if (result?.userRole === roles.ADMIN) {
+        if (result?.role === roles.ADMIN) {
             navigate('/administrator-panel/');
-        } else if (result?.userRole === roles.DEPARTMENT_MANAGER) {
+        } else if (result?.role === roles.DEPARTMENT_MANAGER) {
             navigate('/department-manager-panel/');
-        } else if (result?.userRole === roles.LIBRARIAN) {
+        } else if (result?.role === roles.LIBRARIAN) {
             navigate('/librarian-panel');
         }
     };
