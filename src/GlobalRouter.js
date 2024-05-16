@@ -9,8 +9,8 @@ import { AuthRouter, PanelRouter } from './layouts';
 export const GlobalRouter = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/'>
-            <AuthRouter />
-            <PanelRouter />
+            {AuthRouter}
+            {PanelRouter}
         </Route>,
     ),
 );
