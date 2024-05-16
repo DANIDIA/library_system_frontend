@@ -4,11 +4,11 @@ import {
     createBrowserRouter,
     createRoutesFromElements,
 } from 'react-router-dom';
-import { paths } from '../../shared';
 import { PanelLayout } from './PanelLayout';
+import { panelPaths } from './shared';
 
 export const PanelRouter = createBrowserRouter(
     createRoutesFromElements(
-        <Route path={paths.USER_PANEL} element={<PanelLayout />}></Route>,
+        <Route path={panelPaths.USER_PANEL} element={<PanelLayout />}></Route>,
     ),
 );

@@ -1,4 +1,4 @@
-export const paths = Object.freeze({
+export const panelPaths = Object.freeze({
     USER_PANEL: '/user_panel',
     MY_DEPARTMENT: '/my_department',
     DEPARTMENTS_BASE: '/departments_base',
@@ -6,5 +6,4 @@ export const paths = Object.freeze({
     LIBRARIAN_BASE: '/librarian_base',
     READERS_BASE: '/readers_base',
     BOOKS_BASE: '/books_base',
-    LOGIN: '/login',
 });

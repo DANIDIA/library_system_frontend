@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
-import { paths } from '../../shared';
+import { panelPaths } from './shared';
 
 export function PanelLayout() {
     const outlet = useOutlet();
@@ -9,22 +9,22 @@ export function PanelLayout() {
     return (
         <div>
             <nav>
-                <button onClick={() => navigate(paths.MY_DEPARTMENT)}>
+                <button onClick={() => navigate(panelPaths.MY_DEPARTMENT)}>
                     My Department
                 </button>
-                <button onClick={() => navigate(paths.DEPARTMENTS_BASE)}>
+                <button onClick={() => navigate(panelPaths.DEPARTMENTS_BASE)}>
                     Departments base
                 </button>
-                <button onClick={() => navigate(paths.MANAGERS_BASE)}>
+                <button onClick={() => navigate(panelPaths.MANAGERS_BASE)}>
                     Managers base
                 </button>
-                <button onClick={() => navigate(paths.LIBRARIAN_BASE)}>
+                <button onClick={() => navigate(panelPaths.LIBRARIAN_BASE)}>
                     Librarian base
                 </button>
-                <button onClick={() => navigate(paths.READERS_BASE)}>
+                <button onClick={() => navigate(panelPaths.READERS_BASE)}>
                     Readers base
                 </button>
-                <button onClick={() => navigate(paths.BOOKS_BASE)}>
+                <button onClick={() => navigate(panelPaths.BOOKS_BASE)}>
                     Books base
                 </button>
             </nav>
