@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { newSession } from '../../../apiOperations';
 import { SessionContext } from '../../../contexts';
+import { panelPaths } from '../../../layouts';
 import { roles } from '../../../shared';
 
 export function LoginView() {
@@ -27,11 +28,11 @@ export function LoginView() {
         setUserData(result);
 
         if (result?.role === roles.ADMIN) {
-            navigate('/administrator-panel/');
+            navigate(panelPaths.USER_PANEL + '/admin-panel');
         } else if (result?.role === roles.DEPARTMENT_MANAGER) {
-            navigate('/department-manager-panel/');
+            navigate(panelPaths.USER_PANEL + '/department-manager-panel/');
         } else if (result?.role === roles.LIBRARIAN) {
-            navigate('/librarian-panel');
+            navigate(panelPaths.USER_PANEL + '/librarian-panel');
         }
     };
 
