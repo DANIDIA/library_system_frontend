@@ -1,1 +1,1 @@
-export * from './panelPaths.enum';
+export * from './basesPaths.enum';

@@ -1,15 +1,15 @@
 import React, { createContext, useState } from 'react';
 
 export const SessionContext = createContext({
-    setSessionID: () => {},
-    sessionID: null,
+    setUserData: () => {},
+    userData: {},
 });
 
 export function SessionContextProvider({ children }) {
-    const [sessionID, setSessionID] = useState();
+    const [userData, setUserData] = useState();
 
     return (
-        <SessionContext.Provider value={{ sessionID, setSessionID }}>
+        <SessionContext.Provider value={{ setUserData, userData }}>
             {children}
         </SessionContext.Provider>
     );

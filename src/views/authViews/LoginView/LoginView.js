@@ -2,14 +2,14 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { newSession } from '../../../apiOperations';
 import { SessionContext } from '../../../contexts';
-import { roles } from '../../../shared';
+import { panelPaths } from '../../../layouts';
 
 export function LoginView() {
     const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [authErrorText, setAuthErrorText] = useState('');
-    const sessionContext = useContext(SessionContext);
+    const { setUserData } = useContext(SessionContext);
 
     const handleLoginButtonClick = async () => {
         const result = await newSession(login, password);
@@ -24,15 +24,9 @@ export function LoginView() {
             setAuthErrorText('User is blocked');
         }
 
-        sessionContext.setSessionID(result?.sessionID);
+        setUserData(result);
 
-        if (result?.userRole === roles.ADMIN) {
-            navigate('/administrator-panel/');
-        } else if (result?.userRole === roles.DEPARTMENT_MANAGER) {
-            navigate('/department-manager-panel/');
-        } else if (result?.userRole === roles.LIBRARIAN) {
-            navigate('/librarian-panel');
-        }
+        navigate(panelPaths.USER_PANEL);
     };
 
     return (

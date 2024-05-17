@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import { PanelLayout } from './PanelLayout';
-import { panelPaths } from './shared';
+import { basesPaths } from './shared';
 
 export const PanelRouter = (
-    <Route path={panelPaths.USER_PANEL} element={<PanelLayout />}></Route>
+    <Route path={basesPaths.USER_PANEL} element={<PanelLayout />}></Route>
 );
