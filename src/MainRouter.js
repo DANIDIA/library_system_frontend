@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import { AuthRouter, PanelRouter } from './layouts';
 
-export const GlobalRouter = createBrowserRouter(
+export const MainRouter = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/'>
             {AuthRouter}
@@ -15,4 +15,4 @@ export const GlobalRouter = createBrowserRouter(
     ),
 );
 
-export default GlobalRouter;
+export default MainRouter;
