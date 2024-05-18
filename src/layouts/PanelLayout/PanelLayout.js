@@ -1,33 +1,42 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
-import { basesPaths } from './shared';
+import { SessionContext } from '../../contexts';
+import { roles } from '../../shared';
+import { authPath } from '../AuthLayout';
+import { adminLinks, librarianLinks, managerLinks } from './shared';
 
 export function PanelLayout() {
     const outlet = useOutlet();
     const navigate = useNavigate();
+    const { userData, setUserData } = useContext(SessionContext);
+
+    const generateButtons = (links) => {
+        return Object.entries(links).map((pair, i) => (
+            <button onClick={() => navigate(pair[0])} key={i}>
+                {pair[1]}
+            </button>
+        ));
+    };
+
+    const buttons = generateButtons(
+        userData.role === roles.ADMIN
+            ? adminLinks
+            : userData.role === roles.DEPARTMENT_MANAGER
+              ? managerLinks
+              : librarianLinks,
+    );
+
+    const logout = () => {
+        navigate(authPath.LOGIN);
+        setUserData();
+    };
 
     return (
         <div>
-            <nav>
-                <button onClick={() => navigate(basesPaths.MY_DEPARTMENT)}>
-                    My Department
-                </button>
-                <button onClick={() => navigate(basesPaths.DEPARTMENTS_BASE)}>
-                    Departments base
-                </button>
-                <button onClick={() => navigate(basesPaths.MANAGERS_BASE)}>
-                    Managers base
-                </button>
-                <button onClick={() => navigate(basesPaths.LIBRARIAN_BASE)}>
-                    Librarian base
-                </button>
-                <button onClick={() => navigate(basesPaths.READERS_BASE)}>
-                    Readers base
-                </button>
-                <button onClick={() => navigate(basesPaths.BOOKS_BASE)}>
-                    Books base
-                </button>
-            </nav>
+            <div>
+                <button onClick={logout}>logout</button>
+            </div>
+            <nav>{buttons}</nav>
             {outlet}
         </div>
     );
