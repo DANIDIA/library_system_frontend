@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import {
     DepartmentBaseView,
     DepartmentCreationView,
+    DepartmentPageView,
     DepartmentSearchView,
 } from '../../views';
 import { layoutsPaths } from '../shared';
@@ -17,6 +18,7 @@ export const PanelRouter = (
         >
             <Route path='creation' element={<DepartmentCreationView />} />
             <Route path='search' element={<DepartmentSearchView />} />
+            <Route path='page/:departmentID' element={<DepartmentPageView />} />
         </Route>
     </Route>
 );
