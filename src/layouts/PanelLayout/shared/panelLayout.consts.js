@@ -1,22 +1,22 @@
 import { basesPaths } from './basesPaths.enum';
 
 export const adminLinks = {
-    'department base': basesPaths.DEPARTMENTS_BASE,
-    'manager base': basesPaths.MANAGERS_BASE,
-    'librarian base': basesPaths.LIBRARIAN_BASE,
-    'readers base': basesPaths.READERS_BASE,
-    'books base': basesPaths.BOOKS_BASE,
+    [basesPaths.DEPARTMENTS_BASE]: 'department base',
+    [basesPaths.MANAGERS_BASE]: 'manager base',
+    [basesPaths.LIBRARIAN_BASE]: 'librarian base',
+    [basesPaths.READERS_BASE]: 'readers base',
+    [basesPaths.BOOKS_BASE]: 'books base',
 };
 
 export const managerLinks = {
-    'my department': basesPaths.MY_DEPARTMENT,
-    'librarian base': basesPaths.LIBRARIAN_BASE,
-    'readers base': basesPaths.READERS_BASE,
-    'books base': basesPaths.BOOKS_BASE,
+    [basesPaths.MY_DEPARTMENT]: 'my department',
+    [basesPaths.LIBRARIAN_BASE]: 'librarian base',
+    [basesPaths.READERS_BASE]: 'readers base',
+    [basesPaths.BOOKS_BASE]: 'books base',
 };
 
 export const librarianLinks = {
-    'my department': basesPaths.MY_DEPARTMENT,
-    'readers base': basesPaths.READERS_BASE,
-    'books base': basesPaths.BOOKS_BASE,
+    [basesPaths.MY_DEPARTMENT]: 'my department',
+    [basesPaths.READERS_BASE]: 'readers base',
+    [basesPaths.BOOKS_BASE]: 'books base',
 };

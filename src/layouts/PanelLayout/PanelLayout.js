@@ -12,8 +12,8 @@ export function PanelLayout() {
 
     const generateButtons = (links) => {
         return Object.entries(links).map((pair, i) => (
-            <button onClick={() => navigate(pair[1])} key={i}>
-                {pair[0]}
+            <button onClick={() => navigate(pair[0])} key={i}>
+                {pair[1]}
             </button>
         ));
     };
