@@ -3,33 +3,12 @@ import { useNavigate, useOutlet } from 'react-router-dom';
 import { SessionContext } from '../../contexts';
 import { roles } from '../../shared';
 import { authPath } from '../AuthLayout';
-import { basesPaths } from './shared';
+import { adminLinks, librarianLinks, managerLinks } from './shared';
 
 export function PanelLayout() {
     const outlet = useOutlet();
     const navigate = useNavigate();
     const { userData, setUserData } = useContext(SessionContext);
-
-    const adminLinks = {
-        'department base': basesPaths.DEPARTMENTS_BASE,
-        'manager base': basesPaths.MANAGERS_BASE,
-        'librarian base': basesPaths.LIBRARIAN_BASE,
-        'readers base': basesPaths.READERS_BASE,
-        'books base': basesPaths.BOOKS_BASE,
-    };
-
-    const managerLinks = {
-        'my department': basesPaths.MY_DEPARTMENT,
-        'librarian base': basesPaths.LIBRARIAN_BASE,
-        'readers base': basesPaths.READERS_BASE,
-        'books base': basesPaths.BOOKS_BASE,
-    };
-
-    const librarianLinks = {
-        'my department': basesPaths.MY_DEPARTMENT,
-        'readers base': basesPaths.READERS_BASE,
-        'books base': basesPaths.BOOKS_BASE,
-    };
 
     const generateButtons = (links) => {
         return Object.entries(links).map((pair, i) => (
