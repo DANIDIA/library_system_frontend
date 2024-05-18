@@ -23,8 +23,6 @@ export function LoginView() {
         } else if (result.status === 403) {
             setAuthErrorText('User is blocked');
         } else if (result && !result.status) {
-            console.log(result.status);
-
             setUserData(result);
 
             navigate(`/${basesPaths.USER_PANEL}`);
