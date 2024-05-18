@@ -3,7 +3,7 @@ import { useNavigate, useOutlet } from 'react-router-dom';
 import { SessionContext } from '../../contexts';
 import { roles } from '../../shared';
 import { authPath } from '../AuthLayout';
-import { panelPaths } from './shared';
+import { basesPaths } from './shared';
 
 export function PanelLayout() {
     const outlet = useOutlet();
@@ -11,24 +11,24 @@ export function PanelLayout() {
     const { userData, setUserData } = useContext(SessionContext);
 
     const adminLinks = {
-        'department base': panelPaths.DEPARTMENTS_BASE,
-        'manager base': panelPaths.MANAGERS_BASE,
-        'librarian base': panelPaths.LIBRARIAN_BASE,
-        'readers base': panelPaths.READERS_BASE,
-        'books base': panelPaths.BOOKS_BASE,
+        'department base': basesPaths.DEPARTMENTS_BASE,
+        'manager base': basesPaths.MANAGERS_BASE,
+        'librarian base': basesPaths.LIBRARIAN_BASE,
+        'readers base': basesPaths.READERS_BASE,
+        'books base': basesPaths.BOOKS_BASE,
     };
 
     const managerLinks = {
-        'my department': panelPaths.MY_DEPARTMENT,
-        'librarian base': panelPaths.LIBRARIAN_BASE,
-        'readers base': panelPaths.READERS_BASE,
-        'books base': panelPaths.BOOKS_BASE,
+        'my department': basesPaths.MY_DEPARTMENT,
+        'librarian base': basesPaths.LIBRARIAN_BASE,
+        'readers base': basesPaths.READERS_BASE,
+        'books base': basesPaths.BOOKS_BASE,
     };
 
     const librarianLinks = {
-        'my department': panelPaths.MY_DEPARTMENT,
-        'readers base': panelPaths.READERS_BASE,
-        'books base': panelPaths.BOOKS_BASE,
+        'my department': basesPaths.MY_DEPARTMENT,
+        'readers base': basesPaths.READERS_BASE,
+        'books base': basesPaths.BOOKS_BASE,
     };
 
     const generateButtons = (links) => {

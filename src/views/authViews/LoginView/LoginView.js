@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { newSession } from '../../../apiOperations';
 import { SessionContext } from '../../../contexts';
-import { panelPaths } from '../../../layouts';
+import { basesPaths } from '../../../layouts';
 
 export function LoginView() {
     const navigate = useNavigate();
@@ -22,11 +22,13 @@ export function LoginView() {
             setAuthErrorText('Login or password is incorrect');
         } else if (result.status === 403) {
             setAuthErrorText('User is blocked');
+        } else if (result && !result.status) {
+            console.log(result.status);
+
+            setUserData(result);
+
+            navigate(`/${basesPaths.USER_PANEL}`);
         }
-
-        setUserData(result);
-
-        navigate(panelPaths.USER_PANEL);
     };
 
     return (
@@ -50,5 +52,3 @@ export function LoginView() {
         </div>
     );
 }
-
-export default LoginView;
