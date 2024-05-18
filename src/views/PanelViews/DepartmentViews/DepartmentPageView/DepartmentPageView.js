@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useOutlet, useParams } from 'react-router-dom';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 
@@ -7,6 +7,8 @@ export function DepartmentPageView() {
     const { departmentID } = useParams();
     const { userData } = useContext(SessionContext);
     const [departmentData, setDepartmentData] = useState();
+    const navigate = useNavigate();
+    const outlet = useOutlet();
 
     const userRole = userData.role;
 
@@ -27,18 +29,24 @@ export function DepartmentPageView() {
 
     return (
         <div>
-            {hasUserPermission ? (
+            {outlet ? (
+                outlet
+            ) : hasUserPermission ? (
                 <div>
                     Department name: {departmentData?.name}
                     Department address: {departmentData?.address}
                     Department contact number: {departmentData?.contactNumber}
                     {userRole === roles.DEPARTMENT_MANAGER ? (
                         <div>
-                            <button>Update data</button>
+                            <button onClick={() => navigate('update')}>
+                                Update data
+                            </button>
                         </div>
                     ) : userRole === roles.ADMIN ? (
                         <div>
-                            <button>Update data</button>
+                            <button onClick={() => navigate('update')}>
+                                Update data
+                            </button>
                             <button>Delete department</button>
                         </div>
                     ) : undefined}

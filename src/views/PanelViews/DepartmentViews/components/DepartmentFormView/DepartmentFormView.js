@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 
-export function DepartmentFormView({ buttonText, buttonClickHandler }) {
-    const [name, setName] = useState();
-    const [address, setAddress] = useState();
-    const [contactNumber, setContactNumber] = useState();
+export function DepartmentFormView({
+    buttonText,
+    buttonClickHandler,
+    startValues = {},
+}) {
+    const [name, setName] = useState(startValues.name);
+    const [address, setAddress] = useState(startValues.address);
+    const [contactNumber, setContactNumber] = useState(
+        startValues.contactNumber,
+    );
 
     const handleClick = () => {
         const formData = { name, address, contactNumber };
