@@ -10,7 +10,7 @@ export function DepartmentBaseView() {
             <button onClick={() => navigate('creation')}>
                 Create department
             </button>
-            <button>Find departments</button>
+            <button onClick={() => navigate('search')}>Find departments</button>
             {outlet}
         </div>
     );

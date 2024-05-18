@@ -1,6 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { DepartmentBaseView, DepartmentCreationView } from '../../views';
+import {
+    DepartmentBaseView,
+    DepartmentCreationView,
+    DepartmentSearchView,
+} from '../../views';
 import { layoutsPaths } from '../shared';
 import { PanelLayout } from './PanelLayout';
 import { basesPaths } from './shared';
@@ -12,6 +16,7 @@ export const PanelRouter = (
             element={<DepartmentBaseView />}
         >
             <Route path='creation' element={<DepartmentCreationView />} />
+            <Route path='search' element={<DepartmentSearchView />} />
         </Route>
     </Route>
 );
