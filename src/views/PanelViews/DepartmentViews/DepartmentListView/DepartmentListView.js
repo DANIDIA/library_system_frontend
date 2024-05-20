@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DepartmentFormView } from '../components';
 
-export function DepartmentSearchView() {
+export function DepartmentListView() {
     const navigate = useNavigate();
     const handleSearch = () => {};
 

@@ -4,7 +4,7 @@ import {
     DepartmentBaseView,
     DepartmentCreationView,
     DepartmentEditView,
-    DepartmentSearchView,
+    DepartmentListView,
     DepartmentSingleView,
 } from '../../views';
 import { layoutsPaths } from '../shared';
@@ -18,7 +18,7 @@ export const PanelRouter = (
             element={<DepartmentBaseView />}
         >
             <Route path='creation' element={<DepartmentCreationView />} />
-            <Route path='search' element={<DepartmentSearchView />} />
+            <Route path='search' element={<DepartmentListView />} />
             <Route path='page/:departmentID' element={<DepartmentSingleView />}>
                 <Route path='update' element={<DepartmentEditView />} />
             </Route>
