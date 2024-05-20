@@ -3,7 +3,7 @@ import { useNavigate, useOutlet, useParams } from 'react-router-dom';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 
-export function DepartmentPageView() {
+export function DepartmentSingleView() {
     const navigate = useNavigate();
     const departmentEditOutlet = useOutlet();
     const { departmentID } = useParams();
@@ -27,7 +27,7 @@ export function DepartmentPageView() {
         }
     }, []);
 
-    const departmentPage = (
+    const departmentDetails = (
         <div>
             Department name: {departmentData?.name}
             Department address: {departmentData?.address}
@@ -46,7 +46,7 @@ export function DepartmentPageView() {
     return (
         <div>
             {departmentEditOutlet ?? hasReadPermission
-                ? departmentPage
+                ? departmentDetails
                 : "You don't have permission"}
         </div>
     );
