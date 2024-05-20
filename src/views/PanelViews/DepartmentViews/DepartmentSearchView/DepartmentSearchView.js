@@ -3,14 +3,14 @@ import { useNavigate } from 'react-router-dom';
 import { DepartmentFormView } from '../components';
 
 export function DepartmentSearchView() {
-    const navigation = useNavigate();
+    const navigate = useNavigate();
     const handleSearch = () => {};
 
     return (
         <div>
             <DepartmentFormView
                 submitButtonText='search'
-                formSubmitHandler={handleSearch()}
+                formSubmitHandler={handleSearch}
             />
             <table>
                 <thead>
@@ -21,7 +21,7 @@ export function DepartmentSearchView() {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr onClick={() => navigation('../page/1')}>
+                    <tr onClick={() => navigate('../page/1')}>
                         <td>Test name</td>
                         <td>Test address</td>
                         <td>Test contact number</td>
