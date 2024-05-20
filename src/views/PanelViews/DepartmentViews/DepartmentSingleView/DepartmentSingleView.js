@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useOutlet, useParams } from 'react-router-dom';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
+import { departmentPaths } from '../shared';
 
 export function DepartmentSingleView() {
     const navigate = useNavigate();
@@ -34,7 +35,7 @@ export function DepartmentSingleView() {
             Department contact number: {departmentData?.contactNumber}
             <div>
                 {userRole !== roles.LIBRARIAN && (
-                    <button onClick={() => navigate('update')}>
+                    <button onClick={() => navigate(departmentPaths.UPDATE)}>
                         Update data
                     </button>
                 )}

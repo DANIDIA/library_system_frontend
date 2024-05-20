@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
+import { departmentPaths } from '../shared';
 
 export function DepartmentBaseView() {
     const navigate = useNavigate();
@@ -7,10 +8,12 @@ export function DepartmentBaseView() {
 
     return (
         <div>
-            <button onClick={() => navigate('creation')}>
+            <button onClick={() => navigate(departmentPaths.CREATION)}>
                 Create department
             </button>
-            <button onClick={() => navigate('search')}>Find departments</button>
+            <button onClick={() => navigate(departmentPaths.SEARCH)}>
+                Find departments
+            </button>
             {outlet}
         </div>
     );
