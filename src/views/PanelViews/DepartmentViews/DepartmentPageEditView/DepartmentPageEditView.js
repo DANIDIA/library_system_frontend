@@ -11,13 +11,13 @@ export function DepartmentPageEditView() {
 
     const userRole = userData.role;
 
-    const hasUserPermission =
+    const hasEditDepartmentPermission =
         (userRole === roles.DEPARTMENT_MANAGER &&
             userData.departmentID === departmentID) ||
         userRole === roles.ADMIN;
 
     useEffect(() => {
-        if (hasUserPermission) {
+        if (hasEditDepartmentPermission) {
             setDepartmentData({
                 departmentID,
                 name: 'test name',
@@ -31,7 +31,7 @@ export function DepartmentPageEditView() {
 
     return (
         <div>
-            {hasUserPermission ? (
+            {hasEditDepartmentPermission ? (
                 <div>
                     <DepartmentFormView
                         buttonText='update'
