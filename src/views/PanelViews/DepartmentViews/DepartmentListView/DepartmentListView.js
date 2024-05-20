@@ -4,14 +4,10 @@ import { DepartmentFormView } from '../components';
 
 export function DepartmentListView() {
     const navigate = useNavigate();
-    const handleSearch = () => {};
 
     return (
         <div>
-            <DepartmentFormView
-                submitButtonText='search'
-                formSubmitHandler={handleSearch}
-            />
+            <DepartmentFormView submitButtonText='search' />
             <table>
                 <thead>
                     <tr>

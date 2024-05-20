@@ -27,15 +27,12 @@ export function DepartmentEditView() {
         }
     }, []);
 
-    const handleUpdate = () => {};
-
     return (
         <div>
             {hasEditDepartmentPermission ? (
                 <div>
                     <DepartmentFormView
                         submitButtonText='update'
-                        formSubmitHandler={handleUpdate}
                         initialValues={departmentData}
                     />
                 </div>
