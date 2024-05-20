@@ -23,9 +23,10 @@ module.exports = {
         ecmaVersion: 'latest',
         sourceType: 'module',
     },
-    plugins: ['react'],
+    plugins: ['react', 'import'],
     rules: {
         'prettier/prettier': ['warn', { endOfLine: 'auto' }],
         'react/prop-types': ['off'],
+        'import/no-duplicates': ['warn'],
     },
 };
