@@ -4,20 +4,20 @@ import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 
 export function DepartmentPageView() {
+    const navigate = useNavigate();
+    const departmentEditOutlet = useOutlet();
     const { departmentID } = useParams();
     const { userData } = useContext(SessionContext);
     const [departmentData, setDepartmentData] = useState();
-    const navigate = useNavigate();
-    const outlet = useOutlet();
 
     const userRole = userData.role;
 
-    const hasUserPermission =
+    const hasReadPermission =
         (userRole !== roles.ADMIN && userData.departmentID === departmentID) ||
         userRole === roles.ADMIN;
 
     useEffect(() => {
-        if (hasUserPermission) {
+        if (hasReadPermission) {
             setDepartmentData({
                 departmentID,
                 name: 'test name',
@@ -27,33 +27,27 @@ export function DepartmentPageView() {
         }
     }, []);
 
+    const departmentPage = (
+        <div>
+            Department name: {departmentData?.name}
+            Department address: {departmentData?.address}
+            Department contact number: {departmentData?.contactNumber}
+            <div>
+                {userRole !== roles.LIBRARIAN && (
+                    <button onClick={() => navigate('update')}>
+                        Update data
+                    </button>
+                )}
+                {userRole === roles.ADMIN && <button>Delete department</button>}
+            </div>
+        </div>
+    );
+
     return (
         <div>
-            {outlet ? (
-                outlet
-            ) : hasUserPermission ? (
-                <div>
-                    Department name: {departmentData?.name}
-                    Department address: {departmentData?.address}
-                    Department contact number: {departmentData?.contactNumber}
-                    {userRole === roles.DEPARTMENT_MANAGER ? (
-                        <div>
-                            <button onClick={() => navigate('update')}>
-                                Update data
-                            </button>
-                        </div>
-                    ) : userRole === roles.ADMIN ? (
-                        <div>
-                            <button onClick={() => navigate('update')}>
-                                Update data
-                            </button>
-                            <button>Delete department</button>
-                        </div>
-                    ) : undefined}
-                </div>
-            ) : (
-                "You don't have permission"
-            )}
+            {departmentEditOutlet ?? hasReadPermission
+                ? departmentPage
+                : "You don't have permission"}
         </div>
     );
 }
