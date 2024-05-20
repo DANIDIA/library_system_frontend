@@ -3,7 +3,7 @@ import { Route } from 'react-router-dom';
 import {
     DepartmentBaseView,
     DepartmentCreationView,
-    DepartmentPageEditView,
+    DepartmentEditView,
     DepartmentPageView,
     DepartmentSearchView,
 } from '../../views';
@@ -20,7 +20,7 @@ export const PanelRouter = (
             <Route path='creation' element={<DepartmentCreationView />} />
             <Route path='search' element={<DepartmentSearchView />} />
             <Route path='page/:departmentID' element={<DepartmentPageView />}>
-                <Route path='update' element={<DepartmentPageEditView />} />
+                <Route path='update' element={<DepartmentEditView />} />
             </Route>
         </Route>
     </Route>

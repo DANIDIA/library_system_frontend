@@ -4,7 +4,7 @@ import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { DepartmentFormView } from '../components';
 
-export function DepartmentPageEditView() {
+export function DepartmentEditView() {
     const { departmentID } = useParams();
     const { userData } = useContext(SessionContext);
     const [departmentData, setDepartmentData] = useState();
