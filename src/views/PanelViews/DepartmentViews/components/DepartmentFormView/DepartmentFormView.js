@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 
 export function DepartmentFormView({
-    buttonText,
-    buttonClickHandler,
-    startValues = {},
+    submitButtonText = {},
+    formSubmitHandler = {},
+    initialValues = {},
 }) {
-    const [name, setName] = useState(startValues.name);
-    const [address, setAddress] = useState(startValues.address);
+    const [name, setName] = useState(initialValues.name);
+    const [address, setAddress] = useState(initialValues.address);
     const [contactNumber, setContactNumber] = useState(
-        startValues.contactNumber,
+        initialValues.contactNumber,
     );
 
     const handleClick = () => {
-        const formData = { name, address, contactNumber };
-        buttonClickHandler(formData);
+        formSubmitHandler({ name, address, contactNumber });
     };
 
     return (
@@ -35,11 +34,11 @@ export function DepartmentFormView({
                 <input
                     value={contactNumber}
                     onChange={(e) => setContactNumber(e.target.value)}
-                    type='text'
+                    type='tel'
                 />
             </div>
 
-            <button onClick={handleClick}>{buttonText}</button>
+            <button onClick={handleClick}>{submitButtonText}</button>
         </div>
     );
 }

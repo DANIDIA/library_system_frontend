@@ -7,8 +7,8 @@ export function DepartmentCreationView() {
     return (
         <div>
             <DepartmentFormView
-                buttonText='create'
-                buttonClickHandler={handleCreation}
+                submitButtonText='create'
+                formSubmitHandler={handleCreation}
             />
         </div>
     );

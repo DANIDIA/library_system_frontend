@@ -34,9 +34,9 @@ export function DepartmentPageEditView() {
             {hasEditDepartmentPermission ? (
                 <div>
                     <DepartmentFormView
-                        buttonText='update'
-                        buttonClickHandler={handleUpdate}
-                        startValues={departmentData}
+                        submitButtonText='update'
+                        formSubmitHandler={handleUpdate}
+                        initialValues={departmentData}
                     />
                 </div>
             ) : (

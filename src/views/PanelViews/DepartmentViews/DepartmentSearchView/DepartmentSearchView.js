@@ -9,8 +9,8 @@ export function DepartmentSearchView() {
     return (
         <div>
             <DepartmentFormView
-                buttonText='search'
-                buttonClickHandler={handleSearch()}
+                submitButtonText='search'
+                formSubmitHandler={handleSearch()}
             />
             <table>
                 <thead>
