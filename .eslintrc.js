@@ -24,6 +24,9 @@ module.exports = {
         sourceType: 'module',
     },
     plugins: ['react', 'import'],
+    globals: {
+        process: true,
+    },
     rules: {
         'prettier/prettier': ['warn', { endOfLine: 'auto' }],
         'react/prop-types': ['off'],
