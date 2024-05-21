@@ -1,4 +1,4 @@
-export * from './DepartmentBaseView';
+export * from './DepartmentPanelView';
 export * from './DepartmentCreationView';
 export * from './DepartmentListView';
 export * from './DepartmentSingleView';

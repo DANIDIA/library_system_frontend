@@ -1,2 +1,2 @@
-export * from './basesPaths.enum';
+export * from './panelsPaths.enum';
 export * from './panelLayout.consts';

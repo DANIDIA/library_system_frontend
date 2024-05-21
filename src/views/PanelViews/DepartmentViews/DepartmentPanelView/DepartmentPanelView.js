@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
 import { departmentPaths } from '../shared';
 
-export function DepartmentBaseView() {
+export function DepartmentPanelView() {
     const navigate = useNavigate();
     const outlet = useOutlet();
 

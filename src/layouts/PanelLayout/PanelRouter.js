@@ -1,22 +1,22 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import {
-    DepartmentBaseView,
     DepartmentCreationView,
     DepartmentEditView,
     DepartmentListView,
+    DepartmentPanelView,
     DepartmentSingleView,
     departmentPaths,
 } from '../../views';
 import { layoutsPaths } from '../shared';
 import { PanelLayout } from './PanelLayout';
-import { basesPaths } from './shared';
+import { panelsPaths } from './shared';
 
 export const PanelRouter = (
     <Route path={layoutsPaths.USER_PANEL} element={<PanelLayout />}>
         <Route
-            path={basesPaths.DEPARTMENTS_BASE}
-            element={<DepartmentBaseView />}
+            path={panelsPaths.DEPARTMENTS_PANEL}
+            element={<DepartmentPanelView />}
         >
             <Route
                 path={departmentPaths.CREATION}
