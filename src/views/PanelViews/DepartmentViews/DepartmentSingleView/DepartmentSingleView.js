@@ -46,9 +46,10 @@ export function DepartmentSingleView() {
 
     return (
         <div>
-            {departmentEditOutlet ?? hasReadPermission
-                ? departmentDetails
-                : "You don't have permission"}
+            {departmentEditOutlet ??
+                (hasReadPermission
+                    ? departmentDetails
+                    : "You don't have permission")}
         </div>
     );
 }
