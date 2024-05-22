@@ -1,22 +1,22 @@
-import { basesPaths } from './basesPaths.enum';
+import { panelsPaths } from './panelsPaths.enum';
 
 export const adminLinks = {
-    [basesPaths.DEPARTMENTS_BASE]: 'department base',
-    [basesPaths.MANAGERS_BASE]: 'manager base',
-    [basesPaths.LIBRARIAN_BASE]: 'librarian base',
-    [basesPaths.READERS_BASE]: 'readers base',
-    [basesPaths.BOOKS_BASE]: 'books base',
+    [panelsPaths.DEPARTMENTS_PANEL]: 'department base',
+    [panelsPaths.MANAGERS_PANEL]: 'manager base',
+    [panelsPaths.LIBRARIAN_PANEL]: 'librarian base',
+    [panelsPaths.READERS_PANEL]: 'readers base',
+    [panelsPaths.BOOKS_PANEL]: 'books base',
 };
 
 export const managerLinks = {
-    [basesPaths.MY_DEPARTMENT]: 'my department',
-    [basesPaths.LIBRARIAN_BASE]: 'librarian base',
-    [basesPaths.READERS_BASE]: 'readers base',
-    [basesPaths.BOOKS_BASE]: 'books base',
+    [panelsPaths.MY_DEPARTMENT]: 'my department',
+    [panelsPaths.LIBRARIAN_PANEL]: 'librarian base',
+    [panelsPaths.READERS_PANEL]: 'readers base',
+    [panelsPaths.BOOKS_PANEL]: 'books base',
 };
 
 export const librarianLinks = {
-    [basesPaths.MY_DEPARTMENT]: 'my department',
-    [basesPaths.READERS_BASE]: 'readers base',
-    [basesPaths.BOOKS_BASE]: 'books base',
+    [panelsPaths.MY_DEPARTMENT]: 'my department',
+    [panelsPaths.READERS_PANEL]: 'readers base',
+    [panelsPaths.BOOKS_PANEL]: 'books base',
 };

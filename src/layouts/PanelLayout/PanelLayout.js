@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
 import { SessionContext } from '../../contexts';
 import { roles } from '../../shared';
-import { authPath } from '../AuthLayout';
+import { layoutsPaths } from '../shared';
 import { adminLinks, librarianLinks, managerLinks } from './shared';
 
 export function PanelLayout() {
@@ -27,7 +27,7 @@ export function PanelLayout() {
     );
 
     const logout = () => {
-        navigate(authPath.LOGIN);
+        navigate(layoutsPaths.LOGIN_PAGE);
         setUserData();
     };
 

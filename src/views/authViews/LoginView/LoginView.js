@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { newSession } from '../../../apiOperations';
 import { SessionContext } from '../../../contexts';
-import { basesPaths } from '../../../layouts';
+import { layoutsPaths } from '../../../layouts';
 
 export function LoginView() {
     const navigate = useNavigate();
@@ -25,7 +25,7 @@ export function LoginView() {
         } else if (result && !result.status) {
             setUserData(result);
 
-            navigate(`/${basesPaths.USER_PANEL}`);
+            navigate(`/${layoutsPaths.USER_PANEL}`);
         }
     };
 
