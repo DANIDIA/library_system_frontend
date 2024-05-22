@@ -5,10 +5,10 @@ export function DepartmentFormView({
     formSubmitHandler = {},
     initialValues = {},
 }) {
-    const [name, setName] = useState(initialValues.name);
-    const [address, setAddress] = useState(initialValues.address);
+    const [name, setName] = useState(initialValues.name || '');
+    const [address, setAddress] = useState(initialValues.address || '');
     const [contactNumber, setContactNumber] = useState(
-        initialValues.contactNumber,
+        initialValues.contactNumber || '',
     );
 
     const handleClick = () => {
