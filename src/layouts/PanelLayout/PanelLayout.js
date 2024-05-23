@@ -27,8 +27,8 @@ export function PanelLayout() {
     );
 
     const logout = () => {
-        navigate(layoutsPaths.LOGIN_PAGE);
         setUserData();
+        navigate(`/${layoutsPaths.LOGIN_PAGE}`);
     };
 
     return (
