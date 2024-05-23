@@ -80,6 +80,7 @@ export function DepartmentEditView() {
             ) : (
                 "You don't have permission"
             )}
+            <button onClick={() => navigate('..')}>back</button>
         </div>
     );
 }
