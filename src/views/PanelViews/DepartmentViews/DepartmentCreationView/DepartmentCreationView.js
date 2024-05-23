@@ -5,25 +5,41 @@ import { DepartmentFormView } from '../components';
 
 export function DepartmentCreationView() {
     const { userData } = useContext(SessionContext);
-    const [statusMessage, setStatusMessage] = useState('');
+    const [statusMessageText, setStatusMessageText] = useState('');
+
+    const validateFormData = (formData) => {
+        const hasEmptyFields = Object.entries(formData).some(
+            (pair) => !pair[1].trim(),
+        );
+
+        if (hasEmptyFields) {
+            setStatusMessageText('There are empty fields!');
+        }
+
+        return !hasEmptyFields;
+    };
 
     const handleDepartmentCreation = async (formData) => {
+        const isFormDataValid = validateFormData(formData);
+
+        if (!isFormDataValid) return;
+
         const response = await createDepartment(userData.sessionID, formData);
 
         if (!response.ok) {
             if (response.status === 403) {
-                setStatusMessage(
+                setStatusMessageText(
                     'Current session is ended. Please login again',
                 );
             } else if (response.status === 404) {
-                setStatusMessage('Some referencing data was invalid');
+                setStatusMessageText('Some referencing data was invalid');
             } else if (response.status >= 500) {
-                setStatusMessage('Oops.. some problems with server');
+                setStatusMessageText('Oops.. some problems with server');
             } else if (!response.status) {
-                setStatusMessage('Some problems with internet connection');
+                setStatusMessageText('Some problems with internet connection');
             }
         } else {
-            setStatusMessage('Successfully created');
+            setStatusMessageText('Successfully created');
         }
     };
 
@@ -32,8 +48,9 @@ export function DepartmentCreationView() {
             <DepartmentFormView
                 submitButtonText='create'
                 formSubmitHandler={handleDepartmentCreation}
+                clearFormAfterSubmit={true}
             />
-            {statusMessage}
+            {statusMessageText}
         </div>
     );
 }
