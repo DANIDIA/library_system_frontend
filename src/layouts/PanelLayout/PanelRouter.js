@@ -27,7 +27,7 @@ export const PanelRouter = (
                 element={<DepartmentListView />}
             />
             <Route
-                path={`${departmentPaths.PAGE}/:departmentID`}
+                path={`${departmentPaths.PAGE}`}
                 element={<DepartmentSingleView />}
             >
                 <Route
