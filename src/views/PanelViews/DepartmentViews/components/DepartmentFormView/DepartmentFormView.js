@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 
 export function DepartmentFormView({
-    submitButtonText = {},
-    formSubmitHandler = {},
+    submitButtonText,
+    formSubmitHandler = () => {},
     initialValues = {},
+    clearFormAfterSubmit = false,
 }) {
     const [name, setName] = useState(initialValues.name || '');
     const [address, setAddress] = useState(initialValues.address || '');
@@ -11,8 +12,18 @@ export function DepartmentFormView({
         initialValues.contactNumber || '',
     );
 
+    const clearForm = () => {
+        setName('');
+        setAddress('');
+        setContactNumber('');
+    };
+
     const handleClick = () => {
         formSubmitHandler({ name, address, contactNumber });
+
+        if (clearFormAfterSubmit) {
+            clearForm();
+        }
     };
 
     return (
