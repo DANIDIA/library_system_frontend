@@ -9,3 +9,10 @@ export async function queryDepartments(sessionID, queryParams) {
         ...queryParams,
     });
 }
+
+export async function deleteDepartment(sessionID, departmentID) {
+    return await fetchAPI(sessionID, 'delete', 'departments/remove', {
+        sessionID,
+        id: departmentID,
+    });
+}
