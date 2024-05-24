@@ -3,12 +3,12 @@ import React, { useState } from 'react';
 export function DepartmentFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
-    initialValues = {},
+    initialValues = { name: '', address: '', contactNumber: '' },
 }) {
-    const [name, setName] = useState(initialValues.name || '');
-    const [address, setAddress] = useState(initialValues.address || '');
+    const [name, setName] = useState(initialValues.name);
+    const [address, setAddress] = useState(initialValues.address);
     const [contactNumber, setContactNumber] = useState(
-        initialValues.contactNumber || '',
+        initialValues.contactNumber,
     );
 
     const clearForm = () => {
