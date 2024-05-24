@@ -4,7 +4,7 @@ import { updateDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { DepartmentContext } from '../DepartmentContext';
-import { DepartmentFormView } from '../components';
+import { DepartmentFormComponent } from '../components';
 
 export function DepartmentEditView() {
     const navigate = useNavigate();
@@ -70,7 +70,7 @@ export function DepartmentEditView() {
         <div>
             {hasEditDepartmentPermission ? (
                 <div>
-                    <DepartmentFormView
+                    <DepartmentFormComponent
                         submitButtonText='update'
                         initialValues={departmentData}
                         formSubmitHandler={handleUpdateData}

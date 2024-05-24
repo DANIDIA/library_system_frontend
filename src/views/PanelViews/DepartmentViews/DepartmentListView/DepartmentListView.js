@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { queryDepartments } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { DepartmentContext } from '../DepartmentContext';
-import { DepartmentFormView } from '../components';
+import { DepartmentFormComponent } from '../components';
 import { departmentPaths } from '../shared';
 
 export function DepartmentListView() {
@@ -63,7 +63,7 @@ export function DepartmentListView() {
 
     return (
         <div>
-            <DepartmentFormView
+            <DepartmentFormComponent
                 submitButtonText='search'
                 formSubmitHandler={handleSearch}
             />

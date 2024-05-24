@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export function DepartmentFormView({
+export function DepartmentFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
     initialValues = {},

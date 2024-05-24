@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { createDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
-import { DepartmentFormView } from '../components';
+import { DepartmentFormComponent } from '../components';
 
 export function DepartmentCreationView() {
     const { userData } = useContext(SessionContext);
@@ -45,7 +45,7 @@ export function DepartmentCreationView() {
 
     return (
         <div>
-            <DepartmentFormView
+            <DepartmentFormComponent
                 submitButtonText='create'
                 formSubmitHandler={handleDepartmentCreation}
                 clearFormAfterSubmit={true}
