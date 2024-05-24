@@ -20,18 +20,18 @@ export function DepartmentEditView() {
         userRole === roles.ADMIN;
 
     const validateFormData = (formData) => {
-        const areEmptyFields = Object.entries(formData).some(
+        const hasEmptyFields = Object.entries(formData).some(
             (pair) => !pair[1].trim(),
         );
 
-        const areValuesChanged = Object.entries(formData).some(
+        const hasChangedValues = Object.entries(formData).some(
             (pair) => pair[1] !== departmentData[pair[0]],
         );
 
-        if (areEmptyFields) {
+        if (hasEmptyFields) {
             setMessageText('There are empty fields!');
             return false;
-        } else if (!areValuesChanged) {
+        } else if (!hasChangedValues) {
             setMessageText('Values was not change');
             return false;
         }
