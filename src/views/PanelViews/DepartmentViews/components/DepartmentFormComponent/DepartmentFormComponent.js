@@ -4,7 +4,6 @@ export function DepartmentFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
     initialValues = {},
-    clearFormAfterSubmit = false,
 }) {
     const [name, setName] = useState(initialValues.name || '');
     const [address, setAddress] = useState(initialValues.address || '');
@@ -19,11 +18,7 @@ export function DepartmentFormComponent({
     };
 
     const handleClick = () => {
-        formSubmitHandler({ name, address, contactNumber });
-
-        if (clearFormAfterSubmit) {
-            clearForm();
-        }
+        formSubmitHandler({ name, address, contactNumber }, clearForm);
     };
 
     return (
