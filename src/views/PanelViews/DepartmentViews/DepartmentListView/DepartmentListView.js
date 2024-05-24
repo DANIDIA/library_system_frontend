@@ -4,6 +4,7 @@ import { queryDepartments } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { DepartmentContext } from '../DepartmentContext';
 import { DepartmentFormComponent } from '../components';
+import { getDepartmentStatusMessage } from '../helpers';
 import { departmentPaths } from '../shared';
 
 export function DepartmentListView() {
@@ -20,18 +21,10 @@ export function DepartmentListView() {
 
         const response = await queryDepartments(userData.sessionID, query);
 
-        if (!response.ok) {
-            if (response.status === 403) {
-                setStatusMessage(
-                    'Current session is ended. Please login again',
-                );
-            } else if (response.status >= 500) {
-                setStatusMessage('Oops... some problems with server');
-            } else if (!response.status) {
-                setStatusMessage('Some problems with internet connection');
-            }
-        } else {
+        if (response.ok) {
             setDepartmentsList(response.data);
+        } else {
+            setStatusMessage(getDepartmentStatusMessage(response.status));
         }
     };
 

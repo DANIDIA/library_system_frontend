@@ -4,6 +4,7 @@ import { deleteDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { DepartmentContext } from '../DepartmentContext';
+import { getDepartmentStatusMessage } from '../helpers';
 import { departmentPaths } from '../shared';
 
 export function DepartmentSingleView() {
@@ -29,17 +30,7 @@ export function DepartmentSingleView() {
         if (response.ok) {
             navigate('..');
         } else {
-            if (!response.status) {
-                setStatusMessage(
-                    'Oops... Some problems with internet connection or server. Please, check your connection',
-                );
-            } else if (response.status === 400) {
-                setStatusMessage('There are workers or books in department');
-            } else if (response.status === 403) {
-                setStatusMessage('Please login again');
-            } else if (response.status >= 500) {
-                setStatusMessage('Oops... there are problems with server');
-            }
+            setStatusMessage(getDepartmentStatusMessage(response.status));
         }
     };
 

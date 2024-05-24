@@ -5,12 +5,13 @@ import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { DepartmentContext } from '../DepartmentContext';
 import { DepartmentFormComponent } from '../components';
+import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentEditView() {
     const navigate = useNavigate();
     const { userData } = useContext(SessionContext);
     const { departmentData, setDepartmentData } = useContext(DepartmentContext);
-    const [messageText, setMessageText] = useState();
+    const [statusMessage, setStatusMessage] = useState();
 
     const userRole = userData.role;
 
@@ -29,10 +30,10 @@ export function DepartmentEditView() {
         );
 
         if (hasEmptyFields) {
-            setMessageText('There are empty fields!');
+            setStatusMessage('There are empty fields!');
             return false;
         } else if (!hasChangedValues) {
-            setMessageText('Values was not change');
+            setStatusMessage('Values was not change');
             return false;
         }
 
@@ -54,15 +55,7 @@ export function DepartmentEditView() {
             setDepartmentData({ id: departmentData.id, ...formData });
             navigate('..');
         } else {
-            if (!response.status) {
-                setMessageText(
-                    'Oops... Some problems with internet connection or server. Please, check your connection',
-                );
-            } else if (response.status === 403) {
-                setMessageText('Please, login again');
-            } else if (response.status >= 500) {
-                setMessageText('Oops... some problems with server');
-            }
+            setStatusMessage(getDepartmentStatusMessage(response.status));
         }
     };
 
@@ -75,7 +68,7 @@ export function DepartmentEditView() {
                         initialValues={departmentData}
                         formSubmitHandler={handleUpdateData}
                     />
-                    {messageText}
+                    {statusMessage}
                 </div>
             ) : (
                 "You don't have permission"

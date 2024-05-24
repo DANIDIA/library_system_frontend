@@ -2,10 +2,11 @@ import React, { useContext, useState } from 'react';
 import { createDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { DepartmentFormComponent } from '../components';
+import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentCreationView() {
     const { userData } = useContext(SessionContext);
-    const [statusMessageText, setStatusMessageText] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
 
     const validateFormData = (formData) => {
         const hasEmptyFields = Object.entries(formData).some(
@@ -13,7 +14,7 @@ export function DepartmentCreationView() {
         );
 
         if (hasEmptyFields) {
-            setStatusMessageText('There are empty fields!');
+            setStatusMessage('There are empty fields!');
         }
 
         return !hasEmptyFields;
@@ -26,21 +27,11 @@ export function DepartmentCreationView() {
 
         const response = await createDepartment(userData.sessionID, formData);
 
-        if (!response.ok) {
-            if (response.status === 403) {
-                setStatusMessageText(
-                    'Current session is ended. Please login again',
-                );
-            } else if (response.status === 404) {
-                setStatusMessageText('Some referencing data was invalid');
-            } else if (response.status >= 500) {
-                setStatusMessageText('Oops.. some problems with server');
-            } else if (!response.status) {
-                setStatusMessageText('Some problems with internet connection');
-            }
-        } else {
-            setStatusMessageText('Successfully created');
+        if (response.ok) {
+            setStatusMessage('Successfully created');
             clearForm();
+        } else {
+            setStatusMessage(getDepartmentStatusMessage(response.status));
         }
     };
 
@@ -50,7 +41,7 @@ export function DepartmentCreationView() {
                 submitButtonText='create'
                 formSubmitHandler={handleDepartmentCreation}
             />
-            {statusMessageText}
+            {statusMessage}
         </div>
     );
 }
