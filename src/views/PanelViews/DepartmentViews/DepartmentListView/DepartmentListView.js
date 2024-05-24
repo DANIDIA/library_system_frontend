@@ -5,7 +5,7 @@ import { SessionContext } from '../../../../contexts';
 import { DepartmentContext } from '../DepartmentContext';
 import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
-import { departmentPaths } from '../shared';
+import { pathsInPanel } from '../shared';
 
 export function DepartmentListView() {
     const { userData } = useContext(SessionContext);
@@ -30,7 +30,7 @@ export function DepartmentListView() {
 
     const handleOnListItem = (department) => {
         setDepartmentData(department);
-        navigate(`../${departmentPaths.PAGE}`);
+        navigate(`../${pathsInPanel.PAGE}`);
     };
 
     const table = (
