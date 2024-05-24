@@ -19,7 +19,7 @@ export function DepartmentCreationView() {
         return !hasEmptyFields;
     };
 
-    const handleDepartmentCreation = async (formData) => {
+    const handleDepartmentCreation = async (formData, clearForm) => {
         const isFormDataValid = validateFormData(formData);
 
         if (!isFormDataValid) return;
@@ -40,6 +40,7 @@ export function DepartmentCreationView() {
             }
         } else {
             setStatusMessageText('Successfully created');
+            clearForm();
         }
     };
 
@@ -48,7 +49,6 @@ export function DepartmentCreationView() {
             <DepartmentFormComponent
                 submitButtonText='create'
                 formSubmitHandler={handleDepartmentCreation}
-                clearFormAfterSubmit={true}
             />
             {statusMessageText}
         </div>
