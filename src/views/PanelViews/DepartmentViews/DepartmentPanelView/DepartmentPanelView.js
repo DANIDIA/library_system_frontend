@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
+import { pathsInPanel } from '../../shared';
 import { DepartmentContextProvider } from '../DepartmentContext';
-import { pathsInPanel } from '../shared';
 
 export function DepartmentPanelView() {
     const navigate = useNavigate();

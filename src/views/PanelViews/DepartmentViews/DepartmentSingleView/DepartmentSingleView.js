@@ -3,9 +3,9 @@ import { useNavigate, useOutlet } from 'react-router-dom';
 import { deleteDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
+import { pathsInPanel } from '../../shared';
 import { DepartmentContext } from '../DepartmentContext';
 import { getDepartmentStatusMessage } from '../helpers';
-import { pathsInPanel } from '../shared';
 
 export function DepartmentSingleView() {
     const navigate = useNavigate();
