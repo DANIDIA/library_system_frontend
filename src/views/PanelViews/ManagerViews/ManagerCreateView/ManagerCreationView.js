@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { hasEmptyFields } from '../../helpers';
+import { areNecessaryFieldsEmpty } from '../../helpers';
 import { ManagerFormComponent, managerFormModes } from '../components';
+import { necessaryFields } from '../shared';
 
 export function ManagerCreationView() {
     const [statusMessage, setStatusMessage] = useState('');
 
     const handleManagerCreation = (formData, clearForm) => {
-        if (hasEmptyFields(formData)) {
-            setStatusMessage('There are empty fields');
+        if (areNecessaryFieldsEmpty(formData, necessaryFields)) {
+            setStatusMessage('Some of necessary fields are empty fields');
             return;
         }
 
