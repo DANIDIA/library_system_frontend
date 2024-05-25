@@ -8,6 +8,7 @@ import {
     DepartmentSingleView,
     ManagerCreationView,
     ManagerPanelView,
+    ManagersListView,
     pathsInPanel,
 } from '../../views';
 import { layoutsPaths } from '../shared';
@@ -40,6 +41,7 @@ export const PanelRouter = (
                 path={pathsInPanel.CREATION}
                 element={<ManagerCreationView />}
             />
+            <Route path={pathsInPanel.SEARCH} element={<ManagersListView />} />
         </Route>
     </Route>
 );

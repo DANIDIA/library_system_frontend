@@ -11,7 +11,9 @@ export function ManagerPanelView() {
             <button onClick={() => navigate(pathsInPanel.CREATION)}>
                 Add manager
             </button>
-            <button>Find managers</button>
+            <button onClick={() => navigate(pathsInPanel.SEARCH)}>
+                Find managers
+            </button>
             {outlet}
         </div>
     );
