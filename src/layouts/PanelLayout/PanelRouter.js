@@ -7,6 +7,7 @@ import {
     DepartmentPanelView,
     DepartmentSingleView,
     ManagerCreationView,
+    ManagerEditView,
     ManagerPanelView,
     ManagerSingleView,
     ManagersListView,
@@ -43,7 +44,12 @@ export const PanelRouter = (
                 element={<ManagerCreationView />}
             />
             <Route path={pathsInPanel.SEARCH} element={<ManagersListView />} />
-            <Route path={pathsInPanel.PAGE} element={<ManagerSingleView />} />
+            <Route path={pathsInPanel.PAGE} element={<ManagerSingleView />}>
+                <Route
+                    path={pathsInPanel.UPDATE}
+                    element={<ManagerEditView />}
+                />
+            </Route>
         </Route>
     </Route>
 );
