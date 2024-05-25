@@ -1,7 +1,11 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { pathsInPanel } from '../../shared';
 import { ManagerFormComponent } from '../components';
 
 export function ManagersListView() {
+    const navigate = useNavigate();
+
     const table = (
         <table>
             <thead>
@@ -15,7 +19,7 @@ export function ManagersListView() {
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr onClick={() => navigate(`../${pathsInPanel.PAGE}`)}>
                     <td>text</td>
                     <td>text</td>
                     <td>text</td>
