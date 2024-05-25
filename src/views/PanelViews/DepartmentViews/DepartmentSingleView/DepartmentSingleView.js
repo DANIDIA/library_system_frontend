@@ -1,46 +1,56 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useOutlet, useParams } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { useNavigate, useOutlet } from 'react-router-dom';
+import { deleteDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
+import { DepartmentContext } from '../DepartmentContext';
+import { getDepartmentStatusMessage } from '../helpers';
 import { departmentPaths } from '../shared';
 
 export function DepartmentSingleView() {
     const navigate = useNavigate();
     const departmentEditOutlet = useOutlet();
-    const { departmentID } = useParams();
     const { userData } = useContext(SessionContext);
-    const [departmentData, setDepartmentData] = useState();
+    const { departmentData } = useContext(DepartmentContext);
+    const [statusMessage, setStatusMessage] = useState();
 
     const userRole = userData.role;
 
     const hasReadPermission =
-        (userRole !== roles.ADMIN && userData.departmentID === departmentID) ||
+        (userRole !== roles.ADMIN &&
+            userData.departmentID === departmentData.id) ||
         userRole === roles.ADMIN;
 
-    useEffect(() => {
-        if (hasReadPermission) {
-            setDepartmentData({
-                departmentID,
-                name: 'test name',
-                address: 'test address',
-                contactNumber: 'test contactNumber',
-            });
+    const handleDelete = async () => {
+        const response = await deleteDepartment(
+            userData.sessionID,
+            departmentData.id,
+        );
+
+        if (response.ok) {
+            navigate('..');
+        } else {
+            setStatusMessage(getDepartmentStatusMessage(response.status));
         }
-    }, []);
+    };
 
     const departmentDetails = (
         <div>
-            Department name: {departmentData?.name}
-            Department address: {departmentData?.address}
+            Department name: {departmentData?.name} <br />
+            Department address: {departmentData?.address} <br />
             Department contact number: {departmentData?.contactNumber}
+            <br />
             <div>
                 {userRole !== roles.LIBRARIAN && (
                     <button onClick={() => navigate(departmentPaths.UPDATE)}>
                         Update data
                     </button>
                 )}
-                {userRole === roles.ADMIN && <button>Delete department</button>}
+                {userRole === roles.ADMIN && (
+                    <button onClick={handleDelete}>Delete department</button>
+                )}
             </div>
+            {statusMessage}
         </div>
     );
 

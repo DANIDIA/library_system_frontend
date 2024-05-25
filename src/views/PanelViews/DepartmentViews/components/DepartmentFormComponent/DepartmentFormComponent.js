@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
-export function DepartmentFormView({
-    submitButtonText = {},
-    formSubmitHandler = {},
-    initialValues = {},
+export function DepartmentFormComponent({
+    submitButtonText,
+    formSubmitHandler = () => {},
+    initialValues = { name: '', address: '', contactNumber: '' },
 }) {
     const [name, setName] = useState(initialValues.name);
     const [address, setAddress] = useState(initialValues.address);
@@ -11,8 +11,14 @@ export function DepartmentFormView({
         initialValues.contactNumber,
     );
 
+    const clearForm = () => {
+        setName('');
+        setAddress('');
+        setContactNumber('');
+    };
+
     const handleClick = () => {
-        formSubmitHandler({ name, address, contactNumber });
+        formSubmitHandler({ name, address, contactNumber }, clearForm);
     };
 
     return (
