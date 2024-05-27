@@ -16,7 +16,7 @@ export function hasChangedValues(oldValues, newValues) {
 
 export function getWithoutEmptyFields(formData) {
     return Object.fromEntries(
-        Object.entries(formData).filter((pair) => isFieldEmpty(pair[1])),
+        Object.entries(formData).filter((pair) => !isFieldEmpty(pair[1])),
     );
 }
 
