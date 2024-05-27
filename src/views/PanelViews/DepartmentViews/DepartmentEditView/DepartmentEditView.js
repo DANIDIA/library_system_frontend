@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { updateDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
+import { hasChangedValues, hasEmptyFields } from '../../helpers';
 import { DepartmentContext } from '../DepartmentContext';
 import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
@@ -11,7 +12,7 @@ export function DepartmentEditView() {
     const navigate = useNavigate();
     const { userData } = useContext(SessionContext);
     const { departmentData, setDepartmentData } = useContext(DepartmentContext);
-    const [statusMessage, setStatusMessage] = useState();
+    const [statusMessage, setStatusMessage] = useState('');
 
     const userRole = userData.role;
 
@@ -21,18 +22,10 @@ export function DepartmentEditView() {
         userRole === roles.ADMIN;
 
     const validateFormData = (formData) => {
-        const hasEmptyFields = Object.entries(formData).some(
-            (pair) => !pair[1].trim(),
-        );
-
-        const hasChangedValues = Object.entries(formData).some(
-            (pair) => pair[1] !== departmentData[pair[0]],
-        );
-
-        if (hasEmptyFields) {
+        if (hasEmptyFields(formData)) {
             setStatusMessage('There are empty fields!');
             return false;
-        } else if (!hasChangedValues) {
+        } else if (!hasChangedValues(departmentData, formData)) {
             setStatusMessage('Values was not change');
             return false;
         }
