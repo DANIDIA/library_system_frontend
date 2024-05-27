@@ -1,0 +1,7 @@
+import { getStatusMessageFunction } from '../../../../helpers';
+
+export const getDepartmentStatusMessage = getStatusMessageFunction({
+    400: 'There are workers or books in department',
+    403: 'Your session is ended, please login again',
+    404: 'Some referencing data was invalid',
+});
