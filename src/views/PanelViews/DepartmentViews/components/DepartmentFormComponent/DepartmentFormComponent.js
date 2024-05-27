@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { getClearedFields } from '../../../helpers';
+import { getEmptyFields } from '../../../helpers';
 
 export function DepartmentFormComponent({
     submitButtonText,
@@ -9,7 +9,7 @@ export function DepartmentFormComponent({
     const [formValues, setFormValues] = useState({ ...initialValues });
 
     const clearForm = () => {
-        setFormValues(getClearedFields(formValues));
+        setFormValues(getEmptyFields(formValues));
     };
 
     const handleClick = () => {
