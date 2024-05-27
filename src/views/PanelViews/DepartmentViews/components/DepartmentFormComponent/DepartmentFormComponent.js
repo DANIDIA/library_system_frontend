@@ -1,24 +1,19 @@
 import React, { useState } from 'react';
+import { getClearedFields } from '../../../helpers';
 
 export function DepartmentFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
     initialValues = { name: '', address: '', contactNumber: '' },
 }) {
-    const [name, setName] = useState(initialValues.name);
-    const [address, setAddress] = useState(initialValues.address);
-    const [contactNumber, setContactNumber] = useState(
-        initialValues.contactNumber,
-    );
+    const [formValues, setFormValues] = useState({ ...initialValues });
 
     const clearForm = () => {
-        setName('');
-        setAddress('');
-        setContactNumber('');
+        setFormValues(getClearedFields(formValues));
     };
 
     const handleClick = () => {
-        formSubmitHandler({ name, address, contactNumber }, clearForm);
+        formSubmitHandler(formValues, clearForm);
     };
 
     return (
@@ -26,20 +21,32 @@ export function DepartmentFormComponent({
             <div>
                 <label>Name:</label>
                 <input
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    value={formValues.name}
+                    onChange={(e) =>
+                        setFormValues({ ...formValues, name: e.target.value })
+                    }
                     type='text'
                 />
                 <label>Address:</label>
                 <input
-                    value={address}
-                    onChange={(e) => setAddress(e.target.value)}
+                    value={formValues.address}
+                    onChange={(e) =>
+                        setFormValues({
+                            ...formValues,
+                            address: e.target.value,
+                        })
+                    }
                     type='text'
                 />
                 <label>Contact number</label>
                 <input
-                    value={contactNumber}
-                    onChange={(e) => setContactNumber(e.target.value)}
+                    value={formValues.contactNumber}
+                    onChange={(e) =>
+                        setFormValues({
+                            ...formValues,
+                            contactNumber: e.target.value,
+                        })
+                    }
                     type='tel'
                 />
             </div>

@@ -19,3 +19,9 @@ export function areNecessaryFieldsEmpty(formData, necessaryFields = []) {
         (pair) => necessaryFields.includes(pair[0]) && isFieldEmpty(pair[1]),
     );
 }
+
+export function getClearedFields(formData) {
+    return Object.fromEntries(
+        Object.entries(formData).map((pair) => [pair[0], '']),
+    );
+}
