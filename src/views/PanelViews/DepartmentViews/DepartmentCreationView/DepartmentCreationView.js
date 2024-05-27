@@ -12,9 +12,10 @@ export function DepartmentCreationView() {
     const validateFormData = (formData) => {
         if (hasEmptyFields(formData)) {
             setStatusMessage('There are empty fields!');
+            return false;
         }
 
-        return !hasEmptyFields;
+        return true;
     };
 
     const handleDepartmentCreation = async (formData, clearForm) => {
