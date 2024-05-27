@@ -3,9 +3,9 @@ import { useNavigate, useOutlet } from 'react-router-dom';
 import { deleteDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
+import { pathsInPanel } from '../../shared';
 import { DepartmentContext } from '../DepartmentContext';
 import { getDepartmentStatusMessage } from '../helpers';
-import { departmentPaths } from '../shared';
 
 export function DepartmentSingleView() {
     const navigate = useNavigate();
@@ -42,7 +42,7 @@ export function DepartmentSingleView() {
             <br />
             <div>
                 {userRole !== roles.LIBRARIAN && (
-                    <button onClick={() => navigate(departmentPaths.UPDATE)}>
+                    <button onClick={() => navigate(pathsInPanel.UPDATE)}>
                         Update data
                     </button>
                 )}

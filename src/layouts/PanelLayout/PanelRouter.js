@@ -6,7 +6,12 @@ import {
     DepartmentListView,
     DepartmentPanelView,
     DepartmentSingleView,
-    departmentPaths,
+    ManagerCreationView,
+    ManagerEditView,
+    ManagerPanelView,
+    ManagerSingleView,
+    ManagersListView,
+    pathsInPanel,
 } from '../../views';
 import { layoutsPaths } from '../shared';
 import { PanelLayout } from './PanelLayout';
@@ -19,20 +24,30 @@ export const PanelRouter = (
             element={<DepartmentPanelView />}
         >
             <Route
-                path={departmentPaths.CREATION}
+                path={pathsInPanel.CREATION}
                 element={<DepartmentCreationView />}
             />
             <Route
-                path={departmentPaths.SEARCH}
+                path={pathsInPanel.SEARCH}
                 element={<DepartmentListView />}
             />
-            <Route
-                path={departmentPaths.PAGE}
-                element={<DepartmentSingleView />}
-            >
+            <Route path={pathsInPanel.PAGE} element={<DepartmentSingleView />}>
                 <Route
-                    path={departmentPaths.UPDATE}
+                    path={pathsInPanel.UPDATE}
                     element={<DepartmentEditView />}
+                />
+            </Route>
+        </Route>
+        <Route path={panelsPaths.MANAGERS_PANEL} element={<ManagerPanelView />}>
+            <Route
+                path={pathsInPanel.CREATION}
+                element={<ManagerCreationView />}
+            />
+            <Route path={pathsInPanel.SEARCH} element={<ManagersListView />} />
+            <Route path={pathsInPanel.PAGE} element={<ManagerSingleView />}>
+                <Route
+                    path={pathsInPanel.UPDATE}
+                    element={<ManagerEditView />}
                 />
             </Route>
         </Route>

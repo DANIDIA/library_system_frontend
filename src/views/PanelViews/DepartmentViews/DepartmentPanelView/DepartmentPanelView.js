@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
+import { pathsInPanel } from '../../shared';
 import { DepartmentContextProvider } from '../DepartmentContext';
-import { departmentPaths } from '../shared';
 
 export function DepartmentPanelView() {
     const navigate = useNavigate();
@@ -10,10 +10,10 @@ export function DepartmentPanelView() {
     return (
         <DepartmentContextProvider>
             <div>
-                <button onClick={() => navigate(departmentPaths.CREATION)}>
+                <button onClick={() => navigate(pathsInPanel.CREATION)}>
                     Create department
                 </button>
-                <button onClick={() => navigate(departmentPaths.SEARCH)}>
+                <button onClick={() => navigate(pathsInPanel.SEARCH)}>
                     Find departments
                 </button>
                 {outlet}

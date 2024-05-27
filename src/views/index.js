@@ -1,2 +1,2 @@
 export * from './authViews';
-export * from './PanelViews';
+export * from './panelViews';

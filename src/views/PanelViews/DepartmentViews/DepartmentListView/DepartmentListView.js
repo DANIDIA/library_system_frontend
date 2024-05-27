@@ -2,10 +2,10 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { queryDepartments } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
+import { pathsInPanel } from '../../shared';
 import { DepartmentContext } from '../DepartmentContext';
 import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
-import { departmentPaths } from '../shared';
 
 export function DepartmentListView() {
     const { userData } = useContext(SessionContext);
@@ -30,7 +30,7 @@ export function DepartmentListView() {
 
     const handleOnListItem = (department) => {
         setDepartmentData(department);
-        navigate(`../${departmentPaths.PAGE}`);
+        navigate(`../${pathsInPanel.PAGE}`);
     };
 
     const table = (
