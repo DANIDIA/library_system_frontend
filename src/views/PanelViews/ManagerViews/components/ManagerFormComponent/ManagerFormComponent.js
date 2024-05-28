@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
 import { employeeStatus } from '../../../shared';
-import { DepartmentSelectionContext } from '../../DepartmentSelectionContext';
 import { managerPaths } from '../../shared';
 import { managerFormModes } from './shared';
 
@@ -18,16 +17,18 @@ export function ManagerFormComponent({
         email: '',
         login: '',
         password: '',
-        departmentID: '',
+        departmentData: null,
         isActive: employeeStatus.ACTIVE,
     },
 }) {
-    const { selectedDepartmentData, setIsRedirectedToTakeData } = useContext(
-        DepartmentSelectionContext,
-    );
+    const location = useLocation();
     const navigate = useNavigate();
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    if (location.state?.transfersData) {
+        formValues.departmentData = location.state.departmentData;
+    }
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
@@ -39,8 +40,13 @@ export function ManagerFormComponent({
     const handleSelectDepartment = () => {
         navigate(
             `/${layoutsPaths.USER_PANEL}/${panelsPaths.MANAGERS_PANEL}/${managerPaths.DEPARTMENT_SELECTION}`,
+            {
+                state: {
+                    pathToReturn: location.pathname,
+                    isOpenedToSelect: true,
+                },
+            },
         );
-        setIsRedirectedToTakeData(true);
     };
 
     const handleSubmit = () => {
@@ -92,10 +98,8 @@ export function ManagerFormComponent({
             />
             <br />
 
-            <label>Department: </label>
-            {formValues.departmentID ||
-                selectedDepartmentData.name ||
-                'no department'}
+            <label>department: </label>
+            {formValues.departmentData?.name || 'no department'}
             <button onClick={handleSelectDepartment}>Select department</button>
             <br />
 

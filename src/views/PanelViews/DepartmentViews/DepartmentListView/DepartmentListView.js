@@ -1,8 +1,7 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { queryDepartments } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
-import { DepartmentSelectionContext } from '../../ManagerViews/DepartmentSelectionContext';
 import { getWithoutEmptyFields } from '../../helpers';
 import { pathsInPanel } from '../../shared';
 import { DepartmentContext } from '../DepartmentContext';
@@ -10,13 +9,9 @@ import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentListView() {
+    const location = useLocation();
     const { userData } = useContext(SessionContext);
     const { setDepartmentData } = useContext(DepartmentContext);
-    const {
-        setSelectedDepartmentData,
-        isRedirectedToTakeData,
-        setIsRedirectedToTakeData,
-    } = useContext(DepartmentSelectionContext);
     const navigate = useNavigate();
     const [departmentsList, setDepartmentsList] = useState();
     const [statusMessage, setStatusMessage] = useState('');
@@ -35,10 +30,10 @@ export function DepartmentListView() {
     };
 
     const handleOnListItem = (department) => {
-        if (isRedirectedToTakeData) {
-            setSelectedDepartmentData(department);
-            setIsRedirectedToTakeData(false);
-            navigate(-1);
+        if (location.state?.isOpenedToSelect) {
+            navigate(location.state.pathToReturn, {
+                state: { departmentData: department, transfersData: true },
+            });
         } else {
             setDepartmentData(department);
             navigate(`../${pathsInPanel.PAGE}`);
