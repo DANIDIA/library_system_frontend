@@ -26,7 +26,7 @@ export function ManagerFormComponent({
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    if (location.state?.transfersData) {
+    if (location.state?.hasDataTransfer) {
         formValues.departmentData = location.state.departmentData;
     }
 
@@ -43,7 +43,7 @@ export function ManagerFormComponent({
             {
                 state: {
                     pathToReturn: location.pathname,
-                    isOpenedToSelect: true,
+                    isRedirectedToSelect: true,
                 },
             },
         );

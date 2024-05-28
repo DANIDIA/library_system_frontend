@@ -30,9 +30,9 @@ export function DepartmentListView() {
     };
 
     const handleOnListItem = (department) => {
-        if (location.state?.isOpenedToSelect) {
+        if (location.state?.isRedirectedToSelect) {
             navigate(location.state.pathToReturn, {
-                state: { departmentData: department, transfersData: true },
+                state: { departmentData: department, hasDataTransfer: true },
             });
         } else {
             setDepartmentData(department);
