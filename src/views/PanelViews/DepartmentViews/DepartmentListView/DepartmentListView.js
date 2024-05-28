@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { queryDepartments } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
+import { DepartmentSelectionContext } from '../../ManagerViews/DepartmentSelectionContext';
 import { getWithoutEmptyFields } from '../../helpers';
 import { pathsInPanel } from '../../shared';
 import { DepartmentContext } from '../DepartmentContext';
@@ -11,6 +12,11 @@ import { getDepartmentStatusMessage } from '../helpers';
 export function DepartmentListView() {
     const { userData } = useContext(SessionContext);
     const { setDepartmentData } = useContext(DepartmentContext);
+    const {
+        setSelectedDepartmentData,
+        isRedirectedToTakeData,
+        setIsRedirectedToTakeData,
+    } = useContext(DepartmentSelectionContext);
     const navigate = useNavigate();
     const [departmentsList, setDepartmentsList] = useState();
     const [statusMessage, setStatusMessage] = useState('');
@@ -29,8 +35,14 @@ export function DepartmentListView() {
     };
 
     const handleOnListItem = (department) => {
-        setDepartmentData(department);
-        navigate(`../${pathsInPanel.PAGE}`);
+        if (isRedirectedToTakeData) {
+            setSelectedDepartmentData(department);
+            setIsRedirectedToTakeData(false);
+            navigate(-1);
+        } else {
+            setDepartmentData(department);
+            navigate(`../${pathsInPanel.PAGE}`);
+        }
     };
 
     const table = (
