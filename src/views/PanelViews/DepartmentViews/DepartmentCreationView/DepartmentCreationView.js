@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { createDepartment } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
+import { hasEmptyFields } from '../../helpers';
 import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
 
@@ -9,15 +10,12 @@ export function DepartmentCreationView() {
     const [statusMessage, setStatusMessage] = useState('');
 
     const validateFormData = (formData) => {
-        const hasEmptyFields = Object.entries(formData).some(
-            (pair) => !pair[1].trim(),
-        );
-
-        if (hasEmptyFields) {
+        if (hasEmptyFields(formData)) {
             setStatusMessage('There are empty fields!');
+            return false;
         }
 
-        return !hasEmptyFields;
+        return true;
     };
 
     const handleDepartmentCreation = async (formData, clearForm) => {

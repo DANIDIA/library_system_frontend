@@ -3,27 +3,22 @@ import { useNavigate } from 'react-router-dom';
 import { newSession } from '../../../apiOperations';
 import { SessionContext } from '../../../contexts';
 import { layoutsPaths } from '../../../layouts';
+import { getLoginStatusMessage } from './getLoginStatusMessage';
 
 export function LoginView() {
     const navigate = useNavigate();
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
-    const [authErrorText, setAuthErrorText] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
     const { setUserData } = useContext(SessionContext);
 
     const handleLoginButtonClick = async () => {
-        const result = await newSession(login, password);
+        const response = await newSession(login, password);
 
-        if (!result) {
-            setAuthErrorText(
-                'Oops... Some problems with internet connection or server. Please, check your connection',
-            );
-        } else if (result.status === 401) {
-            setAuthErrorText('Login or password is incorrect');
-        } else if (result.status === 403) {
-            setAuthErrorText('User is blocked');
-        } else if (result && !result.status) {
-            setUserData(result);
+        if (!response.ok) {
+            setStatusMessage(getLoginStatusMessage(response.status));
+        } else {
+            setUserData(response.data);
 
             navigate(`/${layoutsPaths.USER_PANEL}`);
         }
@@ -46,7 +41,7 @@ export function LoginView() {
                 />
                 <button onClick={handleLoginButtonClick}>Login</button>
             </form>
-            {authErrorText}
+            {statusMessage}
         </div>
     );
 }

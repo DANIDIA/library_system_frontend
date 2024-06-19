@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { getEmptyFields } from '../../../helpers';
 import { employeeStatus } from '../../../shared';
 import { managerFormModes } from './shared';
 
@@ -23,11 +24,7 @@ export function ManagerFormComponent({
         isPasswordVisible ? 'text' : 'password';
 
     const clearForm = () => {
-        setFormValues(
-            Object.fromEntries(
-                Object.entries(formValues).map((pair) => [pair[0], '']),
-            ),
-        );
+        setFormValues(getEmptyFields(formValues));
     };
 
     const handleClick = () => {

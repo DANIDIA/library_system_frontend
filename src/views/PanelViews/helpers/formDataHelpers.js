@@ -8,14 +8,26 @@ export function hasEmptyFields(formData) {
     return Object.entries(formData).some((pair) => isFieldEmpty(pair[1]));
 }
 
+export function hasChangedValues(oldValues, newValues) {
+    return Object.entries(newValues).some(
+        (pair) => pair[1] !== oldValues[pair[0]],
+    );
+}
+
 export function getWithoutEmptyFields(formData) {
     return Object.fromEntries(
-        Object.entries(formData).filter((pair) => isFieldEmpty(pair[1])),
+        Object.entries(formData).filter((pair) => !isFieldEmpty(pair[1])),
     );
 }
 
 export function areNecessaryFieldsEmpty(formData, necessaryFields = []) {
     return Object.entries(formData).some(
         (pair) => necessaryFields.includes(pair[0]) && isFieldEmpty(pair[1]),
+    );
+}
+
+export function getEmptyFields(formData) {
+    return Object.fromEntries(
+        Object.entries(formData).map((pair) => [pair[0], '']),
     );
 }

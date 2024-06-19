@@ -1,1 +1,1 @@
-export * from './getMessageByStatusCode';
+export * from './getDepartmentStatusMessage';
