@@ -1,12 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { createDepartment } from '../../../../apiOperations';
-import { SessionContext } from '../../../../contexts';
 import { hasEmptyFields } from '../../helpers';
 import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentCreationView() {
-    const { userData } = useContext(SessionContext);
     const [statusMessage, setStatusMessage] = useState('');
 
     const validateFormData = (formData) => {
@@ -23,7 +21,7 @@ export function DepartmentCreationView() {
 
         if (!isFormDataValid) return;
 
-        const response = await createDepartment(userData.sessionID, formData);
+        const response = await createDepartment(formData);
 
         if (response.ok) {
             setStatusMessage('Successfully created');

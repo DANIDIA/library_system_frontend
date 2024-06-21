@@ -22,10 +22,7 @@ export function DepartmentSingleView() {
         userRole === roles.ADMIN;
 
     const handleDelete = async () => {
-        const response = await deleteDepartment(
-            userData.sessionID,
-            departmentData.id,
-        );
+        const response = await deleteDepartment(departmentData.id);
 
         if (response.ok) {
             navigate('..');

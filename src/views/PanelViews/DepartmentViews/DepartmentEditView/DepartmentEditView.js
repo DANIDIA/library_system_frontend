@@ -38,11 +38,7 @@ export function DepartmentEditView() {
 
         if (!isFormDataValid) return;
 
-        const response = await updateDepartment(
-            userData.sessionID,
-            departmentData.id,
-            formData,
-        );
+        const response = await updateDepartment(departmentData.id, formData);
 
         if (response.ok) {
             setDepartmentData({ id: departmentData.id, ...formData });
