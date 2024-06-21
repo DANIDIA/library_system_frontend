@@ -1,7 +1,7 @@
 import { SERVER_PATH } from '../shared';
 
 export async function fetchAPI(method, endpointPath, { id = null, data = {} }) {
-    let url = `${SERVER_PATH}/api/${endpointPath}/` + id || '';
+    let url = `${SERVER_PATH}/${endpointPath}/` + id || '';
     const config = { method };
 
     if (method === 'get') {
