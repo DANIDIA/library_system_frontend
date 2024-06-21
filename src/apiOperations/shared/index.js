@@ -1,2 +1,2 @@
-export * from './apiPaths';
+export * from './resources';
 export * from './departmentDataNames';

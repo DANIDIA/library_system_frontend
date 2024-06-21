@@ -1,4 +1,4 @@
-export const apiPaths = Object.freeze({
+export const resources = Object.freeze({
     DEPARTMENTS: 'departments',
     EMPLOYEES: 'employees',
     BOOKS: 'books',

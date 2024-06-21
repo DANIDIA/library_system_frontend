@@ -1,7 +1,7 @@
 import { getCrudOperations } from './crudOperations';
-import { apiPaths, departmentDataNames } from './shared';
+import { departmentDataNames, resources } from './shared';
 
-const operations = getCrudOperations(apiPaths.DEPARTMENTS);
+const operations = getCrudOperations(resources.DEPARTMENTS);
 
 export async function createDepartment(data) {
     return await operations.create(data);
