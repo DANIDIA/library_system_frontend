@@ -1,13 +1,13 @@
 import { SERVER_PATH } from '../shared';
 
-export async function fetchAPI(sessionID, method, endpointPath, data) {
-    let url = `${SERVER_PATH}/${endpointPath}`;
+export async function fetchAPI(method, endpointPath, { id = null, data = {} }) {
+    let url = `${SERVER_PATH}/api/${endpointPath}/` + id || '';
     const config = { method };
 
     if (method === 'get') {
-        url += '?' + new URLSearchParams({ ...data, sessionID }).toString();
+        url += '?' + new URLSearchParams({ ...data }).toString();
     } else {
-        config.body = JSON.stringify({ ...data, sessionID });
+        config.body = JSON.stringify({ ...data });
         config.headers = { 'Content-Type': 'application/json' };
     }
 
@@ -21,7 +21,7 @@ export async function fetchAPI(sessionID, method, endpointPath, data) {
         };
     }
 
-    const responseData = await response.json().catch(() => {});
+    const responseData = await response.json();
 
     return { ok: true, data: responseData };
 }

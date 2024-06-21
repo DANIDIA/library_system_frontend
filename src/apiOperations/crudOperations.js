@@ -1,20 +1,24 @@
 import { fetchAPI } from './fetchAPI';
 
-export const getCrudOperations = (apiPath) => ({
-    create: async (sessionID, data) =>
-        await fetchAPI(sessionID, 'post', `${apiPath}/add`, data),
+export const getCrudOperations = (resource) => ({
+    create: async (data) => await fetchAPI('post', `${resource}`, { data }),
 
-    read: async (sessionID, query) =>
-        await fetchAPI(sessionID, 'get', `${apiPath}/get`, query),
+    query: async (query) =>
+        await fetchAPI('get', `${resource}`, { data: query }),
 
-    update: async (sessionID, updatingObjectID, data) =>
-        await fetchAPI(sessionID, 'put', `${apiPath}/update`, {
-            ...data,
-            id: updatingObjectID,
+    getData: async (resourceID, resourceData = '') =>
+        await fetchAPI('get', `${resource}/${resourceData}`, {
+            id: resourceID,
         }),
 
-    delete: async (sessionID, deletingObjectID) =>
-        await fetchAPI(sessionID, 'delete', `${apiPath}/remove`, {
-            id: deletingObjectID,
+    update: async (resourceID, data) =>
+        await fetchAPI('put', `${resource}`, {
+            id: resourceID,
+            data,
+        }),
+
+    delete: async (resourceID) =>
+        await fetchAPI('delete', `${resource}`, {
+            id: resourceID,
         }),
 });
