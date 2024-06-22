@@ -22,7 +22,7 @@ export function DepartmentEditView() {
         userRole === roles.ADMIN;
 
     const validateFormData = (formData) => {
-        if (hasEmptyFields(formData)) {
+        if (hasEmptyFields(formData, ['actualManagerID'])) {
             setStatusMessage('There are empty fields!');
             return false;
         } else if (!hasChangedValues(departmentData, formData)) {
@@ -35,6 +35,10 @@ export function DepartmentEditView() {
 
     const handleUpdateData = async (formData) => {
         const isFormDataValid = validateFormData(formData);
+
+        if (formData.actualManagerID === departmentData.actualManagerID) {
+            delete formData.actualManagerID;
+        }
 
         if (!isFormDataValid) return;
 
