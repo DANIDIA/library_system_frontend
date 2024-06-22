@@ -20,7 +20,7 @@ export function DepartmentListView() {
         );
 
         if (response.ok) {
-            setDepartmentsList(response.data);
+            setDepartmentsList(response.data.results);
         } else {
             setStatusMessage(getDepartmentStatusMessage(response.status));
         }
