@@ -1,8 +1,17 @@
 import { SERVER_PATH } from '../shared';
 
-export async function fetchAPI(method, endpointPath, { id = null, data = {} }) {
-    let url = `${SERVER_PATH}/${endpointPath}/` + id || '';
-    const config = { method };
+export async function fetchAPI(
+    method,
+    resource,
+    { id = null, endpoint = '', data = {} },
+) {
+    const getAsURLPart = (part) => (part ? `/${part}` : '');
+
+    let url =
+        `${SERVER_PATH}/${resource}` +
+        getAsURLPart(id) +
+        getAsURLPart(endpoint);
+    const config = { method, credentials: 'include' };
 
     if (method === 'get') {
         url += '?' + new URLSearchParams({ ...data }).toString();
@@ -21,7 +30,7 @@ export async function fetchAPI(method, endpointPath, { id = null, data = {} }) {
         };
     }
 
-    const responseData = await response.json();
+    const responseData = await response.json().catch(() => {});
 
     return { ok: true, data: responseData };
 }

@@ -7,8 +7,9 @@ export const getCrudOperations = (resource) => ({
         await fetchAPI('get', `api/${resource}`, { data: query }),
 
     getData: async (resourceID, resourceData = '') =>
-        await fetchAPI('get', `api/${resource}/${resourceData}`, {
+        await fetchAPI('get', `api/${resource}`, {
             id: resourceID,
+            endpoint: resourceData,
         }),
 
     update: async (resourceID, data) =>
