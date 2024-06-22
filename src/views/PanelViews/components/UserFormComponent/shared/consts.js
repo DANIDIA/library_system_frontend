@@ -1,4 +1,4 @@
-export const managerFormFields = Object.freeze({
+export const userFormFields = Object.freeze({
     NAME: 'name',
     SURNAME: 'surname',
     PHONE_NUMBER: 'phoneNumber',
