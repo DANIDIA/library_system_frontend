@@ -15,12 +15,23 @@ export async function getDepartment(id) {
     return await operations.getData(id);
 }
 
-export async function getTotalBooksAmountInDepartment(id) {
-    return await operations.getData(id, departmentDataNames.TOTAL_BOOKS_AMOUNT);
-}
+export async function getBooksDetailsInDepartment(id) {
+    const totalBooksResponse = await operations.getData(
+        id,
+        departmentDataNames.TOTAL_BOOKS_AMOUNT,
+    );
+    const givenBooksResponse = await operations.getData(
+        id,
+        departmentDataNames.GIVEN_BOOKS_AMOUNT,
+    );
 
-export async function getGivenBooksAmountInDepartment(id) {
-    return await operations.getData(id, departmentDataNames.GIVEN_BOOKS_AMOUNT);
+    if (!totalBooksResponse.ok) return totalBooksResponse;
+    if (!givenBooksResponse.ok) return givenBooksResponse;
+
+    return {
+        ok: true,
+        data: { ...totalBooksResponse.data, ...givenBooksResponse.data },
+    };
 }
 
 export async function getEmployeeAmountInDepartment(id) {
