@@ -3,8 +3,14 @@ import { fetchAPI } from './fetchAPI';
 export const getCrudOperations = (resource) => ({
     create: async (data) => await fetchAPI('post', `api/${resource}`, { data }),
 
-    query: async (query) =>
-        await fetchAPI('get', `api/${resource}`, { data: query }),
+    query: async (query, pageSize = null, pageNumber = null) => {
+        return await fetchAPI('get', `api/${resource}`, {
+            data:
+                pageSize === null && pageNumber === null
+                    ? { ...query }
+                    : { ...query, pageSize, pageNumber },
+        });
+    },
 
     getData: async (resourceID, resourceData = '') =>
         await fetchAPI('get', `api/${resource}`, {

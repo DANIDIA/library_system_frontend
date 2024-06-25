@@ -7,8 +7,12 @@ export async function createDepartment(data) {
     return await operations.create(data);
 }
 
-export async function queryDepartments(queryParams) {
-    return await operations.query(queryParams);
+export async function queryDepartments(
+    queryParams,
+    pageSize = null,
+    pageNumber = null,
+) {
+    return await operations.query(queryParams, pageSize, pageNumber);
 }
 
 export async function getDepartment(id) {
