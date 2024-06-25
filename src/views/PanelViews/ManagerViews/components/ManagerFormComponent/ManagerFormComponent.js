@@ -18,7 +18,7 @@ export function ManagerFormComponent({
         login: '',
         password: '',
         departmentData: null,
-        isActive: employeeStatus.ACTIVE,
+        status: employeeStatus.ACTIVE,
     },
 }) {
     const location = useLocation();
@@ -134,7 +134,7 @@ export function ManagerFormComponent({
                 <div>
                     <label>Status:</label>
                     <select
-                        value={+formValues.isActive}
+                        value={+formValues.status}
                         onChange={(e) =>
                             setFormValues({
                                 ...formValues,
