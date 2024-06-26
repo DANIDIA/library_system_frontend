@@ -1,6 +1,6 @@
 export const resources = Object.freeze({
     DEPARTMENTS: 'departments',
-    EMPLOYEES: 'employees',
+    USERS: 'users',
     BOOKS: 'books',
     READERS: 'readers',
     SESSIONS: 'sessions',
