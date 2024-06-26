@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { InputField } from '../../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
 import { employeeStatus } from '../../../shared';
 import { managerPaths } from '../../shared';
 import { managerFormModes } from './shared';
+import { managerFormFields } from './shared/consts';
 
 export function ManagerFormComponent({
     submitButtonText,
@@ -52,47 +54,40 @@ export function ManagerFormComponent({
         formSubmitHandler(formValues, clearForm);
     };
 
+    const handleOnChange = (fieldName) => {
+        return (value) => {
+            setFormValues({ ...formValues, [fieldName]: value });
+        };
+    };
+
     return (
         <div>
-            <label>Name:</label>
-            <input
-                value={formValues.name}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, name: e.target.value })
-                }
-                type='text'
+            <InputField
+                name='Name:'
+                initialValue={formValues.name}
+                onChange={handleOnChange(managerFormFields.NAME)}
             />
             <br />
 
-            <label>Surname:</label>
-            <input
-                value={formValues.surname}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, surname: e.target.value })
-                }
-                type='text'
+            <InputField
+                name='Surname:'
+                initialValue={formValues.surname}
+                onChange={handleOnChange(managerFormFields.SURNAME)}
             />
             <br />
 
-            <label>Phone number:</label>
-            <input
-                value={formValues.phoneNumber}
-                onChange={(e) =>
-                    setFormValues({
-                        ...formValues,
-                        phoneNumber: e.target.value,
-                    })
-                }
+            <InputField
+                name='Phone number:'
+                initialValue={formValues.phoneNumber}
+                onChange={handleOnChange(managerFormFields.PHONE_NUMBER)}
                 type='tel'
             />
             <br />
 
-            <label>email:</label>
-            <input
-                value={formValues.email}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, email: e.target.value })
-                }
+            <InputField
+                name='Email:'
+                initialValue={formValues.email}
+                onChange={handleOnChange(managerFormFields.EMAIL)}
                 type='email'
             />
             <br />
@@ -102,22 +97,17 @@ export function ManagerFormComponent({
             <button onClick={handleSelectDepartment}>Select department</button>
             <br />
 
-            <label>login:</label>
-            <input
-                value={formValues.login}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, login: e.target.value })
-                }
-                type='text'
+            <InputField
+                name='Login:'
+                initialValue={formValues.login}
+                onChange={handleOnChange(managerFormFields.LOGIN)}
             />
             <br />
 
-            <label>Password:</label>
-            <input
-                value={formValues.password}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, password: e.target.value })
-                }
+            <InputField
+                name={'Password:'}
+                onChange={handleOnChange(managerFormFields.PASSWORD)}
+                initialValue={formValues.password}
                 type={getPasswordFieldType()}
             />
             <br />
@@ -128,8 +118,8 @@ export function ManagerFormComponent({
                 onChange={(e) => setIsPasswordVisible(e.target.checked)}
                 type='checkbox'
             />
-            <br />
 
+            <br />
             {formMode === managerFormModes.WITH_IS_ACTIVE_FIELD && (
                 <div>
                     <label>Status:</label>
@@ -148,7 +138,6 @@ export function ManagerFormComponent({
                     <br />
                 </div>
             )}
-
             <button onClick={handleSubmit}>{submitButtonText}</button>
         </div>
     );

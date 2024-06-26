@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
+import { InputField } from '../../../../../components';
 import { getEmptyFields } from '../../../helpers';
+import { departmentFormFields } from './consts';
 
 export function DepartmentFormComponent({
     submitButtonText,
@@ -16,37 +18,31 @@ export function DepartmentFormComponent({
         formSubmitHandler(formValues, clearForm);
     };
 
+    const handleOnChange = (fieldName) => {
+        return (value) => {
+            setFormValues({ ...formValues, [fieldName]: value });
+        };
+    };
+
     return (
         <div>
             <div>
-                <label>Name:</label>
-                <input
-                    value={formValues.name}
-                    onChange={(e) =>
-                        setFormValues({ ...formValues, name: e.target.value })
-                    }
-                    type='text'
+                <InputField
+                    name='Name:'
+                    initialValue={formValues.name}
+                    onChange={handleOnChange(departmentFormFields.NAME)}
                 />
-                <label>Address:</label>
-                <input
-                    value={formValues.address}
-                    onChange={(e) =>
-                        setFormValues({
-                            ...formValues,
-                            address: e.target.value,
-                        })
-                    }
-                    type='text'
+                <InputField
+                    name='Address:'
+                    initialValue={formValues.address}
+                    onChange={handleOnChange(departmentFormFields.ADDRESS)}
                 />
-                <label>Contact number</label>
-                <input
-                    value={formValues.contactNumber}
-                    onChange={(e) =>
-                        setFormValues({
-                            ...formValues,
-                            contactNumber: e.target.value,
-                        })
-                    }
+                <InputField
+                    name='Contact number:'
+                    initailValu={formValues.address}
+                    onChange={handleOnChange(
+                        departmentFormFields.CONTACT_NUMBER,
+                    )}
                     type='tel'
                 />
             </div>
