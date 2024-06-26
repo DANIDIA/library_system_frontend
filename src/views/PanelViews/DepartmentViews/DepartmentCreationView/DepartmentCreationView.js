@@ -27,7 +27,7 @@ export function DepartmentCreationView() {
             setStatusMessage('Successfully created');
             clearForm();
         } else {
-            setStatusMessage(getDepartmentStatusMessage(response.status));
+            setStatusMessage(getDepartmentStatusMessage(response));
         }
     };
 

@@ -28,7 +28,7 @@ export function DepartmentSingleView() {
             const booksAmountDetails = await getBooksDetailsInDepartment(id);
 
             if (!booksAmountDetails.ok) {
-                setStatusMessage(booksAmountDetails.status);
+                setStatusMessage(booksAmountDetails);
                 return;
             }
 
@@ -39,7 +39,7 @@ export function DepartmentSingleView() {
             const employeesAmount = await getEmployeeAmountInDepartment(id);
 
             if (!employeesAmount.ok) {
-                setStatusMessage(employeesAmount.status);
+                setStatusMessage(employeesAmount);
                 return;
             }
 
@@ -61,7 +61,7 @@ export function DepartmentSingleView() {
         if (response.ok) {
             navigate('..');
         } else {
-            setStatusMessage(getDepartmentStatusMessage(response.status));
+            setStatusMessage(getDepartmentStatusMessage(response));
         }
     };
 

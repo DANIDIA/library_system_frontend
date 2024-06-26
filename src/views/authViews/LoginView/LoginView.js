@@ -16,7 +16,7 @@ export function LoginView() {
         const response = await startSession(login, password);
 
         if (!response.ok) {
-            setStatusMessage(getLoginStatusMessage(response.status));
+            setStatusMessage(getLoginStatusMessage(response));
         } else {
             setUserData(response.data);
 
