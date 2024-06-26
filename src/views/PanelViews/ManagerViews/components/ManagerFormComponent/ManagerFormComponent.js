@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { InputField } from '../../../../../components';
+import { SelectFromQuery } from '../../../../../components/SelectFromQuery/SelectFromQuery';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
 import { employeeStatus, pathsInPanel } from '../../../shared';
@@ -22,31 +22,14 @@ export function ManagerFormComponent({
         status: employeeStatus.ACTIVE,
     },
 }) {
-    const location = useLocation();
-    const navigate = useNavigate();
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-    if (location.state) {
-        formValues.departmentData = location.state.departmentData;
-    }
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
 
     const clearForm = () => {
         setFormValues(getEmptyFields(formValues));
-    };
-
-    const handleSelectDepartment = () => {
-        navigate(
-            `/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`,
-            {
-                state: {
-                    pathToReturn: location.pathname,
-                },
-            },
-        );
     };
 
     const handleSubmit = () => {
@@ -66,14 +49,12 @@ export function ManagerFormComponent({
                 initialValue={formValues.name}
                 onChange={handleOnChange(managerFormFields.NAME)}
             />
-            <br />
 
             <InputField
                 name='Surname:'
                 initialValue={formValues.surname}
                 onChange={handleOnChange(managerFormFields.SURNAME)}
             />
-            <br />
 
             <InputField
                 name='Phone number:'
@@ -81,7 +62,6 @@ export function ManagerFormComponent({
                 onChange={handleOnChange(managerFormFields.PHONE_NUMBER)}
                 type='tel'
             />
-            <br />
 
             <InputField
                 name='Email:'
@@ -89,12 +69,13 @@ export function ManagerFormComponent({
                 onChange={handleOnChange(managerFormFields.EMAIL)}
                 type='email'
             />
-            <br />
 
-            <label>department: </label>
-            {formValues.departmentData?.name || 'no department'}
-            <button onClick={handleSelectDepartment}>Select department</button>
-            <br />
+            <SelectFromQuery
+                fieldName='Department:'
+                pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
+                initialValue={formValues.departmentData}
+                onChange={handleOnChange(managerFormFields.DEPARTMENT_DATA)}
+            />
 
             {formMode === managerFormModes.UPDATE && (
                 <div>
@@ -103,7 +84,6 @@ export function ManagerFormComponent({
                         initialValue={formValues.login}
                         onChange={handleOnChange(managerFormFields.LOGIN)}
                     />
-                    <br />
 
                     <InputField
                         name={'Password:'}
@@ -111,7 +91,6 @@ export function ManagerFormComponent({
                         initialValue={formValues.password}
                         type={getPasswordFieldType()}
                     />
-                    <br />
 
                     <label>Show password</label>
                     <input
@@ -119,7 +98,6 @@ export function ManagerFormComponent({
                         onChange={(e) => setIsPasswordVisible(e.target.checked)}
                         type='checkbox'
                     />
-                    <br />
 
                     <div>
                         <label>Status:</label>
@@ -139,7 +117,6 @@ export function ManagerFormComponent({
                                 Active
                             </option>
                         </select>
-                        <br />
                     </div>
                 </div>
             )}

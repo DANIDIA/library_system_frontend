@@ -29,7 +29,7 @@ export function DepartmentListView() {
     const handleOnListItem = (department) => {
         if (location.state) {
             navigate(location.state.pathToReturn, {
-                state: { departmentData: department },
+                state: { selectedData: department },
             });
         } else {
             setDepartmentData(department);
