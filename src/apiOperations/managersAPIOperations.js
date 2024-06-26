@@ -1,7 +1,7 @@
 import { getCrudOperations } from './crudOperations';
 import { resources } from './shared';
 
-const operations = getCrudOperations(resources.EMPLOYEES);
+const operations = getCrudOperations(resources.USERS);
 
 export async function createUser(data) {
     return await operations.create(data);

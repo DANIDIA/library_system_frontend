@@ -1,7 +1,6 @@
-export const necessaryFields = [
+export const creationNecessaryFields = [
     'name',
     'surname',
     'phoneNumber',
-    'login',
-    'password',
+    'email',
 ];
