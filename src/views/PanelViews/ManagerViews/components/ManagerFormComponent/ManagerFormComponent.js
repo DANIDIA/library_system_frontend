@@ -3,8 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { InputField } from '../../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
-import { employeeStatus } from '../../../shared';
-import { managerPaths } from '../../shared';
+import { employeeStatus, pathsInPanel } from '../../../shared';
 import { managerFormModes } from './shared';
 import { managerFormFields } from './shared/consts';
 
@@ -41,7 +40,7 @@ export function ManagerFormComponent({
 
     const handleSelectDepartment = () => {
         navigate(
-            `/${layoutsPaths.USER_PANEL}/${panelsPaths.MANAGERS_PANEL}/${managerPaths.DEPARTMENT_SELECTION}`,
+            `/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`,
             {
                 state: {
                     pathToReturn: location.pathname,
