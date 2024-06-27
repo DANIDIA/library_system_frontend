@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { InputField } from '../../../../../components';
-import { SelectFromQuery } from '../../../../../components/SelectFromQuery/SelectFromQuery';
+import {
+    InputField,
+    SelectFromQuery,
+    StatusSelect,
+} from '../../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
 import { employeeStatus, pathsInPanel } from '../../../shared';
@@ -10,7 +13,7 @@ import { managerFormFields } from './shared/consts';
 export function ManagerFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
-    formMode = managerFormModes.UPDATE,
+    formMode,
     initialValues = {
         name: '',
         surname: '',
@@ -77,7 +80,7 @@ export function ManagerFormComponent({
                 onChange={handleOnChange(managerFormFields.DEPARTMENT_DATA)}
             />
 
-            {formMode === managerFormModes.UPDATE && (
+            {formMode === managerFormModes.FULL && (
                 <div>
                     <InputField
                         name='Login:'
@@ -99,25 +102,10 @@ export function ManagerFormComponent({
                         type='checkbox'
                     />
 
-                    <div>
-                        <label>Status:</label>
-                        <select
-                            value={+formValues.status}
-                            onChange={(e) =>
-                                setFormValues({
-                                    ...formValues,
-                                    isActive: e.target.value,
-                                })
-                            }
-                        >
-                            <option value={employeeStatus.BLOCKED}>
-                                Blocked
-                            </option>
-                            <option value={employeeStatus.ACTIVE}>
-                                Active
-                            </option>
-                        </select>
-                    </div>
+                    <StatusSelect
+                        initialStatus={formValues.status}
+                        onChange={handleOnChange(managerFormFields.STATUS)}
+                    />
                 </div>
             )}
 
