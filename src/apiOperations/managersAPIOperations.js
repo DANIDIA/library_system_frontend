@@ -19,6 +19,10 @@ export async function getUser(id) {
     return await operations.getData(id);
 }
 
+export async function getUserAuthData(id) {
+    return await operations.getData(id, 'auth-data');
+}
+
 export async function updateUser(id, data) {
     return await operations.update(id, data);
 }
