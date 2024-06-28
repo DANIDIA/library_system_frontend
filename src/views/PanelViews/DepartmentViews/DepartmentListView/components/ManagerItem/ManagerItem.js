@@ -15,7 +15,7 @@ export function ManagerItem({ userData }) {
             });
         } else {
             setManagerData(userData);
-            navigate(`../${pathsInPanel.PAGE}`);
+            navigate(`../${pathsInPanel.PAGE}/${userData.id}`);
         }
     };
 

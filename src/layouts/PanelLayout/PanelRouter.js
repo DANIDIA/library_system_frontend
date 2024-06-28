@@ -44,12 +44,14 @@ export const PanelRouter = (
                 element={<ManagerCreationView />}
             />
             <Route path={pathsInPanel.SEARCH} element={<ManagersListView />} />
-            <Route path={pathsInPanel.PAGE} element={<ManagerSingleView />}>
-                <Route
-                    path={pathsInPanel.UPDATE}
-                    element={<ManagerEditView />}
-                />
-            </Route>
+            <Route
+                path={`${pathsInPanel.PAGE}/:managerID`}
+                element={<ManagerSingleView />}
+            />
+            <Route
+                path={`${pathsInPanel.UPDATE}/:managerID`}
+                element={<ManagerEditView />}
+            />
         </Route>
     </Route>
 );

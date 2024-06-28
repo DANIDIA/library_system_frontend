@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { queryUsers } from '../../../../apiOperations/managersAPIOperations';
+import { queryUsers } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
 import { ManagersTable } from '../../DepartmentViews/DepartmentListView/components';
 import { getWithoutEmptyFields } from '../../helpers';

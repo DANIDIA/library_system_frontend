@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useNavigate, useOutlet } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getDepartment } from '../../../../apiOperations';
 import {
     deleteUser,
+    getUser,
     getUserAuthData,
-} from '../../../../apiOperations/managersAPIOperations';
+} from '../../../../apiOperations/usersAPIOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { pathsInPanel } from '../../shared';
@@ -13,7 +14,7 @@ import { getManagerStatusMessage } from '../helpers';
 
 export function ManagerSingleView() {
     const navigate = useNavigate();
-    const editManagerDataOutlet = useOutlet();
+    const { managerID } = useParams();
     const { userData } = useContext(SessionContext);
     const { managerData, setManagerData } = useContext(managerContext);
     const [statusMessage, setStatusMessage] = useState('');
@@ -25,25 +26,33 @@ export function ManagerSingleView() {
                 return;
             }
 
+            let newManagerData = { ...managerData };
+
+            if (!managerData) {
+                const managerDataResponse = await getUser(managerID);
+
+                if (!managerDataResponse.ok) {
+                    setStatusMessage(
+                        getManagerStatusMessage(managerDataResponse),
+                    );
+                    return;
+                }
+
+                newManagerData = { ...managerDataResponse.data };
+            }
+
             const authDataResponse = await getUserAuthData(managerData.id);
             const departmentDataResponse = await getDepartment(
                 managerData.departmentID,
             );
 
-            if (!authDataResponse.ok) {
+            if (!authDataResponse.ok || !departmentDataResponse.ok) {
                 setStatusMessage(getManagerStatusMessage(authDataResponse));
                 return;
             }
-            if (!departmentDataResponse.ok) {
-                setStatusMessage(
-                    getManagerStatusMessage(departmentDataResponse),
-                );
-                return;
-            }
-            console.log(authDataResponse);
-            console.log(departmentDataResponse);
+
             setManagerData({
-                ...managerData,
+                ...newManagerData,
                 ...authDataResponse.data,
                 departmentData: departmentDataResponse.data,
             });
@@ -63,20 +72,27 @@ export function ManagerSingleView() {
 
     const managerDetails = (
         <div>
-            Name: {managerData.name}
+            Name: {managerData?.name}
             <br />
-            Surname: {managerData.surname}
+            Surname: {managerData?.surname}
             <br />
-            Phone number: {managerData.phoneNumber}
+            Phone number: {managerData?.phoneNumber}
             <br />
-            Email: {managerData.email}
+            Email: {managerData?.email}
             <br />
             department: {managerData?.departmentData?.name || 'no department'}
             <br />
             Login: {managerData?.login}
             <br />
-            Password: {managerData?.password} <br />
-            <button onClick={() => navigate(pathsInPanel.UPDATE)}>
+            Password: {managerData?.password}
+            <br />
+            Status: {managerData?.status ? 'active' : 'blocked'}
+            <br />
+            <button
+                onClick={() =>
+                    navigate(`../${pathsInPanel.UPDATE}/${managerID}`)
+                }
+            >
                 Update
             </button>
             <button onClick={handleDelete}>Delete</button>
@@ -85,8 +101,7 @@ export function ManagerSingleView() {
 
     return (
         <div>
-            {editManagerDataOutlet ??
-                (userData.role !== roles.ADMIN || managerDetails)}
+            {userData.role !== roles.ADMIN || managerDetails}
             {statusMessage}
         </div>
     );
