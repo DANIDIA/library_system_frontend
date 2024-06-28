@@ -5,6 +5,7 @@ export function SelectFromQuery({
     fieldName,
     initialValue,
     pathToSelect,
+    onRedirect = () => {},
     onChange = () => {},
 }) {
     const navigate = useNavigate();
@@ -15,10 +16,12 @@ export function SelectFromQuery({
         if (location.state) {
             setSelectedValue(location.state.selectedData);
             onChange(location.state.selectedData);
+            location.state = null;
         }
     }, [location.state]);
 
     const handleSelectDepartment = () => {
+        onRedirect();
         navigate(pathToSelect, {
             state: {
                 pathToReturn: location.pathname,

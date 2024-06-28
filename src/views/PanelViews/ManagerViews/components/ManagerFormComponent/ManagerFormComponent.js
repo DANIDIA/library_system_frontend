@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     InputField,
     SelectFromQuery,
@@ -27,6 +27,15 @@ export function ManagerFormComponent({
 }) {
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    useEffect(() => {
+        if (Object.hasOwn(sessionStorage, location.pathname)) {
+            setFormValues(
+                JSON.parse(sessionStorage.getItem(location.pathname)),
+            );
+            sessionStorage.clear();
+        }
+    }, []);
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
@@ -77,6 +86,12 @@ export function ManagerFormComponent({
                 fieldName='Department:'
                 pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
                 initialValue={formValues.departmentData}
+                onRedirect={() =>
+                    sessionStorage.setItem(
+                        location.pathname,
+                        JSON.stringify(formValues),
+                    )
+                }
                 onChange={handleOnChange(managerFormFields.DEPARTMENT_DATA)}
             />
 
