@@ -19,8 +19,7 @@ export async function fetchAPI(
         config.body = JSON.stringify({ ...data });
         config.headers = { 'Content-Type': 'application/json' };
     }
-    console.log(url);
-    console.log(config);
+
     const response = await fetch(url, config).catch(() => {});
 
     if (!response?.ok) {
