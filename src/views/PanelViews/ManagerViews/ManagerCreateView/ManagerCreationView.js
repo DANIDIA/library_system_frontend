@@ -1,7 +1,7 @@
 import emailValidator from 'email-validator';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import React, { useState } from 'react';
-import { createUser } from '../../../../apiOperations/managersAPIOperations';
+import { createUser } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
 import { areNecessaryFieldsEmpty } from '../../helpers';
 import { employeeStatus } from '../../shared';

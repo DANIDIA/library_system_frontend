@@ -12,11 +12,13 @@ export async function queryUsers(
     pageSize = null,
     pageNumber = null,
 ) {
-    return await operations.query(queryParams, pageSize, pageNumber);
+    return makeUserStatusBoolValue(
+        await operations.query(queryParams, pageSize, pageNumber),
+    );
 }
 
 export async function getUser(id) {
-    return await operations.getData(id);
+    return makeUserStatusBoolValue(await operations.getData(id));
 }
 
 export async function getUserAuthData(id) {
@@ -29,4 +31,14 @@ export async function updateUser(id, data) {
 
 export async function deleteUser(id) {
     return await operations.delete(id);
+}
+
+function makeUserStatusBoolValue(response) {
+    if (Object.hasOwn(response.data, 'results')) {
+        response.data.results.forEach((val) => (val.status = !!val.status));
+    } else if (response.data) {
+        response.data.status = !!response.data.status;
+    }
+
+    return response;
 }
