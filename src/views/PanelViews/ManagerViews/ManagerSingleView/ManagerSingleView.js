@@ -15,7 +15,7 @@ export function ManagerSingleView() {
             Surname: <br />
             Phone number: <br />
             Email: <br />
-            department: <br />
+            Department: <br />
             Login: <br />
             Password: <br />
             <button onClick={() => navigate(pathsInPanel.UPDATE)}>
