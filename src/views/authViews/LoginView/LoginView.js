@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { newSession } from '../../../apiOperations';
+import { startSession } from '../../../apiOperations';
 import { SessionContext } from '../../../contexts';
 import { layoutsPaths } from '../../../layouts';
 import { getLoginStatusMessage } from './getLoginStatusMessage';
@@ -13,10 +13,10 @@ export function LoginView() {
     const { setUserData } = useContext(SessionContext);
 
     const handleLoginButtonClick = async () => {
-        const response = await newSession(login, password);
+        const response = await startSession(login, password);
 
         if (!response.ok) {
-            setStatusMessage(getLoginStatusMessage(response.status));
+            setStatusMessage(getLoginStatusMessage(response));
         } else {
             setUserData(response.data);
 

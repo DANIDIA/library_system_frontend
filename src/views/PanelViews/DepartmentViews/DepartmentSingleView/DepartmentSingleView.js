@@ -1,6 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useOutlet } from 'react-router-dom';
-import { deleteDepartment } from '../../../../apiOperations';
+import {
+    deleteDepartment,
+    getBooksDetailsInDepartment,
+    getEmployeeAmountInDepartment,
+} from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { pathsInPanel } from '../../shared';
@@ -13,8 +17,38 @@ export function DepartmentSingleView() {
     const { userData } = useContext(SessionContext);
     const { departmentData } = useContext(DepartmentContext);
     const [statusMessage, setStatusMessage] = useState();
+    const [additionalData, setAdditionalData] = useState({});
 
     const userRole = userData.role;
+
+    useEffect(() => {
+        (async () => {
+            const id = departmentData.id;
+
+            const booksAmountDetails = await getBooksDetailsInDepartment(id);
+
+            if (!booksAmountDetails.ok) {
+                setStatusMessage(booksAmountDetails);
+                return;
+            }
+
+            if (userRole === roles.LIBRARIAN) {
+                setAdditionalData({ ...booksAmountDetails.data });
+                return;
+            }
+            const employeesAmount = await getEmployeeAmountInDepartment(id);
+
+            if (!employeesAmount.ok) {
+                setStatusMessage(employeesAmount);
+                return;
+            }
+
+            setAdditionalData({
+                ...booksAmountDetails.data,
+                ...employeesAmount.data,
+            });
+        })();
+    }, []);
 
     const hasReadPermission =
         (userRole !== roles.ADMIN &&
@@ -22,15 +56,12 @@ export function DepartmentSingleView() {
         userRole === roles.ADMIN;
 
     const handleDelete = async () => {
-        const response = await deleteDepartment(
-            userData.sessionID,
-            departmentData.id,
-        );
+        const response = await deleteDepartment(departmentData.id);
 
         if (response.ok) {
             navigate('..');
         } else {
-            setStatusMessage(getDepartmentStatusMessage(response.status));
+            setStatusMessage(getDepartmentStatusMessage(response));
         }
     };
 
@@ -38,7 +69,12 @@ export function DepartmentSingleView() {
         <div>
             Department name: {departmentData?.name} <br />
             Department address: {departmentData?.address} <br />
-            Department contact number: {departmentData?.contactNumber}
+            Department contact number: {departmentData?.contactNumber} <br />
+            Total amount of books: {additionalData.totalBooksAmount} <br />
+            Amount of given books: {additionalData.givenBooksAmount} <br />
+            {userRole !== roles.LIBRARIAN
+                ? 'Amount of employees:' + additionalData.employeesAmount
+                : ''}
             <br />
             <div>
                 {userRole !== roles.LIBRARIAN && (

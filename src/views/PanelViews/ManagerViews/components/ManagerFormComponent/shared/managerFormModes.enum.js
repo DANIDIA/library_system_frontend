@@ -1,4 +1,4 @@
 export const managerFormModes = Object.freeze({
-    WITH_IS_ACTIVE_FIELD: 0,
-    WITHOUT_IS_ACTIVE_FIELD: 1,
+    UPDATE: 0,
+    CREATE: 1,
 });

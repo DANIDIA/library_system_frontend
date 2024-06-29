@@ -22,10 +22,11 @@ export function DepartmentEditView() {
         userRole === roles.ADMIN;
 
     const validateFormData = (formData) => {
-        if (hasEmptyFields(formData)) {
+        if (hasEmptyFields(formData, ['actualManagerID'])) {
             setStatusMessage('There are empty fields!');
             return false;
-        } else if (!hasChangedValues(departmentData, formData)) {
+        }
+        if (!hasChangedValues(departmentData, formData)) {
             setStatusMessage('Values was not change');
             return false;
         }
@@ -34,21 +35,19 @@ export function DepartmentEditView() {
     };
 
     const handleUpdateData = async (formData) => {
-        const isFormDataValid = validateFormData(formData);
+        if (formData.actualManagerID === departmentData.actualManagerID) {
+            delete formData.actualManagerID;
+        }
 
-        if (!isFormDataValid) return;
+        if (!validateFormData(formData)) return;
 
-        const response = await updateDepartment(
-            userData.sessionID,
-            departmentData.id,
-            formData,
-        );
+        const response = await updateDepartment(departmentData.id, formData);
 
         if (response.ok) {
             setDepartmentData({ id: departmentData.id, ...formData });
             navigate('..');
         } else {
-            setStatusMessage(getDepartmentStatusMessage(response.status));
+            setStatusMessage(getDepartmentStatusMessage(response));
         }
     };
 

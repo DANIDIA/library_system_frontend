@@ -4,8 +4,10 @@ export function isFieldEmpty(value) {
     if (typeof value === 'string') return !value.trim();
 }
 
-export function hasEmptyFields(formData) {
-    return Object.entries(formData).some((pair) => isFieldEmpty(pair[1]));
+export function hasEmptyFields(formData, unnecessaryFields = []) {
+    return Object.entries(formData).some(
+        (pair) => !unnecessaryFields.includes(pair[0]) && isFieldEmpty(pair[1]),
+    );
 }
 
 export function hasChangedValues(oldValues, newValues) {
