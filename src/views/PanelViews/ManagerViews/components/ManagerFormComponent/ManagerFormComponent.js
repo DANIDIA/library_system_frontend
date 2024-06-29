@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
 import { employeeStatus } from '../../../shared';
+import { managerPaths } from '../../shared';
 import { managerFormModes } from './shared';
 
 export function ManagerFormComponent({
@@ -14,11 +17,18 @@ export function ManagerFormComponent({
         email: '',
         login: '',
         password: '',
+        departmentData: null,
         isActive: employeeStatus.ACTIVE,
     },
 }) {
+    const location = useLocation();
+    const navigate = useNavigate();
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
+    if (location.state) {
+        formValues.departmentData = location.state.departmentData;
+    }
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
@@ -27,7 +37,18 @@ export function ManagerFormComponent({
         setFormValues(getEmptyFields(formValues));
     };
 
-    const handleClick = () => {
+    const handleSelectDepartment = () => {
+        navigate(
+            `/${layoutsPaths.USER_PANEL}/${panelsPaths.MANAGERS_PANEL}/${managerPaths.DEPARTMENT_SELECTION}`,
+            {
+                state: {
+                    pathToReturn: location.pathname,
+                },
+            },
+        );
+    };
+
+    const handleSubmit = () => {
         formSubmitHandler(formValues, clearForm);
     };
 
@@ -74,6 +95,11 @@ export function ManagerFormComponent({
                 }
                 type='email'
             />
+            <br />
+
+            <label>department: </label>
+            {formValues.departmentData?.name || 'no department'}
+            <button onClick={handleSelectDepartment}>Select department</button>
             <br />
 
             <label>login:</label>
@@ -123,7 +149,7 @@ export function ManagerFormComponent({
                 </div>
             )}
 
-            <button onClick={handleClick}>{submitButtonText}</button>
+            <button onClick={handleSubmit}>{submitButtonText}</button>
         </div>
     );
 }

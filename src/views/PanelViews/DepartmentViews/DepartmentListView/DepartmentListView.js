@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { queryDepartments } from '../../../../apiOperations';
 import { SessionContext } from '../../../../contexts';
 import { getWithoutEmptyFields } from '../../helpers';
@@ -9,6 +9,7 @@ import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentListView() {
+    const location = useLocation();
     const { userData } = useContext(SessionContext);
     const { setDepartmentData } = useContext(DepartmentContext);
     const navigate = useNavigate();
@@ -29,8 +30,14 @@ export function DepartmentListView() {
     };
 
     const handleOnListItem = (department) => {
-        setDepartmentData(department);
-        navigate(`../${pathsInPanel.PAGE}`);
+        if (location.state) {
+            navigate(location.state.pathToReturn, {
+                state: { departmentData: department },
+            });
+        } else {
+            setDepartmentData(department);
+            navigate(`../${pathsInPanel.PAGE}`);
+        }
     };
 
     const table = (

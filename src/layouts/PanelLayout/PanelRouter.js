@@ -13,6 +13,7 @@ import {
     ManagersListView,
     pathsInPanel,
 } from '../../views';
+import { managerPaths } from '../../views/panelViews/ManagerViews/shared';
 import { layoutsPaths } from '../shared';
 import { PanelLayout } from './PanelLayout';
 import { panelsPaths } from './shared';
@@ -39,6 +40,10 @@ export const PanelRouter = (
             </Route>
         </Route>
         <Route path={panelsPaths.MANAGERS_PANEL} element={<ManagerPanelView />}>
+            <Route
+                path={managerPaths.DEPARTMENT_SELECTION}
+                element={<DepartmentListView />}
+            />
             <Route
                 path={pathsInPanel.CREATION}
                 element={<ManagerCreationView />}
