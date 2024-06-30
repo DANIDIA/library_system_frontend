@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { managerContext } from '../../../../ManagerViews/ManagerContext';
 import { pathsInPanel } from '../../../../shared';
+import { managerContext } from '../../../ManagerContext';
 
 export function ManagerItem({ userData }) {
     const navigate = useNavigate();
