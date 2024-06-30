@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { pathsInPanel } from '../../../../shared';
-import { managerContext } from '../../../ManagerContext';
+import { managerContext } from '../../ManagerViews/ManagerContext';
+import { pathsInPanel } from '../../shared';
 
-export function ManagerItem({ userData }) {
+export function UserTableItem({ userData }) {
     const navigate = useNavigate();
     const location = useLocation();
     const { setManagerData } = useContext(managerContext);

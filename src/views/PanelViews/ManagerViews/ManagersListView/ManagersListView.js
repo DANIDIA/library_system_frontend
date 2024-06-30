@@ -6,9 +6,9 @@ import {
     UserSearchByFlagsComponent,
     userFormModes,
 } from '../../components';
+import { UsersTable } from '../../components/UsersTable';
 import { getWithoutEmptyFields } from '../../helpers';
 import { getManagerStatusMessage } from '../helpers';
-import { ManagersTable } from './components';
 
 export function ManagersListView() {
     const [managersList, setManagersList] = useState([]);
@@ -54,7 +54,7 @@ export function ManagersListView() {
             {statusMessage}
             <br />
             {managersList.length > 0 ? (
-                <ManagersTable list={managersList} />
+                <UsersTable list={managersList} />
             ) : (
                 'no results'
             )}

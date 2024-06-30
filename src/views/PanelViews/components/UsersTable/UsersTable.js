@@ -1,7 +1,7 @@
 import React from 'react';
-import { ManagerItem } from '../ManagerItem';
+import { UserTableItem } from '../UserTableItem';
 
-export function ManagersTable({ list }) {
+export function UsersTable({ list }) {
     return (
         <table>
             <thead>
@@ -16,7 +16,7 @@ export function ManagersTable({ list }) {
             </thead>
             <tbody>
                 {list?.map((data, index) => (
-                    <ManagerItem userData={data} key={index} />
+                    <UserTableItem userData={data} key={index} />
                 ))}
             </tbody>
         </table>
