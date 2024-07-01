@@ -7,10 +7,10 @@ import {
 } from '../../../../apiOperations/usersAPIOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
+import { UserFormComponent, userFormModes } from '../../components';
 import { userFormValidator } from '../../helpers';
 import { pathsInPanel } from '../../shared';
 import { managerContext } from '../ManagerContext';
-import { ManagerFormComponent, managerFormModes } from '../components';
 import { getManagerStatusMessage } from '../helpers';
 
 export function ManagerEditView() {
@@ -69,9 +69,10 @@ export function ManagerEditView() {
     return (
         <div>
             {userData.role === roles.ADMIN ? (
-                <ManagerFormComponent
+                <UserFormComponent
                     submitButtonText='update'
-                    formMode={managerFormModes.FULL}
+                    formMode={userFormModes.FULL}
+                    employeeRole={roles.DEPARTMENT_MANAGER}
                     formSubmitHandler={handleUpdate}
                     initialValues={managerData}
                 />
