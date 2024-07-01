@@ -1,43 +1,16 @@
-import emailValidator from 'email-validator';
-import { parsePhoneNumber } from 'libphonenumber-js';
 import React, { useState } from 'react';
 import { createUser } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
-import { areNecessaryFieldsEmpty } from '../../helpers';
+import { userFormValidator } from '../../helpers';
 import { employeeStatus } from '../../shared';
 import { ManagerFormComponent, managerFormModes } from '../components';
 import { getManagerStatusMessage } from '../helpers';
-import { creationNecessaryFields } from '../shared';
 
 export function ManagerCreationView() {
     const [statusMessage, setStatusMessage] = useState('');
 
-    const validate = (formData) => {
-        if (areNecessaryFieldsEmpty(formData, creationNecessaryFields)) {
-            setStatusMessage('Some of necessary fields are empty fields');
-            return false;
-        }
-
-        try {
-            if (!parsePhoneNumber(formData.phoneNumber, 'PL').isValid()) {
-                setStatusMessage('Phone number is incorrect');
-                return false;
-            }
-        } catch {
-            setStatusMessage('Phone number is incorrect');
-            return false;
-        }
-
-        if (!emailValidator.validate(formData.email)) {
-            setStatusMessage('Email is incorrect');
-            return false;
-        }
-
-        return true;
-    };
-
     const handleManagerCreation = async (formData, clearForm) => {
-        if (!validate(formData)) return;
+        if (!userFormValidator(formData, setStatusMessage)) return;
 
         const requestData = {
             ...formData,

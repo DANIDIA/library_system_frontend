@@ -7,7 +7,7 @@ import {
 } from '../../../../apiOperations/usersAPIOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
-import { hasChangedValues, hasEmptyFields } from '../../helpers';
+import { userFormValidator } from '../../helpers';
 import { pathsInPanel } from '../../shared';
 import { managerContext } from '../ManagerContext';
 import { ManagerFormComponent, managerFormModes } from '../components';
@@ -46,22 +46,8 @@ export function ManagerEditView() {
         })();
     }, []);
 
-    const validateFormData = (formData) => {
-        if (hasEmptyFields(formData)) {
-            setStatusMessage('There are empty fields!');
-            return false;
-        }
-        if (!hasChangedValues(managerData, formData)) {
-            setStatusMessage('Values was not change');
-            return false;
-        }
-
-        return true;
-    };
-
     const handleUpdate = async (formData) => {
-        console.log(formData);
-        if (!validateFormData(formData)) return;
+        if (!userFormValidator(formData, setStatusMessage)) return;
 
         const requestData = {
             ...formData,
