@@ -30,6 +30,7 @@ export function SelectFromQuery({
     };
 
     const handleClearValue = () => {
+        onChange(null);
         setSelectedValue(null);
     };
 
