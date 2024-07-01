@@ -9,20 +9,15 @@ export function LibrarianPanelView() {
 
     return (
         <LibrarianContextProvider>
-            {outlet || (
-                <div>
-                    <button
-                        onClick={() => navigate(`./${pathsInPanel.CREATION}`)}
-                    >
-                        create librarian
-                    </button>
-                    <button
-                        onClick={() => navigate(`./${pathsInPanel.SEARCH}`)}
-                    >
-                        Search librarians
-                    </button>
-                </div>
-            )}
+            <div>
+                <button onClick={() => navigate(`./${pathsInPanel.CREATION}`)}>
+                    create librarian
+                </button>
+                <button onClick={() => navigate(`./${pathsInPanel.SEARCH}`)}>
+                    Search librarians
+                </button>
+            </div>
+            {outlet}
         </LibrarianContextProvider>
     );
 }
