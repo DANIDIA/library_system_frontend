@@ -92,7 +92,11 @@ export function ManagerEditView() {
             ) : (
                 'You do not have permission'
             )}
-            <button onClick={() => navigate('..')}>back</button>
+            <button
+                onClick={() => navigate(`../${pathsInPanel.PAGE}/${managerID}`)}
+            >
+                back
+            </button>
             <br />
             {statusMessage}
         </div>
