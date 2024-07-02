@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getDepartment } from '../../../../apiOperations';
 import {
     getUser,
     updateUser,
@@ -28,21 +27,9 @@ export function ManagerEditView() {
 
             if (!managerDataResponse.ok) {
                 setStatusMessage(getManagerStatusMessage(managerDataResponse));
+            } else {
+                setManagerData(...managerDataResponse.data);
             }
-
-            if (!managerDataResponse.data.departmentID) {
-                setManagerData({ ...managerData });
-                return;
-            }
-
-            const departmentData = await getDepartment(
-                managerDataResponse.data.departmentID,
-            );
-
-            setManagerData({
-                ...managerDataResponse.data,
-                departmentData: departmentData,
-            });
         })();
     }, []);
 
