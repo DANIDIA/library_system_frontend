@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { queryUsers } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
 import {
@@ -8,9 +8,11 @@ import {
 } from '../../components';
 import { UsersTable } from '../../components/UsersTable';
 import { getWithoutEmptyFields } from '../../helpers';
+import { LibrarianContext } from '../LibrarianContext';
 import { getLibrarianStatusMessage } from '../helpers';
 
 export function LibrarianListView() {
+    const { setLibrarianData } = useContext(LibrarianContext);
     const [librariansList, setLibrariansList] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
     const [searchByFlags, setSearchByFlags] = useState({
@@ -40,6 +42,10 @@ export function LibrarianListView() {
         setLibrariansList(response.data.results);
     };
 
+    const handleClickOnTableItem = (userData) => {
+        setLibrarianData(userData);
+    };
+
     return (
         <div>
             <UserFormComponent
@@ -54,7 +60,10 @@ export function LibrarianListView() {
             />
             {statusMessage} <br />
             {librariansList.length > 0 ? (
-                <UsersTable list={librariansList} />
+                <UsersTable
+                    list={librariansList}
+                    onItemClick={handleClickOnTableItem}
+                />
             ) : (
                 'no results'
             )}
