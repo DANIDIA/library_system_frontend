@@ -44,7 +44,7 @@ export function LibrarianEditView() {
             departmentID: formData?.departmentData?.id || null,
         };
         delete requestData.departmentData;
-        console.log(requestData);
+
         const response = await updateUser(librarianID, requestData);
 
         if (!response.ok) {
