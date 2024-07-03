@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { queryDepartments } from '../../../../apiOperations';
-import { SessionContext } from '../../../../contexts';
 import { getWithoutEmptyFields } from '../../helpers';
 import { pathsInPanel } from '../../shared';
 import { DepartmentContext } from '../DepartmentContext';
@@ -10,7 +9,6 @@ import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentListView() {
     const location = useLocation();
-    const { userData } = useContext(SessionContext);
     const { setDepartmentData } = useContext(DepartmentContext);
     const navigate = useNavigate();
     const [departmentsList, setDepartmentsList] = useState();
@@ -18,14 +16,13 @@ export function DepartmentListView() {
 
     const handleSearch = async (formData) => {
         const response = await queryDepartments(
-            userData.sessionID,
             getWithoutEmptyFields(formData),
         );
 
         if (response.ok) {
-            setDepartmentsList(response.data);
+            setDepartmentsList(response.data.results);
         } else {
-            setStatusMessage(getDepartmentStatusMessage(response.status));
+            setStatusMessage(getDepartmentStatusMessage(response));
         }
     };
 

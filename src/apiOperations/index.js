@@ -1,2 +1,2 @@
-export * from './sessionsAPIOperations.js';
+export * from './authAPIOperations';
 export * from './departmentAPIOperations';

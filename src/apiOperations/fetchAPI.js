@@ -1,13 +1,22 @@
 import { SERVER_PATH } from '../shared';
 
-export async function fetchAPI(sessionID, method, endpointPath, data) {
-    let url = `${SERVER_PATH}/${endpointPath}`;
-    const config = { method };
+export async function fetchAPI(
+    method,
+    resource,
+    { id = null, endpoint = '', data = {} },
+) {
+    const getAsURLPart = (part) => (part ? `/${part}` : '');
+
+    let url =
+        `${SERVER_PATH}/${resource}` +
+        getAsURLPart(id) +
+        getAsURLPart(endpoint);
+    const config = { method, credentials: 'include' };
 
     if (method === 'get') {
-        url += '?' + new URLSearchParams({ ...data, sessionID }).toString();
+        url += '?' + new URLSearchParams({ ...data }).toString();
     } else {
-        config.body = JSON.stringify({ ...data, sessionID });
+        config.body = JSON.stringify({ ...data });
         config.headers = { 'Content-Type': 'application/json' };
     }
 

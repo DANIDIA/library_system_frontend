@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { InputField } from '../../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
-import { employeeStatus } from '../../../shared';
-import { managerPaths } from '../../shared';
+import { employeeStatus, pathsInPanel } from '../../../shared';
 import { managerFormModes } from './shared';
+import { managerFormFields } from './shared/consts';
 
 export function ManagerFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
-    formMode = managerFormModes.WITH_IS_ACTIVE_FIELD,
+    formMode = managerFormModes.UPDATE,
     initialValues = {
         name: '',
         surname: '',
@@ -18,7 +19,7 @@ export function ManagerFormComponent({
         login: '',
         password: '',
         departmentData: null,
-        isActive: employeeStatus.ACTIVE,
+        status: employeeStatus.ACTIVE,
     },
 }) {
     const location = useLocation();
@@ -39,7 +40,7 @@ export function ManagerFormComponent({
 
     const handleSelectDepartment = () => {
         navigate(
-            `/${layoutsPaths.USER_PANEL}/${panelsPaths.MANAGERS_PANEL}/${managerPaths.DEPARTMENT_SELECTION}`,
+            `/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`,
             {
                 state: {
                     pathToReturn: location.pathname,
@@ -52,47 +53,40 @@ export function ManagerFormComponent({
         formSubmitHandler(formValues, clearForm);
     };
 
+    const handleOnChange = (fieldName) => {
+        return (value) => {
+            setFormValues({ ...formValues, [fieldName]: value });
+        };
+    };
+
     return (
         <div>
-            <label>Name:</label>
-            <input
-                value={formValues.name}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, name: e.target.value })
-                }
-                type='text'
+            <InputField
+                name='Name:'
+                initialValue={formValues.name}
+                onChange={handleOnChange(managerFormFields.NAME)}
             />
             <br />
 
-            <label>Surname:</label>
-            <input
-                value={formValues.surname}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, surname: e.target.value })
-                }
-                type='text'
+            <InputField
+                name='Surname:'
+                initialValue={formValues.surname}
+                onChange={handleOnChange(managerFormFields.SURNAME)}
             />
             <br />
 
-            <label>Phone number:</label>
-            <input
-                value={formValues.phoneNumber}
-                onChange={(e) =>
-                    setFormValues({
-                        ...formValues,
-                        phoneNumber: e.target.value,
-                    })
-                }
+            <InputField
+                name='Phone number:'
+                initialValue={formValues.phoneNumber}
+                onChange={handleOnChange(managerFormFields.PHONE_NUMBER)}
                 type='tel'
             />
             <br />
 
-            <label>email:</label>
-            <input
-                value={formValues.email}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, email: e.target.value })
-                }
+            <InputField
+                name='Email:'
+                initialValue={formValues.email}
+                onChange={handleOnChange(managerFormFields.EMAIL)}
                 type='email'
             />
             <br />
@@ -102,50 +96,51 @@ export function ManagerFormComponent({
             <button onClick={handleSelectDepartment}>Select department</button>
             <br />
 
-            <label>login:</label>
-            <input
-                value={formValues.login}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, login: e.target.value })
-                }
-                type='text'
-            />
-            <br />
-
-            <label>Password:</label>
-            <input
-                value={formValues.password}
-                onChange={(e) =>
-                    setFormValues({ ...formValues, password: e.target.value })
-                }
-                type={getPasswordFieldType()}
-            />
-            <br />
-
-            <label>Show password</label>
-            <input
-                checked={isPasswordVisible}
-                onChange={(e) => setIsPasswordVisible(e.target.checked)}
-                type='checkbox'
-            />
-            <br />
-
-            {formMode === managerFormModes.WITH_IS_ACTIVE_FIELD && (
+            {formMode === managerFormModes.UPDATE && (
                 <div>
-                    <label>Status:</label>
-                    <select
-                        value={+formValues.isActive}
-                        onChange={(e) =>
-                            setFormValues({
-                                ...formValues,
-                                isActive: e.target.value,
-                            })
-                        }
-                    >
-                        <option value={employeeStatus.BLOCKED}>Blocked</option>
-                        <option value={employeeStatus.ACTIVE}>Active</option>
-                    </select>
+                    <InputField
+                        name='Login:'
+                        initialValue={formValues.login}
+                        onChange={handleOnChange(managerFormFields.LOGIN)}
+                    />
                     <br />
+
+                    <InputField
+                        name={'Password:'}
+                        onChange={handleOnChange(managerFormFields.PASSWORD)}
+                        initialValue={formValues.password}
+                        type={getPasswordFieldType()}
+                    />
+                    <br />
+
+                    <label>Show password</label>
+                    <input
+                        checked={isPasswordVisible}
+                        onChange={(e) => setIsPasswordVisible(e.target.checked)}
+                        type='checkbox'
+                    />
+                    <br />
+
+                    <div>
+                        <label>Status:</label>
+                        <select
+                            value={+formValues.status}
+                            onChange={(e) =>
+                                setFormValues({
+                                    ...formValues,
+                                    isActive: e.target.value,
+                                })
+                            }
+                        >
+                            <option value={employeeStatus.BLOCKED}>
+                                Blocked
+                            </option>
+                            <option value={employeeStatus.ACTIVE}>
+                                Active
+                            </option>
+                        </select>
+                        <br />
+                    </div>
                 </div>
             )}
 

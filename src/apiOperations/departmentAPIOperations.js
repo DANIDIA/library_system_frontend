@@ -1,20 +1,51 @@
 import { getCrudOperations } from './crudOperations';
-import { apiPaths } from './shared';
+import { departmentDataNames, resources } from './shared';
 
-const operations = getCrudOperations(apiPaths.DEPARTMENTS);
+const operations = getCrudOperations(resources.DEPARTMENTS);
 
-export async function createDepartment(sessionID, data) {
-    return await operations.create(sessionID, data);
+export async function createDepartment(data) {
+    return await operations.create(data);
 }
 
-export async function queryDepartments(sessionID, queryParams) {
-    return await operations.read(sessionID, queryParams);
+export async function queryDepartments(
+    queryParams,
+    pageSize = null,
+    pageNumber = null,
+) {
+    return await operations.query(queryParams, pageSize, pageNumber);
 }
 
-export async function updateDepartment(sessionID, departmentID, newValues) {
-    return await operations.update(sessionID, departmentID, newValues);
+export async function getDepartment(id) {
+    return await operations.getData(id);
 }
 
-export async function deleteDepartment(sessionID, departmentID) {
-    return await operations.delete(sessionID, departmentID);
+export async function getBooksDetailsInDepartment(id) {
+    const totalBooksResponse = await operations.getData(
+        id,
+        departmentDataNames.TOTAL_BOOKS_AMOUNT,
+    );
+    const givenBooksResponse = await operations.getData(
+        id,
+        departmentDataNames.GIVEN_BOOKS_AMOUNT,
+    );
+
+    if (!totalBooksResponse.ok) return totalBooksResponse;
+    if (!givenBooksResponse.ok) return givenBooksResponse;
+
+    return {
+        ok: true,
+        data: { ...totalBooksResponse.data, ...givenBooksResponse.data },
+    };
+}
+
+export async function getEmployeeAmountInDepartment(id) {
+    return await operations.getData(id, departmentDataNames.EMPLOYEES_AMOUNT);
+}
+
+export async function updateDepartment(id, newValues) {
+    return await operations.update(id, newValues);
+}
+
+export async function deleteDepartment(id) {
+    return await operations.delete(id);
 }

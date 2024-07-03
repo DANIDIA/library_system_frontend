@@ -1,20 +1,31 @@
 import { fetchAPI } from './fetchAPI';
 
-export const getCrudOperations = (apiPath) => ({
-    create: async (sessionID, data) =>
-        await fetchAPI(sessionID, 'post', `${apiPath}/add`, data),
+export const getCrudOperations = (resource) => ({
+    create: async (data) => await fetchAPI('post', `api/${resource}`, { data }),
 
-    read: async (sessionID, query) =>
-        await fetchAPI(sessionID, 'get', `${apiPath}/get`, query),
+    query: async (query, pageSize = null, pageNumber = null) => {
+        return await fetchAPI('get', `api/${resource}`, {
+            data:
+                pageSize === null && pageNumber === null
+                    ? { ...query }
+                    : { ...query, pageSize, pageNumber },
+        });
+    },
 
-    update: async (sessionID, updatingObjectID, data) =>
-        await fetchAPI(sessionID, 'put', `${apiPath}/update`, {
-            ...data,
-            id: updatingObjectID,
+    getData: async (resourceID, resourceData = '') =>
+        await fetchAPI('get', `api/${resource}`, {
+            id: resourceID,
+            endpoint: resourceData,
         }),
 
-    delete: async (sessionID, deletingObjectID) =>
-        await fetchAPI(sessionID, 'delete', `${apiPath}/remove`, {
-            id: deletingObjectID,
+    update: async (resourceID, data) =>
+        await fetchAPI('put', `api/${resource}`, {
+            id: resourceID,
+            data,
+        }),
+
+    delete: async (resourceID) =>
+        await fetchAPI('delete', `api/${resource}`, {
+            id: resourceID,
         }),
 });
