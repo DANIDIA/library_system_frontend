@@ -1,22 +1,61 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+    getUser,
+    updateUser,
+} from '../../../../apiOperations/usersAPIOperations';
 import { SessionContext } from '../../../../contexts';
 import { roles } from '../../../../shared';
 import { UserFormComponent, userFormModes } from '../../components';
+import { userFormValidator } from '../../helpers';
 import { pathsInPanel } from '../../shared';
 import { LibrarianContext } from '../LibrarianContext';
+import { getLibrarianStatusMessage } from '../helpers';
 
 export function LibrarianEditView() {
     const navigate = useNavigate();
     const { librarianID } = useParams();
-    const { librarianData } = useContext(LibrarianContext);
+    const { librarianData, setLibrarianData } = useContext(LibrarianContext);
     const { userData } = useContext(SessionContext);
-    const [statusMessage] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
 
     const haveEditPermission =
         userData.role === roles.ADMIN ||
         (userData.role === roles.DEPARTMENT_MANAGER &&
             librarianData.departmentID === userData.departmentID);
+
+    useEffect(() => {
+        (async () => {
+            if (!haveEditPermission) return;
+
+            const response = await getUser(librarianID);
+
+            if (!response.ok) {
+                setStatusMessage(getLibrarianStatusMessage(response));
+            } else {
+                setLibrarianData(response.data);
+            }
+        })();
+    }, []);
+
+    const handleUpdate = async (formData) => {
+        if (!userFormValidator(formData, setStatusMessage)) return;
+
+        const requestData = {
+            ...formData,
+            departmentID: formData?.departmentData?.id || null,
+        };
+        delete requestData.departmentData;
+        console.log(requestData);
+        const response = await updateUser(librarianID, requestData);
+
+        if (!response.ok) {
+            setStatusMessage(getLibrarianStatusMessage(response));
+        } else {
+            setLibrarianData(formData);
+            navigate(`../${pathsInPanel.PAGE}/${librarianID}`);
+        }
+    };
 
     return (
         <div>
@@ -26,6 +65,7 @@ export function LibrarianEditView() {
                     formMode={userFormModes.FULL}
                     employeeRole={roles.LIBRARIAN}
                     initialValues={librarianData}
+                    formSubmitHandler={handleUpdate}
                 />
             ) : (
                 'You do not have permission'
