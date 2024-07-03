@@ -42,7 +42,7 @@ export function LibrarianSingleView() {
 
             const userAuthDataResponse = await getUserAuthData(librarianID);
             const departmentDataResponse = await getDepartment(
-                newUserData?.data?.departmentID,
+                newUserData?.departmentID,
             );
 
             if (!userAuthDataResponse.ok) {
