@@ -26,8 +26,6 @@ export function LibrarianSingleView() {
 
     useEffect(() => {
         (async () => {
-            if (!hasPermissionToRead) return;
-
             let newUserData = { ...librarianData };
 
             if (!librarianData) {

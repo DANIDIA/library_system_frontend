@@ -26,8 +26,6 @@ export function LibrarianEditView() {
 
     useEffect(() => {
         (async () => {
-            if (!haveEditPermission) return;
-
             const response = await getUser(librarianID);
 
             if (!response.ok) {
