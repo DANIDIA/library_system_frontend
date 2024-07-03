@@ -37,6 +37,7 @@ export function LibrarianEditView() {
     }, []);
 
     const handleUpdate = async (formData) => {
+        console.log(formData);
         if (!userFormValidator(formData, setStatusMessage)) return;
 
         const requestData = {
@@ -50,7 +51,10 @@ export function LibrarianEditView() {
         if (!response.ok) {
             setStatusMessage(getLibrarianStatusMessage(response));
         } else {
-            setLibrarianData(formData);
+            setLibrarianData({
+                requestData,
+                departmentData: formData.deaprtmentData,
+            });
             navigate(`../${pathsInPanel.PAGE}/${librarianID}`);
         }
     };
