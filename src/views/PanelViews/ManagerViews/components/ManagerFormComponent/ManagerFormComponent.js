@@ -48,6 +48,10 @@ export function ManagerFormComponent({
         formSubmitHandler(formValues, clearForm);
     };
 
+    const saveFormValues = () => {
+        sessionStorage.setItem(location.pathname, JSON.stringify(formValues));
+    };
+
     const handleOnChange = (fieldName) => {
         return (value) => {
             setFormValues({ ...formValues, [fieldName]: value });
@@ -86,12 +90,7 @@ export function ManagerFormComponent({
                 fieldName='Department:'
                 pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
                 initialValue={formValues.departmentData}
-                onRedirect={() =>
-                    sessionStorage.setItem(
-                        location.pathname,
-                        JSON.stringify(formValues),
-                    )
-                }
+                onRedirect={saveFormValues}
                 onChange={handleOnChange(managerFormFields.DEPARTMENT_DATA)}
             />
 
