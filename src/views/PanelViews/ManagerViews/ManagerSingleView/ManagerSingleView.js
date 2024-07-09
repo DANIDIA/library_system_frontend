@@ -19,44 +19,44 @@ export function ManagerSingleView() {
     const { managerData, setManagerData } = useContext(managerContext);
     const [statusMessage, setStatusMessage] = useState('');
 
+    const loadDepartmentAndAuthData = async () => {
+        if (userData.role !== roles.ADMIN) {
+            setStatusMessage("You don't have permission");
+            return;
+        }
+
+        let newManagerData = { ...managerData };
+
+        if (!managerData) {
+            const managerDataResponse = await getUser(managerID);
+
+            if (!managerDataResponse.ok) {
+                setStatusMessage(getManagerStatusMessage(managerDataResponse));
+                return;
+            }
+
+            newManagerData = { ...managerDataResponse.data };
+        }
+
+        const authDataResponse = await getUserAuthData(managerData.id);
+        const departmentDataResponse = await getDepartment(
+            managerData.departmentID,
+        );
+
+        if (!authDataResponse.ok || !departmentDataResponse.ok) {
+            setStatusMessage(getManagerStatusMessage(authDataResponse));
+            return;
+        }
+
+        setManagerData({
+            ...newManagerData,
+            ...authDataResponse.data,
+            departmentData: departmentDataResponse.data,
+        });
+    };
+
     useEffect(() => {
-        (async () => {
-            if (userData.role !== roles.ADMIN) {
-                setStatusMessage("You don't have permission");
-                return;
-            }
-
-            let newManagerData = { ...managerData };
-
-            if (!managerData) {
-                const managerDataResponse = await getUser(managerID);
-
-                if (!managerDataResponse.ok) {
-                    setStatusMessage(
-                        getManagerStatusMessage(managerDataResponse),
-                    );
-                    return;
-                }
-
-                newManagerData = { ...managerDataResponse.data };
-            }
-
-            const authDataResponse = await getUserAuthData(managerData.id);
-            const departmentDataResponse = await getDepartment(
-                managerData.departmentID,
-            );
-
-            if (!authDataResponse.ok || !departmentDataResponse.ok) {
-                setStatusMessage(getManagerStatusMessage(authDataResponse));
-                return;
-            }
-
-            setManagerData({
-                ...newManagerData,
-                ...authDataResponse.data,
-                departmentData: departmentDataResponse.data,
-            });
-        })();
+        loadDepartmentAndAuthData();
     }, []);
 
     const handleDelete = async () => {
