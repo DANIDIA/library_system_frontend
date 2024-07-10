@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { InputField } from '../../../../../components';
+import React, { useEffect, useState } from 'react';
+import {
+    InputField,
+    SelectFromQuery,
+    StatusSelect,
+} from '../../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../../layouts';
 import { getEmptyFields } from '../../../helpers';
 import { employeeStatus, pathsInPanel } from '../../../shared';
@@ -10,7 +13,7 @@ import { managerFormFields } from './shared/consts';
 export function ManagerFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
-    formMode = managerFormModes.UPDATE,
+    formMode,
     initialValues = {
         name: '',
         surname: '',
@@ -22,14 +25,17 @@ export function ManagerFormComponent({
         status: employeeStatus.ACTIVE,
     },
 }) {
-    const location = useLocation();
-    const navigate = useNavigate();
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    if (location.state) {
-        formValues.departmentData = location.state.departmentData;
-    }
+    useEffect(() => {
+        if (Object.hasOwn(sessionStorage, location.pathname)) {
+            setFormValues(
+                JSON.parse(sessionStorage.getItem(location.pathname)),
+            );
+            sessionStorage.clear();
+        }
+    }, []);
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
@@ -38,19 +44,12 @@ export function ManagerFormComponent({
         setFormValues(getEmptyFields(formValues));
     };
 
-    const handleSelectDepartment = () => {
-        navigate(
-            `/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`,
-            {
-                state: {
-                    pathToReturn: location.pathname,
-                },
-            },
-        );
-    };
-
     const handleSubmit = () => {
         formSubmitHandler(formValues, clearForm);
+    };
+
+    const saveFormValues = () => {
+        sessionStorage.setItem(location.pathname, JSON.stringify(formValues));
     };
 
     const handleOnChange = (fieldName) => {
@@ -66,14 +65,12 @@ export function ManagerFormComponent({
                 initialValue={formValues.name}
                 onChange={handleOnChange(managerFormFields.NAME)}
             />
-            <br />
 
             <InputField
                 name='Surname:'
                 initialValue={formValues.surname}
                 onChange={handleOnChange(managerFormFields.SURNAME)}
             />
-            <br />
 
             <InputField
                 name='Phone number:'
@@ -81,7 +78,6 @@ export function ManagerFormComponent({
                 onChange={handleOnChange(managerFormFields.PHONE_NUMBER)}
                 type='tel'
             />
-            <br />
 
             <InputField
                 name='Email:'
@@ -89,21 +85,22 @@ export function ManagerFormComponent({
                 onChange={handleOnChange(managerFormFields.EMAIL)}
                 type='email'
             />
-            <br />
 
-            <label>department: </label>
-            {formValues.departmentData?.name || 'no department'}
-            <button onClick={handleSelectDepartment}>Select department</button>
-            <br />
+            <SelectFromQuery
+                fieldName='Department:'
+                pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
+                initialValue={formValues.departmentData}
+                onRedirect={saveFormValues}
+                onChange={handleOnChange(managerFormFields.DEPARTMENT_DATA)}
+            />
 
-            {formMode === managerFormModes.UPDATE && (
+            {formMode === managerFormModes.FULL && (
                 <div>
                     <InputField
                         name='Login:'
                         initialValue={formValues.login}
                         onChange={handleOnChange(managerFormFields.LOGIN)}
                     />
-                    <br />
 
                     <InputField
                         name={'Password:'}
@@ -111,7 +108,6 @@ export function ManagerFormComponent({
                         initialValue={formValues.password}
                         type={getPasswordFieldType()}
                     />
-                    <br />
 
                     <label>Show password</label>
                     <input
@@ -119,28 +115,11 @@ export function ManagerFormComponent({
                         onChange={(e) => setIsPasswordVisible(e.target.checked)}
                         type='checkbox'
                     />
-                    <br />
 
-                    <div>
-                        <label>Status:</label>
-                        <select
-                            value={+formValues.status}
-                            onChange={(e) =>
-                                setFormValues({
-                                    ...formValues,
-                                    isActive: e.target.value,
-                                })
-                            }
-                        >
-                            <option value={employeeStatus.BLOCKED}>
-                                Blocked
-                            </option>
-                            <option value={employeeStatus.ACTIVE}>
-                                Active
-                            </option>
-                        </select>
-                        <br />
-                    </div>
+                    <StatusSelect
+                        initialStatus={formValues.status}
+                        onChange={handleOnChange(managerFormFields.STATUS)}
+                    />
                 </div>
             )}
 

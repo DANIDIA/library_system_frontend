@@ -1,17 +1,33 @@
 import React, { useState } from 'react';
-import { areNecessaryFieldsEmpty } from '../../helpers';
+import { createUser } from '../../../../apiOperations/usersAPIOperations';
+import { roles } from '../../../../shared';
+import { userFormValidator } from '../../helpers';
+import { employeeStatus } from '../../shared';
 import { ManagerFormComponent, managerFormModes } from '../components';
-import { necessaryFields } from '../shared';
+import { getManagerStatusMessage } from '../helpers';
 
 export function ManagerCreationView() {
     const [statusMessage, setStatusMessage] = useState('');
 
-    const handleManagerCreation = (formData, clearForm) => {
-        if (areNecessaryFieldsEmpty(formData, necessaryFields)) {
-            setStatusMessage('Some of necessary fields are empty fields');
+    const handleManagerCreation = async (formData, clearForm) => {
+        if (!userFormValidator(formData, setStatusMessage)) return;
+
+        const requestData = {
+            ...formData,
+            status: employeeStatus.ACTIVE,
+            role: roles.DEPARTMENT_MANAGER,
+            departmentID: formData.departmentData?.id || null,
+        };
+        delete requestData.departmentData;
+
+        const response = await createUser(requestData);
+
+        if (!response.ok) {
+            setStatusMessage(getManagerStatusMessage(response));
             return;
         }
 
+        setStatusMessage('Successfully created');
         clearForm();
     };
 
@@ -19,7 +35,7 @@ export function ManagerCreationView() {
         <div>
             <ManagerFormComponent
                 submitButtonText={'Add manager'}
-                formMode={managerFormModes.WITHOUT_IS_ACTIVE_FIELD}
+                formMode={managerFormModes.CREATE}
                 formSubmitHandler={handleManagerCreation}
             />
             {statusMessage}

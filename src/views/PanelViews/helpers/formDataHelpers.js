@@ -1,5 +1,5 @@
 export function isFieldEmpty(value) {
-    if (value !== 0 && !value) return true;
+    if (value !== 0 && value !== false && !value) return true;
 
     if (typeof value === 'string') return !value.trim();
 }

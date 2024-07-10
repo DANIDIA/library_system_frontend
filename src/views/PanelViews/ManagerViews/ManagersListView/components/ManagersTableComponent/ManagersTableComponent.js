@@ -1,0 +1,24 @@
+import React from 'react';
+import { ManagerItem } from '../ManagerItem';
+
+export function ManagersTable({ list }) {
+    return (
+        <table>
+            <thead>
+                <tr>
+                    <th>Manager name</th>
+                    <th>Surname</th>
+                    <th>Phone number</th>
+                    <th>Email</th>
+                    <th>departmentID</th>
+                    <th>status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {list?.map((data, index) => (
+                    <ManagerItem userData={data} key={index} />
+                ))}
+            </tbody>
+        </table>
+    );
+}
