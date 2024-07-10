@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { queryUsers } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
+import {
+    UserFormComponent,
+    UserSearchByFlagsComponent,
+    userFormModes,
+} from '../../components';
+import { UsersTable } from '../../components/UsersTable';
 import { getWithoutEmptyFields } from '../../helpers';
-import { ManagerFormComponent, managerFormModes } from '../components';
 import { getManagerStatusMessage } from '../helpers';
-import { ManagersTable } from './components';
 
 export function ManagersListView() {
     const [managersList, setManagersList] = useState([]);
@@ -36,38 +40,21 @@ export function ManagersListView() {
         setManagersList(response.data.results);
     };
 
-    const handleCheckBoxChange = (checkBoxName) => {
-        return (e) => {
-            setSearchByFlags({
-                ...searchByFlags,
-                [checkBoxName]: e.target.checked,
-            });
-        };
-    };
     return (
         <div>
-            <ManagerFormComponent
+            <UserFormComponent
                 submitButtonText='search managers'
                 formSubmitHandler={handleSearch}
-                formMode={managerFormModes.FULL}
+                formMode={userFormModes.FULL}
             />
-            Search by department
-            <input
-                type='checkbox'
-                checked={searchByFlags.searchByDepartment}
-                onChange={handleCheckBoxChange('searchByDepartment')}
-            />
-            <br />
-            Search by status
-            <input
-                type='checkbox'
-                checked={searchByFlags.searchByStatus}
-                onChange={handleCheckBoxChange('searchByStatus')}
+            <UserSearchByFlagsComponent
+                initialValues={searchByFlags}
+                onChange={setSearchByFlags}
             />
             {statusMessage}
             <br />
             {managersList.length > 0 ? (
-                <ManagersTable list={managersList} />
+                <UsersTable list={managersList} />
             ) : (
                 'no results'
             )}

@@ -13,6 +13,13 @@ import {
     ManagersListView,
     pathsInPanel,
 } from '../../views';
+import {
+    LibrarianCreationView,
+    LibrarianListView,
+    LibrarianPanelView,
+    LibrarianSingleView,
+} from '../../views/panelViews/LibrarianViews';
+import { LibrarianEditView } from '../../views/panelViews/LibrarianViews/LibrarianEditView';
 import { layoutsPaths } from '../shared';
 import { PanelLayout } from './PanelLayout';
 import { panelsPaths } from './shared';
@@ -51,6 +58,24 @@ export const PanelRouter = (
             <Route
                 path={`${pathsInPanel.UPDATE}/:managerID`}
                 element={<ManagerEditView />}
+            />
+        </Route>
+        <Route
+            path={panelsPaths.LIBRARIAN_PANEL}
+            element={<LibrarianPanelView />}
+        >
+            <Route
+                path={pathsInPanel.CREATION}
+                element={<LibrarianCreationView />}
+            />
+            <Route path={pathsInPanel.SEARCH} element={<LibrarianListView />} />
+            <Route
+                path={`${pathsInPanel.PAGE}/:librarianID`}
+                element={<LibrarianSingleView />}
+            />
+            <Route
+                path={`${pathsInPanel.UPDATE}/:librarianID`}
+                element={<LibrarianEditView />}
             />
         </Route>
     </Route>

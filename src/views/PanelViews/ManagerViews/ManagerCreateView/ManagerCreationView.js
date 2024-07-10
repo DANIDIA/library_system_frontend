@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { createUser } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
+import { UserFormComponent, userFormModes } from '../../components';
 import { userFormValidator } from '../../helpers';
 import { employeeStatus } from '../../shared';
-import { ManagerFormComponent, managerFormModes } from '../components';
 import { getManagerStatusMessage } from '../helpers';
 
 export function ManagerCreationView() {
@@ -33,9 +33,10 @@ export function ManagerCreationView() {
 
     return (
         <div>
-            <ManagerFormComponent
+            <UserFormComponent
                 submitButtonText={'Add manager'}
-                formMode={managerFormModes.CREATE}
+                formMode={userFormModes.CREATE}
+                employeeRole={roles.DEPARTMENT_MANAGER}
                 formSubmitHandler={handleManagerCreation}
             />
             {statusMessage}
