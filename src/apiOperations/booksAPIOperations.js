@@ -40,6 +40,10 @@ export async function getBookAmountDetails(id) {
     };
 }
 
+export async function getBookAuthors(id) {
+    return await operations.getData(id, 'authors');
+}
+
 export async function getAmountDetailsInDepartments(id) {
     return await operations.getData(id, 'amount-details-in-departments');
 }
