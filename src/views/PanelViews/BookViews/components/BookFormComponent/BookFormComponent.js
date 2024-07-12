@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import { InputField } from '../../../../../components';
+import { getEmptyFields } from '../../../helpers';
 
 export function BookFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
-    initialValues = { title: '', authors: [] },
+    initialValues = { title: '', authorsIDs: [] },
 }) {
     const [formValues, setFormValues] = useState(initialValues);
+
+    const clearForm = () => {
+        setFormValues(getEmptyFields(formValues));
+    };
+
+    const onSubmit = () => {
+        formSubmitHandler(formValues, clearForm);
+    };
 
     const handleOnChange = (fieldName) => {
         return (value) => {
@@ -17,7 +26,7 @@ export function BookFormComponent({
     return (
         <div>
             <InputField name='title' onChange={handleOnChange('title')} />
-            <button onClick={formSubmitHandler}>{submitButtonText}</button>
+            <button onClick={onSubmit}>{submitButtonText}</button>
         </div>
     );
 }
