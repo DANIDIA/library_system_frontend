@@ -10,10 +10,10 @@ export function BookPanelView() {
     return (
         <div>
             <BooksContextProvider>
-                <button onClick={() => navigate(`/${pathsInPanel.CREATION}`)}>
+                <button onClick={() => navigate(`./${pathsInPanel.CREATION}`)}>
                     Create book
                 </button>
-                <button onClick={() => navigate(`/${pathsInPanel.SEARCH}`)}>
+                <button onClick={() => navigate(`./${pathsInPanel.SEARCH}`)}>
                     Search books
                 </button>
                 {outlet}
