@@ -13,6 +13,10 @@ import {
     ManagersListView,
     pathsInPanel,
 } from '../../views';
+import { BookPanelView } from '../../views/panelViews/BookViews';
+import { BookCreationView } from '../../views/panelViews/BookViews/BookCreationView';
+import { BookEditView } from '../../views/panelViews/BookViews/BookEditView';
+import { BookListView } from '../../views/panelViews/BookViews/BookListView/BookListView';
 import {
     LibrarianCreationView,
     LibrarianListView,
@@ -76,6 +80,21 @@ export const PanelRouter = (
             <Route
                 path={`${pathsInPanel.UPDATE}/:librarianID`}
                 element={<LibrarianEditView />}
+            />
+        </Route>
+        <Route path={panelsPaths.BOOKS_PANEL} element={<BookPanelView />}>
+            <Route
+                path={pathsInPanel.CREATION}
+                element={<BookCreationView />}
+            />
+            <Route path={pathsInPanel.SEARCH} element={<BookListView />} />
+            <Route
+                path={`${pathsInPanel.PAGE}/:bookID`}
+                element={<BookPanelView />}
+            />
+            <Route
+                path={`${pathsInPanel.UPDATE}/:bookID`}
+                element={<BookEditView />}
             />
         </Route>
     </Route>
