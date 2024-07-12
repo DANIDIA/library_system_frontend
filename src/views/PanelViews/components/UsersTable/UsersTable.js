@@ -1,7 +1,7 @@
 import React from 'react';
 import { UserTableItem } from '../UserTableItem';
 
-export function UsersTable({ list }) {
+export function UsersTable({ list, onItemClick }) {
     return (
         <table>
             <thead>
@@ -16,7 +16,11 @@ export function UsersTable({ list }) {
             </thead>
             <tbody>
                 {list?.map((data, index) => (
-                    <UserTableItem userData={data} key={index} />
+                    <UserTableItem
+                        userData={data}
+                        onClick={onItemClick}
+                        key={index}
+                    />
                 ))}
             </tbody>
         </table>

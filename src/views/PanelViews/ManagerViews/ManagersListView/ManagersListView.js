@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { queryUsers } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
 import {
@@ -8,9 +8,11 @@ import {
 } from '../../components';
 import { UsersTable } from '../../components/UsersTable';
 import { getWithoutEmptyFields } from '../../helpers';
+import { managerContext } from '../ManagerContext';
 import { getManagerStatusMessage } from '../helpers';
 
 export function ManagersListView() {
+    const { setManagerData } = useContext(managerContext);
     const [managersList, setManagersList] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
     const [searchByFlags, setSearchByFlags] = useState({
@@ -40,6 +42,10 @@ export function ManagersListView() {
         setManagersList(response.data.results);
     };
 
+    const handleClickOnTableItem = (userData) => {
+        setManagerData(userData);
+    };
+
     return (
         <div>
             <UserFormComponent
@@ -54,7 +60,10 @@ export function ManagersListView() {
             {statusMessage}
             <br />
             {managersList.length > 0 ? (
-                <UsersTable list={managersList} />
+                <UsersTable
+                    list={managersList}
+                    onItemClick={handleClickOnTableItem}
+                />
             ) : (
                 'no results'
             )}

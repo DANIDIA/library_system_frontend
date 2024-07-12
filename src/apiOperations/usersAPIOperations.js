@@ -1,4 +1,5 @@
 import { getCrudOperations } from './crudOperations';
+import { getDepartment } from './departmentAPIOperations';
 import { resources } from './shared';
 
 const operations = getCrudOperations(resources.USERS);
@@ -18,7 +19,24 @@ export async function queryUsers(
 }
 
 export async function getUser(id) {
-    return makeUserStatusBoolValue(await operations.getData(id));
+    const userDataResponse = makeUserStatusBoolValue(
+        await operations.getData(id),
+    );
+
+    if (!userDataResponse.ok || !userDataResponse.data.departmentID) {
+        return userDataResponse;
+    }
+
+    const departmentDataResponse = await getDepartment(
+        userDataResponse.data.departmentID,
+    );
+
+    if (!departmentDataResponse.ok) return departmentDataResponse;
+
+    return {
+        ...userDataResponse.data,
+        departmentData: departmentDataResponse.data,
+    };
 }
 
 export async function getUserAuthData(id) {

@@ -1,12 +1,10 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { managerContext } from '../../ManagerViews/ManagerContext';
 import { pathsInPanel } from '../../shared';
 
-export function UserTableItem({ userData }) {
+export function UserTableItem({ userData, onClick }) {
     const navigate = useNavigate();
     const location = useLocation();
-    const { setManagerData } = useContext(managerContext);
 
     const handleItemClick = () => {
         if (location.state) {
@@ -14,7 +12,7 @@ export function UserTableItem({ userData }) {
                 state: { selectedData: userData },
             });
         } else {
-            setManagerData(userData);
+            onClick(userData);
             navigate(`../${pathsInPanel.PAGE}/${userData.id}`);
         }
     };

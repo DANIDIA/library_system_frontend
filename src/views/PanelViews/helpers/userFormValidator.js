@@ -1,10 +1,10 @@
 import emailValidator from 'email-validator';
 import { parsePhoneNumber } from 'libphonenumber-js';
-import { creationNecessaryFields } from '../ManagerViews/shared';
+import { necessaryFields } from '../shared';
 import { areNecessaryFieldsEmpty } from './formDataHelpers';
 
 export function userFormValidator(formData, setStatusMessage) {
-    if (areNecessaryFieldsEmpty(formData, creationNecessaryFields)) {
+    if (areNecessaryFieldsEmpty(formData, necessaryFields)) {
         setStatusMessage('Some of necessary fields are empty fields');
         return false;
     }
