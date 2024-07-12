@@ -50,8 +50,10 @@ export function BookSingleView() {
             return;
         }
 
-        if (!userData.departmentID)
+        if (!userData.departmentID) {
             setAdditionalData({ ...bookAmountDetailsResponse.data });
+            return;
+        }
 
         const bookAmountDetailsInUserDepartmentResponse =
             await getAmountDetailsInSingleDepartment(
@@ -93,7 +95,7 @@ export function BookSingleView() {
         <div>
             Book title: {bookData.title}
             <br />
-            Authors: {bookData.authorsData.map((data) => data.name)}
+            Authors: {bookData.authorsData?.map((data) => data.name)}
             <br />
             Total amount: {additionalData.totalAmount}
             <br />
@@ -114,7 +116,7 @@ export function BookSingleView() {
             <button>get to reader</button>
             <br />
             <button
-                onClick={() => navigate(`../${pathsInPanel.UPDATE}/${bookID}}`)}
+                onClick={() => navigate(`../${pathsInPanel.UPDATE}/${bookID}`)}
             >
                 edit
             </button>
