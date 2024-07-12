@@ -15,7 +15,13 @@ export function BookListView() {
     const [statusMessage, setStatusMessage] = useState('');
 
     const handleSearch = async (formData) => {
-        const response = await queryBooks(getWithoutEmptyFields(formData));
+        const valuesToQuery = { ...formData };
+
+        if (formData.authorsIDs.length === 0) {
+            delete valuesToQuery.authorsIDs;
+        }
+
+        const response = await queryBooks(getWithoutEmptyFields(valuesToQuery));
 
         if (response.ok) {
             setBooksList(response.data.results);
