@@ -3,14 +3,13 @@ import {
     InputField,
     SelectFromQuery,
     StatusSelect,
-} from '../../../../../components';
-import { layoutsPaths, panelsPaths } from '../../../../../layouts';
-import { getEmptyFields } from '../../../helpers';
-import { employeeStatus, pathsInPanel } from '../../../shared';
-import { managerFormModes } from './shared';
-import { managerFormFields } from './shared/consts';
+} from '../../../../components';
+import { layoutsPaths, panelsPaths } from '../../../../layouts';
+import { getEmptyFields } from '../../helpers';
+import { employeeStatus, pathsInPanel } from '../../shared';
+import { userFormFields, userFormModes } from './shared';
 
-export function ManagerFormComponent({
+export function UserFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
     formMode,
@@ -63,26 +62,26 @@ export function ManagerFormComponent({
             <InputField
                 name='Name:'
                 initialValue={formValues.name}
-                onChange={handleOnChange(managerFormFields.NAME)}
+                onChange={handleOnChange(userFormFields.NAME)}
             />
 
             <InputField
                 name='Surname:'
                 initialValue={formValues.surname}
-                onChange={handleOnChange(managerFormFields.SURNAME)}
+                onChange={handleOnChange(userFormFields.SURNAME)}
             />
 
             <InputField
                 name='Phone number:'
                 initialValue={formValues.phoneNumber}
-                onChange={handleOnChange(managerFormFields.PHONE_NUMBER)}
+                onChange={handleOnChange(userFormFields.PHONE_NUMBER)}
                 type='tel'
             />
 
             <InputField
                 name='Email:'
                 initialValue={formValues.email}
-                onChange={handleOnChange(managerFormFields.EMAIL)}
+                onChange={handleOnChange(userFormFields.EMAIL)}
                 type='email'
             />
 
@@ -91,20 +90,20 @@ export function ManagerFormComponent({
                 pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
                 initialValue={formValues.departmentData}
                 onRedirect={saveFormValues}
-                onChange={handleOnChange(managerFormFields.DEPARTMENT_DATA)}
+                onChange={handleOnChange(userFormFields.DEPARTMENT_DATA)}
             />
 
-            {formMode === managerFormModes.FULL && (
+            {formMode === userFormModes.FULL && (
                 <div>
                     <InputField
                         name='Login:'
                         initialValue={formValues.login}
-                        onChange={handleOnChange(managerFormFields.LOGIN)}
+                        onChange={handleOnChange(userFormFields.LOGIN)}
                     />
 
                     <InputField
                         name={'Password:'}
-                        onChange={handleOnChange(managerFormFields.PASSWORD)}
+                        onChange={handleOnChange(userFormFields.PASSWORD)}
                         initialValue={formValues.password}
                         type={getPasswordFieldType()}
                     />
@@ -118,7 +117,7 @@ export function ManagerFormComponent({
 
                     <StatusSelect
                         initialStatus={formValues.status}
-                        onChange={handleOnChange(managerFormFields.STATUS)}
+                        onChange={handleOnChange(userFormFields.STATUS)}
                     />
                 </div>
             )}
