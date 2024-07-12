@@ -9,7 +9,7 @@ export function BooksContextProvider({ children }) {
     const [bookData, setBookData] = useState(null);
 
     return (
-        <BookContext.Provider value={(bookData, setBookData)}>
+        <BookContext.Provider value={{ bookData, setBookData }}>
             {children}
         </BookContext.Provider>
     );
