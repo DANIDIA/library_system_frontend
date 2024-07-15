@@ -14,6 +14,13 @@ import {
     pathsInPanel,
 } from '../../views';
 import {
+    BookCreationView,
+    BookEditView,
+    BookListView,
+    BookPanelView,
+    BookSingleView,
+} from '../../views/panelViews/BookViews';
+import {
     LibrarianCreationView,
     LibrarianListView,
     LibrarianPanelView,
@@ -76,6 +83,21 @@ export const PanelRouter = (
             <Route
                 path={`${pathsInPanel.UPDATE}/:librarianID`}
                 element={<LibrarianEditView />}
+            />
+        </Route>
+        <Route path={panelsPaths.BOOKS_PANEL} element={<BookPanelView />}>
+            <Route
+                path={pathsInPanel.CREATION}
+                element={<BookCreationView />}
+            />
+            <Route path={pathsInPanel.SEARCH} element={<BookListView />} />
+            <Route
+                path={`${pathsInPanel.PAGE}/:bookID`}
+                element={<BookSingleView />}
+            />
+            <Route
+                path={`${pathsInPanel.UPDATE}/:bookID`}
+                element={<BookEditView />}
             />
         </Route>
     </Route>
