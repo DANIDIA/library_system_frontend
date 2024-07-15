@@ -15,7 +15,7 @@ export async function returnReaderBook(readerID, bookID) {
     });
 }
 
-export async function queryReader(queryParams, pageSize = null, pageNumber) {
+export async function queryReaders(queryParams, pageSize = null, pageNumber) {
     return await operations.query(queryParams, pageSize, pageNumber);
 }
 
