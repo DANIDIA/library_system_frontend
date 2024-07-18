@@ -28,9 +28,9 @@ export function ReadersTableComponent({
     );
 }
 
-function ReaderTableItem({ key, readerData, onClick = () => {} }) {
+function ReaderTableItem({ readerData, onClick = () => {} }) {
     return (
-        <tr key={key} onClick={() => onClick(readerData)}>
+        <tr onClick={() => onClick(readerData)}>
             <td>{readerData.name}</td>
             <td>{readerData.surname}</td>
             <td>{readerData.phoneNumber}</td>
