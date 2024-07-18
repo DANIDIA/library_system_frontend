@@ -18,8 +18,8 @@ export function ReaderFormComponent({
     const [formValues, setFormValues] = useState(initialValues);
 
     const getFieldHandler = (fieldName) => {
-        return (e) => {
-            setFormValues({ ...formValues, [fieldName]: e.target.value });
+        return (value) => {
+            setFormValues({ ...formValues, [fieldName]: value });
         };
     };
 
@@ -55,8 +55,7 @@ export function ReaderFormComponent({
                     onChange={getFieldHandler('status')}
                 />
             )}
-
-            <button onChange={handleSubmit}>{submitButtonText}</button>
+            <button onClick={handleSubmit}>{submitButtonText}</button>
         </div>
     );
 }
