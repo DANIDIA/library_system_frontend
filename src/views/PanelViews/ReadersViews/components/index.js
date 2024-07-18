@@ -1,1 +1,1 @@
-export * from 'ReaderFormComponent';
+export * from './ReaderFormComponent';
