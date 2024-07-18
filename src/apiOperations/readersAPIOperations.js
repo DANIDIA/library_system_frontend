@@ -9,10 +9,11 @@ export async function createReader(data) {
 }
 
 export async function returnReaderBook(readerID, bookID) {
-    return await fetchAPI('post', `api/${resources.READERS}/${readerID}`, {
-        id: bookID,
-        endpoint: 'return-book',
-    });
+    return await fetchAPI(
+        'post',
+        `api/${resources.READERS}/${readerID}/return-book/${bookID}`,
+        {},
+    );
 }
 
 export async function queryReaders(queryParams, pageSize = null, pageNumber) {
