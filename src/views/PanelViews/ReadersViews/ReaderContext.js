@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
 export const ReaderContext = createContext({
     readerData: {},
@@ -6,7 +6,7 @@ export const ReaderContext = createContext({
 });
 
 export function ReaderContextProvider({ children }) {
-    const [readerData, setReaderData] = useState(null);
+    const [readerData, setReaderData] = useState();
 
     return (
         <ReaderContext.Provider value={{ readerData, setReaderData }}>
