@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
+    deleteReader,
     getReader,
     getReaderBooks,
     returnReaderBook,
@@ -56,6 +57,10 @@ export function ReaderSingleView() {
         setReaderBooks(readerBooks.filter((book) => book.id !== bookID));
     };
 
+    const handleDelete = async () => {
+        await deleteReader(readerID);
+    };
+
     return (
         <div>
             Name: {readerData?.name}
@@ -86,6 +91,7 @@ export function ReaderSingleView() {
             >
                 Update
             </button>
+            <button onClick={handleDelete}>Delete</button>
         </div>
     );
 }
