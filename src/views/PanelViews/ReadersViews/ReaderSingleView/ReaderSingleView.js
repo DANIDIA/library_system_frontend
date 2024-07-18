@@ -14,7 +14,7 @@ export function ReaderSingleView() {
     const { readerID } = useParams();
     const { readerData, setReaderData } = useContext(ReaderContext);
     const [statusMessage, setStatusMessage] = useState('');
-    const [readerBooks, setReaderBooks] = useState();
+    const [readerBooks, setReaderBooks] = useState([]);
 
     const loadReaderData = async () => {
         if (readerData) return;
@@ -46,25 +46,38 @@ export function ReaderSingleView() {
     }, []);
 
     const handleReturnBook = async (bookID) => {
-        await returnReaderBook(readerID, bookID);
+        const response = await returnReaderBook(readerID, bookID);
+
+        if (!response.ok) {
+            setStatusMessage(getReaderStatusMessage(response));
+            return;
+        }
+
+        setReaderBooks(readerBooks.filter((book) => book.id !== bookID));
     };
 
     return (
         <div>
-            Name: {readerData.name}
+            Name: {readerData?.name}
             <br />
-            Surname: {readerData.surname}
+            Surname: {readerData?.surname}
             <br />
-            Phone number: {readerData.phoneNumber}
+            Phone number: {readerData?.phoneNumber}
             <br />
-            Email: {readerData.email}
+            Email: {readerData?.email}
             <br />
-            Status: {readerData.status ? 'active' : 'blocked'}
+            Status: {readerData?.status ? 'active' : 'blocked'}
             <br />
-            <GivenBooksTable
-                returnBookHandler={handleReturnBook}
-                books={readerBooks}
-            />
+            <br />
+            {readerBooks.length > 0 ? (
+                <GivenBooksTable
+                    returnBookHandler={handleReturnBook}
+                    books={readerBooks}
+                />
+            ) : (
+                'No books'
+            )}
+            <br />
             {statusMessage}
             <button
                 onClick={() =>
