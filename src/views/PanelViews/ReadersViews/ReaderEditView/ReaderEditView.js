@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getReader, updateReader } from '../../../../apiOperations';
-import { updateUser } from '../../../../apiOperations/usersAPIOperations';
 import { pathsInPanel } from '../../shared';
 import { ReaderContext } from '../ReaderContext';
 import { ReaderFormComponent } from '../components';
@@ -26,18 +25,19 @@ export function ReaderEditView() {
         setReaderData(response.data);
     };
 
-    useEffect(loadReaderData, []);
+    useEffect(() => loadReaderData, []);
 
     const handleUpdate = async (formData) => {
-        if (!strictFormValidator(formData, setStatusMessage)) return;
+        const requestData = { ...formData, status: !!formData.status };
+        if (!strictFormValidator(requestData, setStatusMessage)) return;
 
-        const response = await updateReader(readerID, formData);
+        const response = await updateReader(readerID, requestData);
 
         if (!response.ok) {
             setStatusMessage(getReaderStatusMessage(response));
             return;
         }
-
+        setReaderData(requestData);
         navigate(`../${pathsInPanel.PAGE}/${readerID}`);
     };
 
@@ -48,6 +48,12 @@ export function ReaderEditView() {
                 submitHandler={handleUpdate}
                 initialValues={readerData}
             />
+            <button
+                onClick={() => navigate(`../${pathsInPanel.PAGE}/${readerID}`)}
+            >
+                back
+            </button>
+            <br />
             {statusMessage}
         </div>
     );
