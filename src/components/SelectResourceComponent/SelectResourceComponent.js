@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 export function SelectResourceComponent({
     fieldName,
-    initialValue,
+    initialValue = {},
     pathToSelect,
     resourceFieldNameToShow = 'name',
     onRedirect = () => {},
@@ -40,7 +40,10 @@ export function SelectResourceComponent({
     return (
         <div>
             <label>{fieldName}</label>
-            {selectedValue[resourceFieldNameToShow] || 'No selected value'}
+            {selectedValue &&
+            Object.hasOwn(selectedValue, resourceFieldNameToShow)
+                ? selectedValue[resourceFieldNameToShow]
+                : 'No selected value'}
             <button onClick={handleSelect}>Select department</button>
             <button onClick={handleSelectionClear}>Clear value</button>
         </div>
