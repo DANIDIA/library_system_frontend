@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
+    ChangeDepartmentComponent,
     InputField,
-    SelectFromQuery,
     StatusSelect,
 } from '../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../layouts';
@@ -85,7 +85,7 @@ export function UserFormComponent({
                 type='email'
             />
 
-            <SelectFromQuery
+            <ChangeDepartmentComponent
                 fieldName='Department:'
                 pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
                 initialValue={formValues.departmentData}

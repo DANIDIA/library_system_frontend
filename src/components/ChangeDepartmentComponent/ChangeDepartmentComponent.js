@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export function SelectFromQuery({
+export function ChangeDepartmentComponent({
     fieldName,
     initialValue,
     pathToSelect,
