@@ -5,7 +5,7 @@ import {
     StatusSelect,
 } from '../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../layouts';
-import { getEmptyFields } from '../../helpers';
+import { getEmptyFields, getSavedFormData, saveFormData } from '../../helpers';
 import { accountStatuses, pathsInPanel } from '../../shared';
 import { userFormFields, userFormModes } from './shared';
 
@@ -27,14 +27,7 @@ export function UserFormComponent({
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    useEffect(() => {
-        if (Object.hasOwn(sessionStorage, location.pathname)) {
-            setFormValues(
-                JSON.parse(sessionStorage.getItem(location.pathname)),
-            );
-            sessionStorage.clear();
-        }
-    }, []);
+    useEffect(() => getSavedFormData(location.pathname, setFormValues), []);
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
@@ -45,10 +38,6 @@ export function UserFormComponent({
 
     const handleSubmit = () => {
         formSubmitHandler(formValues, clearForm);
-    };
-
-    const saveFormValues = () => {
-        sessionStorage.setItem(location.pathname, JSON.stringify(formValues));
     };
 
     const handleOnChange = (fieldName) => {
@@ -89,7 +78,7 @@ export function UserFormComponent({
                 fieldName='Department:'
                 pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
                 initialValue={formValues.departmentData}
-                onRedirect={saveFormValues}
+                onRedirect={() => saveFormData(location.pathname, formValues)}
                 onChange={handleOnChange(userFormFields.DEPARTMENT_DATA)}
             />
 

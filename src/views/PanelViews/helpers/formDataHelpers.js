@@ -33,3 +33,14 @@ export function getEmptyFields(formData) {
         Object.entries(formData).map((pair) => [pair[0], '']),
     );
 }
+
+export function saveFormData(key, data) {
+    sessionStorage.setItem(key, JSON.stringify(data));
+}
+
+export function getSavedFormData(key, setFormData) {
+    if (Object.hasOwn(sessionStorage, key)) {
+        setFormData(JSON.parse(sessionStorage.getItem(key)));
+        sessionStorage.removeItem(key);
+    }
+}
