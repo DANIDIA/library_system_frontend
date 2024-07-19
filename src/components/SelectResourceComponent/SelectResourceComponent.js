@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-export function ChangeDepartmentComponent({
+export function SelectResourceComponent({
     fieldName,
     initialValue,
     pathToSelect,
+    resourceFieldNameToShow = 'name',
     onRedirect = () => {},
     onChange = () => {},
 }) {
@@ -12,15 +13,17 @@ export function ChangeDepartmentComponent({
     const location = useLocation();
     const [selectedValue, setSelectedValue] = useState(initialValue);
 
-    useEffect(() => {
+    const getSelectedValue = () => {
         if (location.state) {
             setSelectedValue(location.state.selectedData);
             onChange(location.state.selectedData);
             location.state = null;
         }
-    }, [location.state]);
+    };
 
-    const handleSelectDepartment = () => {
+    useEffect(getSelectedValue, []);
+
+    const handleSelect = () => {
         onRedirect();
         navigate(pathToSelect, {
             state: {
@@ -29,7 +32,7 @@ export function ChangeDepartmentComponent({
         });
     };
 
-    const handleClearValue = () => {
+    const handleSelectionClear = () => {
         onChange(null);
         setSelectedValue(null);
     };
@@ -37,9 +40,9 @@ export function ChangeDepartmentComponent({
     return (
         <div>
             <label>{fieldName}</label>
-            {selectedValue?.name || 'No selected value'}
-            <button onClick={handleSelectDepartment}>Select department</button>
-            <button onClick={handleClearValue}>Clear value</button>
+            {selectedValue[resourceFieldNameToShow] || 'No selected value'}
+            <button onClick={handleSelect}>Select department</button>
+            <button onClick={handleSelectionClear}>Clear value</button>
         </div>
     );
 }

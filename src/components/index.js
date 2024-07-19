@@ -1,3 +1,3 @@
 export * from './InputField';
-export * from './ChangeDepartmentComponent';
+export * from './SelectResourceComponent';
 export * from './StatusSelect';
