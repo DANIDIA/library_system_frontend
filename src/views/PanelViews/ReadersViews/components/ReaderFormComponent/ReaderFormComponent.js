@@ -33,17 +33,27 @@ export function ReaderFormComponent({
 
     return (
         <div>
-            <InputField name='Name:' onChange={getFieldHandler('name')} />
-            <br />
-            <InputField name='Surname:' onChange={getFieldHandler('surname')} />
+            <InputField
+                initialValue={formValues.name}
+                name='Name:'
+                onChange={getFieldHandler('name')}
+            />
             <br />
             <InputField
+                initialValue={formValues.surname}
+                name='Surname:'
+                onChange={getFieldHandler('surname')}
+            />
+            <br />
+            <InputField
+                initialValue={formValues.phoneNumber}
                 name='phoneNumber'
                 type='tel'
                 onChange={getFieldHandler('phoneNumber')}
             />
             <br />
             <InputField
+                initialValue={formValues.email}
                 name='Email:'
                 type='email'
                 onChange={getFieldHandler('email')}
