@@ -4,9 +4,14 @@ import {
     SelectResourceComponent,
     StatusSelect,
 } from '../../../../components';
-import { layoutsPaths, panelsPaths } from '../../../../layouts';
-import { getEmptyFields, getSavedFormData, saveFormData } from '../../helpers';
-import { accountStatuses, pathsInPanel } from '../../shared';
+import { panelsPaths } from '../../../../layouts';
+import {
+    getEmptyFields,
+    getPathToSelectionForm,
+    getSavedFormData,
+    saveFormData,
+} from '../../helpers';
+import { accountStatuses } from '../../shared';
 import { userFormFields, userFormModes } from './shared';
 
 export function UserFormComponent({
@@ -76,7 +81,9 @@ export function UserFormComponent({
 
             <SelectResourceComponent
                 fieldName='Department:'
-                pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
+                pathToSelect={getPathToSelectionForm(
+                    panelsPaths.DEPARTMENTS_PANEL,
+                )}
                 initialValue={formValues.departmentData}
                 onRedirect={() => saveFormData(location.pathname, formValues)}
                 onChange={handleOnChange(userFormFields.DEPARTMENT_DATA)}

@@ -1,3 +1,6 @@
+import { layoutsPaths, panelsPaths } from '../../../layouts';
+import { pathsInPanel } from '../shared';
+
 export function isFieldEmpty(value) {
     if (value !== 0 && value !== false && !value) return true;
 
@@ -43,4 +46,8 @@ export function getSavedFormData(key, setFormData) {
         setFormData(JSON.parse(sessionStorage.getItem(key)));
         sessionStorage.removeItem(key);
     }
+}
+
+export function getPathToSelectionForm(resource) {
+    return `/${layoutsPaths.USER_PANEL}/${resource}/${pathsInPanel.SEARCH}`;
 }
