@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { InputField, SelectResourceComponent } from '../../../../../components';
-import { getEmptyFields, saveFormData } from '../../../helpers';
+import { panelsPaths } from '../../../../../layouts';
+import {
+    getEmptyFields,
+    getPathToSelectionForm,
+    saveFormData,
+} from '../../../helpers';
 import { departmentFormFields } from './consts';
 
 export function DepartmentFormComponent({
@@ -55,6 +60,9 @@ export function DepartmentFormComponent({
                 <SelectResourceComponent
                     fieldName='department manager:'
                     initialValue={formValues.managerData}
+                    pathToSelect={getPathToSelectionForm(
+                        panelsPaths.MANAGERS_PANEL,
+                    )}
                     onChange={handleOnChange(departmentFormFields.MANAGER_DATA)}
                     onRedirect={() =>
                         saveFormData(location.pathname, formValues)
