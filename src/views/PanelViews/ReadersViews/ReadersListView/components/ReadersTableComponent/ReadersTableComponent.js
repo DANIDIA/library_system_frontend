@@ -35,7 +35,7 @@ function ReaderTableItem({ readerData, onClick = () => {} }) {
             <td>{readerData.surname}</td>
             <td>{readerData.phoneNumber}</td>
             <td>{readerData.email}</td>
-            <td>{readerData.status}</td>
+            <td>{readerData.status ? 'active' : 'blocked'}</td>
         </tr>
     );
 }
