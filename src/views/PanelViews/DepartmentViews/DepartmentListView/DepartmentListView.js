@@ -8,9 +8,9 @@ import { DepartmentFormComponent } from '../components';
 import { getDepartmentStatusMessage } from '../helpers';
 
 export function DepartmentListView() {
+    const navigate = useNavigate();
     const location = useLocation();
     const { setDepartmentData } = useContext(DepartmentContext);
-    const navigate = useNavigate();
     const [departmentsList, setDepartmentsList] = useState();
     const [statusMessage, setStatusMessage] = useState('');
 
@@ -27,7 +27,7 @@ export function DepartmentListView() {
     };
 
     const handleOnListItem = (department) => {
-        if (location.state) {
+        if (location.state?.pathToReturn) {
             navigate(location.state.pathToReturn, {
                 state: { selectedData: department },
             });
