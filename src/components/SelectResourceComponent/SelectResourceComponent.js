@@ -14,18 +14,21 @@ export function SelectResourceComponent({
     const [selectedValue, setSelectedValue] = useState(initialValue);
 
     const getSelectedValue = () => {
-        if (location.state) {
+        if (location.state?.selectedData) {
             setSelectedValue(location.state.selectedData);
             onChange(location.state.selectedData);
-            location.state = null;
         }
     };
 
-    useEffect(getSelectedValue, []);
+    useEffect(getSelectedValue, [location.state]);
 
     const handleSelect = () => {
         onRedirect();
-        navigate(pathToSelect, { state: { pathToReturn: location.pathname } });
+        navigate(pathToSelect, {
+            state: {
+                pathToReturn: location.pathname,
+            },
+        });
     };
 
     const handleSelectionClear = () => {
