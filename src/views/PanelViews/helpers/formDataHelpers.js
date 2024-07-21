@@ -1,4 +1,4 @@
-import { layoutsPaths, panelsPaths } from '../../../layouts';
+import { layoutsPaths } from '../../../layouts';
 import { pathsInPanel } from '../shared';
 
 export function isFieldEmpty(value) {
