@@ -25,11 +25,7 @@ export function SelectResourceComponent({
 
     const handleSelect = () => {
         onRedirect();
-        navigate(pathToSelect, {
-            state: {
-                pathToReturn: location.pathname,
-            },
-        });
+        navigate(pathToSelect, { state: { pathToReturn: location.pathname } });
     };
 
     const handleSelectionClear = () => {
@@ -44,7 +40,7 @@ export function SelectResourceComponent({
             Object.hasOwn(selectedValue, resourceFieldNameToShow)
                 ? selectedValue[resourceFieldNameToShow]
                 : 'No selected value'}
-            <button onClick={handleSelect}>Select department</button>
+            <button onClick={handleSelect}>Select value</button>
             <button onClick={handleSelectionClear}>Clear value</button>
         </div>
     );
