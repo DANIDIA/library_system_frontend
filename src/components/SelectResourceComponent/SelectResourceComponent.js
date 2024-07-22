@@ -5,6 +5,7 @@ export function SelectResourceComponent({
     fieldName,
     initialValue = {},
     pathToSelect,
+    valueName = 'valueName',
     resourceFieldNameToShow = 'name',
     onRedirect = () => {},
     onChange = () => {},
@@ -14,9 +15,12 @@ export function SelectResourceComponent({
     const [selectedValue, setSelectedValue] = useState(initialValue);
 
     const getSelectedValue = () => {
-        if (location.state?.selectedData) {
-            setSelectedValue(location.state.selectedData);
+        if (
+            location.state?.selectedData &&
+            location.state?.valueName === valueName
+        ) {
             onChange(location.state.selectedData);
+            setSelectedValue(location.state.selectedData);
         }
     };
 
@@ -27,6 +31,7 @@ export function SelectResourceComponent({
         navigate(pathToSelect, {
             state: {
                 pathToReturn: location.pathname,
+                valueName,
             },
         });
     };

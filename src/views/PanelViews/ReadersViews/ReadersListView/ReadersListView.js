@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { queryReaders } from '../../../../apiOperations';
 import { getWithoutEmptyFields } from '../../helpers';
 import { pathsInPanel } from '../../shared';
@@ -10,6 +10,7 @@ import { ReadersTableComponent } from './components';
 
 export function ReadersListView() {
     const navigate = useNavigate();
+    const location = useLocation();
     const { setReaderData } = useContext(ReaderContext);
     const [readersList, setReadersList] = useState([]);
     const [statusMessage, setStatusMessage] = useState('');
@@ -26,8 +27,14 @@ export function ReadersListView() {
     };
 
     const handleClickOnItem = (readerData) => {
-        setReaderData(readerData);
-        navigate(`../${pathsInPanel.PAGE}/${readerData.id}`);
+        if (location.state?.pathToReturn) {
+            navigate(`${location.state?.pathToReturn}`, {
+                state: { ...location.state, selectedData: readerData },
+            });
+        } else {
+            setReaderData(readerData);
+            navigate(`../${pathsInPanel.PAGE}/${readerData.id}`);
+        }
     };
 
     return (
