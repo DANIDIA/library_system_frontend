@@ -8,7 +8,7 @@ export async function createBook(data) {
     return await operations.create(data);
 }
 export async function giveBookToReader(bookID, readerID, departmentID) {
-    return await fetchAPI('post', resources.READERS, {
+    return await fetchAPI('post', `api/${resources.BOOKS}`, {
         id: bookID,
         endpoint: `give-to-reader/${readerID}`,
         data: { departmentID },
