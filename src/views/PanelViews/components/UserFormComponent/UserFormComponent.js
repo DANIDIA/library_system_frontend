@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import {
     InputField,
-    SelectFromQuery,
+    SelectResourceComponent,
     StatusSelect,
 } from '../../../../components';
-import { layoutsPaths, panelsPaths } from '../../../../layouts';
-import { getEmptyFields } from '../../helpers';
-import { accountStatuses, pathsInPanel } from '../../shared';
+import { panelsPaths } from '../../../../layouts';
+import {
+    getEmptyFields,
+    getPathToSelectionForm,
+    getSavedFormData,
+    saveFormData,
+} from '../../helpers';
+import { accountStatuses } from '../../shared';
 import { userFormFields, userFormModes } from './shared';
 
 export function UserFormComponent({
@@ -27,14 +32,7 @@ export function UserFormComponent({
     const [formValues, setFormValues] = useState({ ...initialValues });
     const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-    useEffect(() => {
-        if (Object.hasOwn(sessionStorage, location.pathname)) {
-            setFormValues(
-                JSON.parse(sessionStorage.getItem(location.pathname)),
-            );
-            sessionStorage.clear();
-        }
-    }, []);
+    useEffect(() => getSavedFormData(location.pathname, setFormValues), []);
 
     const getPasswordFieldType = () =>
         isPasswordVisible ? 'text' : 'password';
@@ -45,10 +43,6 @@ export function UserFormComponent({
 
     const handleSubmit = () => {
         formSubmitHandler(formValues, clearForm);
-    };
-
-    const saveFormValues = () => {
-        sessionStorage.setItem(location.pathname, JSON.stringify(formValues));
     };
 
     const handleOnChange = (fieldName) => {
@@ -85,11 +79,13 @@ export function UserFormComponent({
                 type='email'
             />
 
-            <SelectFromQuery
+            <SelectResourceComponent
                 fieldName='Department:'
-                pathToSelect={`/${layoutsPaths.USER_PANEL}/${panelsPaths.DEPARTMENTS_PANEL}/${pathsInPanel.SEARCH}`}
+                pathToSelect={getPathToSelectionForm(
+                    panelsPaths.DEPARTMENTS_PANEL,
+                )}
                 initialValue={formValues.departmentData}
-                onRedirect={saveFormValues}
+                onRedirect={() => saveFormData(location.pathname, formValues)}
                 onChange={handleOnChange(userFormFields.DEPARTMENT_DATA)}
             />
 

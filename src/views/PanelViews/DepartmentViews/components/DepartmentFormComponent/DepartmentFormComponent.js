@@ -1,13 +1,25 @@
 import React, { useState } from 'react';
-import { InputField } from '../../../../../components';
-import { getEmptyFields } from '../../../helpers';
+import { useLocation } from 'react-router-dom';
+import { InputField, SelectResourceComponent } from '../../../../../components';
+import { panelsPaths } from '../../../../../layouts';
+import {
+    getEmptyFields,
+    getPathToSelectionForm,
+    saveFormData,
+} from '../../../helpers';
 import { departmentFormFields } from './consts';
 
 export function DepartmentFormComponent({
     submitButtonText,
     formSubmitHandler = () => {},
-    initialValues = { name: '', address: '', contactNumber: '' },
+    initialValues = {
+        name: '',
+        address: '',
+        contactNumber: '',
+        managerData: null,
+    },
 }) {
+    const location = useLocation();
     const [formValues, setFormValues] = useState({ ...initialValues });
 
     const clearForm = () => {
@@ -39,11 +51,22 @@ export function DepartmentFormComponent({
                 />
                 <InputField
                     name='Contact number:'
-                    initailValu={formValues.address}
+                    initailValue={formValues.address}
                     onChange={handleOnChange(
                         departmentFormFields.CONTACT_NUMBER,
                     )}
                     type='tel'
+                />
+                <SelectResourceComponent
+                    fieldName='department manager:'
+                    initialValue={formValues.managerData}
+                    pathToSelect={getPathToSelectionForm(
+                        panelsPaths.MANAGERS_PANEL,
+                    )}
+                    onChange={handleOnChange(departmentFormFields.MANAGER_DATA)}
+                    onRedirect={() =>
+                        saveFormData(location.pathname, formValues)
+                    }
                 />
             </div>
 

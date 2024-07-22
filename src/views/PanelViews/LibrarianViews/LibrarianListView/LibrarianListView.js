@@ -4,9 +4,9 @@ import { roles } from '../../../../shared';
 import {
     UserFormComponent,
     UserSearchByFlagsComponent,
+    UsersTable,
     userFormModes,
 } from '../../components';
-import { UsersTable } from '../../components/UsersTable';
 import { getWithoutEmptyFields } from '../../helpers';
 import { LibrarianContext } from '../LibrarianContext';
 import { getLibrarianStatusMessage } from '../helpers';

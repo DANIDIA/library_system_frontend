@@ -1,3 +1,6 @@
+import { layoutsPaths } from '../../../layouts';
+import { pathsInPanel } from '../shared';
+
 export function isFieldEmpty(value) {
     if (value !== 0 && value !== false && !value) return true;
 
@@ -32,4 +35,19 @@ export function getEmptyFields(formData) {
     return Object.fromEntries(
         Object.entries(formData).map((pair) => [pair[0], '']),
     );
+}
+
+export function saveFormData(key, data) {
+    sessionStorage.setItem(key, JSON.stringify(data));
+}
+
+export function getSavedFormData(key, setFormData) {
+    if (Object.hasOwn(sessionStorage, key)) {
+        setFormData(JSON.parse(sessionStorage.getItem(key)));
+        sessionStorage.removeItem(key);
+    }
+}
+
+export function getPathToSelectionForm(resource) {
+    return `/${layoutsPaths.USER_PANEL}/${resource}/${pathsInPanel.SEARCH}`;
 }

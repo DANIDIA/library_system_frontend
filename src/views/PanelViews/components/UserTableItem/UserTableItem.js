@@ -9,7 +9,7 @@ export function UserTableItem({ userData, onClick }) {
     const handleItemClick = () => {
         if (location.state) {
             navigate(location.state.pathToReturn, {
-                state: { selectedData: userData },
+                state: { ...location.state, selectedData: userData },
             });
         } else {
             onClick(userData);
