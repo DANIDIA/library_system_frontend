@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { employeeStatus } from '../../views';
+import { accountStatuses } from '../../views';
 
 export function StatusSelect({ initialStatus = true, onChange = () => {} }) {
     const [status, setStatus] = useState(initialStatus);
@@ -13,8 +13,8 @@ export function StatusSelect({ initialStatus = true, onChange = () => {} }) {
         <div>
             <label>Status:</label>
             <select value={+status} onChange={handleOnChange}>
-                <option value={+employeeStatus.BLOCKED}>Blocked</option>
-                <option value={+employeeStatus.ACTIVE}>Active</option>
+                <option value={+accountStatuses.BLOCKED}>Blocked</option>
+                <option value={+accountStatuses.ACTIVE}>Active</option>
             </select>
         </div>
     );

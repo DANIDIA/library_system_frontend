@@ -3,7 +3,7 @@ import { createUser } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
 import { UserFormComponent, userFormModes } from '../../components';
 import { userFormValidator } from '../../helpers';
-import { employeeStatus } from '../../shared';
+import { accountStatuses } from '../../shared';
 import { getManagerStatusMessage } from '../helpers';
 
 export function ManagerCreationView() {
@@ -14,7 +14,7 @@ export function ManagerCreationView() {
 
         const requestData = {
             ...formData,
-            status: employeeStatus.ACTIVE,
+            status: accountStatuses.ACTIVE,
             role: roles.DEPARTMENT_MANAGER,
             departmentID: formData.departmentData?.id || null,
         };

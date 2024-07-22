@@ -6,7 +6,7 @@ import {
 } from '../../../../components';
 import { layoutsPaths, panelsPaths } from '../../../../layouts';
 import { getEmptyFields } from '../../helpers';
-import { employeeStatus, pathsInPanel } from '../../shared';
+import { accountStatuses, pathsInPanel } from '../../shared';
 import { userFormFields, userFormModes } from './shared';
 
 export function UserFormComponent({
@@ -21,7 +21,7 @@ export function UserFormComponent({
         login: '',
         password: '',
         departmentData: null,
-        status: employeeStatus.ACTIVE,
+        status: accountStatuses.ACTIVE,
     },
 }) {
     const [formValues, setFormValues] = useState({ ...initialValues });

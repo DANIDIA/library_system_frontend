@@ -1,0 +1,71 @@
+import React, { useState } from 'react';
+import { InputField, StatusSelect } from '../../../../../components';
+import { getEmptyFields } from '../../../helpers';
+import { readerFormModes } from './readerFormModes';
+
+export function ReaderFormComponent({
+    submitButtonText = '',
+    submitHandler = () => {},
+    mode = readerFormModes.FULL_FORM_MODE,
+    initialValues = {
+        name: '',
+        surname: '',
+        phoneNumber: '',
+        email: '',
+        status: true,
+    },
+}) {
+    const [formValues, setFormValues] = useState(initialValues);
+
+    const getFieldHandler = (fieldName) => {
+        return (value) => {
+            setFormValues({ ...formValues, [fieldName]: value });
+        };
+    };
+
+    const clearForm = () => {
+        setFormValues(getEmptyFields(formValues));
+    };
+
+    const handleSubmit = () => {
+        submitHandler(formValues, clearForm);
+    };
+
+    return (
+        <div>
+            <InputField
+                initialValue={formValues.name}
+                name='Name:'
+                onChange={getFieldHandler('name')}
+            />
+            <br />
+            <InputField
+                initialValue={formValues.surname}
+                name='Surname:'
+                onChange={getFieldHandler('surname')}
+            />
+            <br />
+            <InputField
+                initialValue={formValues.phoneNumber}
+                name='phoneNumber'
+                type='tel'
+                onChange={getFieldHandler('phoneNumber')}
+            />
+            <br />
+            <InputField
+                initialValue={formValues.email}
+                name='Email:'
+                type='email'
+                onChange={getFieldHandler('email')}
+            />
+            <br />
+            {mode === readerFormModes.FULL_FORM_MODE && (
+                <StatusSelect
+                    initialStatus={formValues.status}
+                    onChange={getFieldHandler('status')}
+                />
+            )}
+            <button onClick={handleSubmit}>{submitButtonText}</button>
+        </div>
+    );
+}

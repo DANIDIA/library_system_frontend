@@ -3,7 +3,7 @@ import { createUser } from '../../../../apiOperations/usersAPIOperations';
 import { roles } from '../../../../shared';
 import { UserFormComponent, userFormModes } from '../../components';
 import { userFormValidator } from '../../helpers';
-import { employeeStatus } from '../../shared';
+import { accountStatuses } from '../../shared';
 import { getLibrarianStatusMessage } from '../helpers';
 
 export function LibrarianCreationView() {
@@ -16,7 +16,7 @@ export function LibrarianCreationView() {
             ...formData,
             departmentID: formData?.departmentData?.id || null,
             role: roles.LIBRARIAN,
-            status: employeeStatus.ACTIVE,
+            status: accountStatuses.ACTIVE,
         };
         delete requestValues.departmentData;
 
